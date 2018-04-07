@@ -5,6 +5,8 @@
  */
 package JFrame;
 
+import javax.xml.datatype.DatatypeConfigurationException;
+
 /**
  *
  * @author marinmcginley
@@ -36,13 +38,28 @@ public class Index extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Velkomin inná forritið okkar. Hér getur þú leita að hóteli á Íslandi :");
+        jLabel1.setText("Velkomin inná forritið okkar.  Hér getur þú leita að hóteli á Íslandi :");
 
         jInnskraning.setText("Innskráning");
+        jInnskraning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jInnskraningActionPerformed(evt);
+            }
+        });
 
         jNyskraning.setText("Nýskráning");
+        jNyskraning.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jNyskraningActionPerformed(evt);
+            }
+        });
 
         jByrjaLeit.setText("Byrja leit");
+        jByrjaLeit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jByrjaLeitActionPerformed(evt);
+            }
+        });
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -71,7 +88,7 @@ public class Index extends javax.swing.JFrame {
                         .addComponent(jScrollPane1)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(20, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addContainerGap())
         );
@@ -93,6 +110,34 @@ public class Index extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jByrjaLeitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jByrjaLeitActionPerformed
+        Search leita = null;
+        
+        leita = new Search(this, true);
+        
+        leita.setVisible(true);
+        
+        // útvega svo eins og í AdalDagra.java í Dagska verkefninu.
+        // Ef isVista() == true þá birtum við lista af hótelum fyrir neðan
+        
+    }//GEN-LAST:event_jByrjaLeitActionPerformed
+
+    private void jInnskraningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInnskraningActionPerformed
+        LogIn innskraning = null;
+        
+        innskraning = new LogIn(this, true);
+        
+        innskraning.setVisible(true);
+    }//GEN-LAST:event_jInnskraningActionPerformed
+
+    private void jNyskraningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNyskraningActionPerformed
+        Register nyskraning = null;
+        
+        nyskraning = new Register(this, true);
+        
+        nyskraning.setVisible(true);
+    }//GEN-LAST:event_jNyskraningActionPerformed
 
     /**
      * @param args the command line arguments
