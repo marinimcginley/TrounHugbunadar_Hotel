@@ -23,6 +23,22 @@ public class Room {
         this.numberOfChildren = numberOfChildren;
         this.isBooked = isBooked;
     }
+    
+    public int getPriceForNight() {
+        return priceForNight;
+    }
+    
+    public int getNumberOfAdults() {
+        return numberOfAdults;
+    }
+    
+    public int getNumberOfChildren() {
+        return numberOfChildren;
+    }
+    
+    public LocalDate[] getBookedDates() {
+        return isBooked;
+    }
 
     // Tekur inn lista af dagsetningum í samhangandi röð og tékkar hvort herbergið sé laust
     // Skilar true ef herbergið er laust á inntaki annars false
