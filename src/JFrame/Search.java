@@ -5,18 +5,56 @@
  */
 package JFrame;
 
+import gogn.DagarModel;
+import gogn.ManudirModel;
+import java.util.ArrayList;
+import javax.swing.JComboBox;
+
 /**
  *
  * @author marinmcginley
  */
 public class Search extends javax.swing.JDialog {
 
+    private DagarModel dag;
+    private ManudirModel manFra;
+    private ManudirModel manTil;
+    
+    
     /**
      * Creates new form Search
      */
     public Search(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        frumstillingIByrjun();
+    }
+    
+    private void frumstillingIByrjun() {
+        frumstillaCombo();
+        frumstillaVerdCombo();
+        frumstillaMedmaeliCombo();
+    }
+    
+    /*
+    Setur gildi 1-12 í ComboBox sem er skilgreint fyrir box með mánuðum 
+    */
+    private void frumstillaCombo(){
+       int[]  manudur = {1,2,3,4,5,6,7,8,9,10,11,12}; // mánuðir 1-12
+       
+       manFra = new ManudirModel(manudur);
+       manTil = new ManudirModel(manudur);
+       jManFra.setModel(manFra);
+       jManTil.setModel(manTil);
+    }
+    
+    private void frumstillaVerdCombo() {
+        
+    }
+    
+    private void frumstillaMedmaeliCombo() {
+        
     }
 
     /**
@@ -29,18 +67,25 @@ public class Search extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        nameOfHotel = new javax.swing.JTextField();
+        jNameOfHotel = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        location = new javax.swing.JTextField();
+        jLocation = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        from = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        to = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        price = new javax.swing.JSlider();
         jLabel6 = new javax.swing.JLabel();
-        ratings = new javax.swing.JSlider();
-        search = new javax.swing.JButton();
+        jSearch = new javax.swing.JButton();
+        jManFra = new javax.swing.JComboBox<>();
+        jDagFra = new javax.swing.JComboBox<>();
+        jManTil = new javax.swing.JComboBox<>();
+        jDagTil = new javax.swing.JComboBox<>();
+        jVerdFra = new javax.swing.JComboBox<>();
+        jLabel7 = new javax.swing.JLabel();
+        jVerdTil = new javax.swing.JComboBox<>();
+        jMedmaeliFra = new javax.swing.JComboBox<>();
+        jLabel8 = new javax.swing.JLabel();
+        jMedmaeliTil = new javax.swing.JComboBox<>();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -52,16 +97,48 @@ public class Search extends javax.swing.JDialog {
 
         jLabel4.setText("Til:");
 
-        jLabel5.setText("Verð:");
+        jLabel5.setText("Verð per. nótt :");
 
-        jLabel6.setText("Meðmæli:");
+        jLabel6.setText("Vil skoða hotel sem er með einkunn á bilinu : ");
 
-        search.setText("Leita");
-        search.addActionListener(new java.awt.event.ActionListener() {
+        jSearch.setText("Leita");
+        jSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
+                jSearchActionPerformed(evt);
             }
         });
+
+        jManFra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jManFra.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jManFraActionPerformed(evt);
+            }
+        });
+
+        jDagFra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jManTil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jManTil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jManTilActionPerformed(evt);
+            }
+        });
+
+        jDagTil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+
+        jVerdFra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "0", "5000", "10000", "15000", "20000", "25000", "30000" }));
+
+        jLabel7.setText("þús. -");
+
+        jVerdTil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "0", "5000", "10000", "15000", "20000", "25000", "30000" }));
+
+        jMedmaeliFra.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+
+        jLabel8.setText("-");
+
+        jMedmaeliTil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+
+        jLabel9.setText("þús.");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,33 +150,46 @@ public class Search extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nameOfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jNameOfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(from, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jManFra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDagFra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(to, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel5)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel6)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(ratings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jLabel2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(137, Short.MAX_VALUE))
+                        .addComponent(jManTil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jDagTil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jMedmaeliFra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jMedmaeliTil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jVerdFra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel7)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jVerdTil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel9)))
+                .addContainerGap(58, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(search)
-                .addGap(159, 159, 159))
+                .addComponent(jSearch)
+                .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -107,37 +197,125 @@ public class Search extends javax.swing.JDialog {
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(nameOfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jNameOfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(location, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4)
-                    .addComponent(to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jManFra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDagFra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jManTil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jDagTil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jVerdFra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel7)
+                    .addComponent(jVerdTil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9))
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(ratings, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addComponent(search)
-                .addGap(29, 29, 29))
+                    .addComponent(jMedmaeliFra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jMedmaeliTil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
+                .addComponent(jSearch)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchActionPerformed
+    private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
+        // sækjum það sem notandi fyllti út í leitinni
+        String nafnAHotel = jNameOfHotel.getText().toLowerCase();
+        String stadsetning = jLocation.getText().toLowerCase();
         
-    }//GEN-LAST:event_searchActionPerformed
+        int manFra = Integer.valueOf(String.valueOf(jManFra.getSelectedItem()));
+        int dagFra = Integer.valueOf(String.valueOf(jDagFra.getSelectedItem()));
+        
+        int manTil = Integer.valueOf(String.valueOf(jManTil.getSelectedItem()));
+        int dagTil = Integer.valueOf(String.valueOf(jDagTil.getSelectedItem()));
+        
+        int verdFra = Integer.valueOf(String.valueOf(jVerdFra.getSelectedItem()));
+        int verdTil = Integer.valueOf(String.valueOf(jVerdTil.getSelectedItem()));
+        
+        int medmaeliFra = Integer.valueOf(String.valueOf(jMedmaeliFra.getSelectedItem()));
+        int medmaeliTil = Integer.valueOf(String.valueOf(jMedmaeliTil.getSelectedItem()));
+        
+        // þurfum svo að gera eitthvað með það :) 
+    }//GEN-LAST:event_jSearchActionPerformed
 
+    private void jManFraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jManFraActionPerformed
+        JComboBox cb1 = (JComboBox)evt.getSource();
+        String manFra = String.valueOf(cb1.getSelectedItem());
+        
+        if(manFra.equals(" ")){
+        }
+        else {
+            int man = Integer.valueOf(manFra);
+            setjaMan(man, "jManFra");
+        }
+    }//GEN-LAST:event_jManFraActionPerformed
+
+    private void jManTilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jManTilActionPerformed
+        JComboBox cb2 = (JComboBox)evt.getSource();
+        String manTil = String.valueOf(cb2.getSelectedItem());
+        
+        if(manTil.equals(" ")){
+        }
+        else {
+            int man = Integer.valueOf(manTil);
+            setjaMan(man, "jManTil");
+        }
+    }//GEN-LAST:event_jManTilActionPerformed
+
+    
+    /*
+    Fallið tekur inn töluna man sem er mánuður sem var valinn, og býr til ArrayList með fjölda daga í þeim mánuði
+    Uppfærir svo ComboBoxið sem sýnir þessa daga
+    */
+    public void setjaMan(int man, String whichComboBox){
+        ArrayList<Integer>  dagur = new ArrayList<>();
+        
+        switch(man) {
+            case 1: case 3: case 5: case 7: case 8: case 10:  case 12:
+                for(int i=1; i<32; i++){
+                    dagur.add(i);
+                }
+                break;
+            case 4: case 6: case 9: case 11:
+                for(int i=1; i<31; i++){
+                    dagur.add(i);
+                }
+                break;
+            case 2:
+                for(int i=1; i<29; i++){
+                    dagur.add(i);
+                }
+                break;
+        }
+        setjaDaga(dagur, whichComboBox);
+    }
+    
+    /*
+    Tekur inn listan með dögum í mánuðinum og lætur setja þessi stök í ComboBox fyrir daga 
+    */
+    private void setjaDaga(ArrayList<Integer> m, String whichComboBox){
+        dag = new DagarModel(m);
+        if(whichComboBox == "jManFra") {
+            jDagFra.setModel(dag);
+        } else if(whichComboBox == "jManTil") {
+            jDagTil.setModel(dag);
+        }
+    }
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -181,18 +359,25 @@ public class Search extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField from;
+    private javax.swing.JComboBox<String> jDagFra;
+    private javax.swing.JComboBox<String> jDagTil;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JTextField location;
-    private javax.swing.JTextField nameOfHotel;
-    private javax.swing.JSlider price;
-    private javax.swing.JSlider ratings;
-    private javax.swing.JButton search;
-    private javax.swing.JTextField to;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JTextField jLocation;
+    private javax.swing.JComboBox<String> jManFra;
+    private javax.swing.JComboBox<String> jManTil;
+    private javax.swing.JComboBox<String> jMedmaeliFra;
+    private javax.swing.JComboBox<String> jMedmaeliTil;
+    private javax.swing.JTextField jNameOfHotel;
+    private javax.swing.JButton jSearch;
+    private javax.swing.JComboBox<String> jVerdFra;
+    private javax.swing.JComboBox<String> jVerdTil;
     // End of variables declaration//GEN-END:variables
 }
