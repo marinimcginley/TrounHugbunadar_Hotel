@@ -28,9 +28,9 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="jInnskraning" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="1" max="-2" attributes="0"/>
-                      <Component id="jNyskraning" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLogIn" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jSignInFirstTime" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="jScrollPane1" max="32767" attributes="0"/>
@@ -45,7 +45,7 @@
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="129" max="-2" attributes="0"/>
-              <Component id="jByrjaLeit" min="-2" max="-2" attributes="0"/>
+              <Component id="jSearch" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -55,13 +55,13 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="jInnskraning" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jNyskraning" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLogIn" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jSignInFirstTime" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jByrjaLeit" min="-2" max="-2" attributes="0"/>
+              <Component id="jSearch" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="21" max="32767" attributes="0"/>
@@ -75,28 +75,28 @@
         <Property name="text" type="java.lang.String" value="Velkomin inn&#xe1; forriti&#xf0; okkar.  H&#xe9;r getur &#xfe;&#xfa; leita a&#xf0; h&#xf3;teli &#xe1; &#xcd;slandi :"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jInnskraning">
+    <Component class="javax.swing.JButton" name="jLogIn">
       <Properties>
         <Property name="text" type="java.lang.String" value="Innskr&#xe1;ning"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jInnskraningActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLogInActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jNyskraning">
+    <Component class="javax.swing.JButton" name="jSignInFirstTime">
       <Properties>
         <Property name="text" type="java.lang.String" value="N&#xfd;skr&#xe1;ning"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jNyskraningActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSignInFirstTimeActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jByrjaLeit">
+    <Component class="javax.swing.JButton" name="jSearch">
       <Properties>
         <Property name="text" type="java.lang.String" value="Byrja leit"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jByrjaLeitActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSearchActionPerformed"/>
       </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">

@@ -22,7 +22,7 @@ public class ManudirModel extends DefaultComboBoxModel  {
     public ManudirModel(int[] man){
         this.manudir = man;
         addElement(" ");
-        for(int a=0; a<manudir.length; a++){
+        for(int a=0; a<manudir.length; a++) {
             if(a<9)
                 addElement("0"+manudir[a]);
             else

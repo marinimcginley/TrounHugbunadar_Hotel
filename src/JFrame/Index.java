@@ -12,6 +12,9 @@ import javax.xml.datatype.DatatypeConfigurationException;
  * @author marinmcginley
  */
 public class Index extends javax.swing.JFrame {
+    private javax.swing.JButton jLogOut;
+    private javax.swing.JLabel jUser;
+    private LogIn logIn;
 
     /**
      * Creates new form Index
@@ -20,6 +23,19 @@ public class Index extends javax.swing.JFrame {
         initComponents();
     }
 
+    public void initializeAfterLogIn() {
+        jLogIn.removeAll();
+        jSignInFirstTime.removeAll();
+        jLogOut.setAlignmentX(TOP_ALIGNMENT);
+        jLogOut.setAlignmentY(TOP_ALIGNMENT);
+        jLogOut.setLocation(WIDTH, WIDTH);
+        jLogOut.setText("Útskráning");
+        jUser.setAlignmentX(TOP_ALIGNMENT);
+        jUser.setAlignmentY(TOP_ALIGNMENT);
+        jUser.setLocation(WIDTH, WIDTH);
+        jUser.setText(logIn.getUserName());
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,9 +46,9 @@ public class Index extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jInnskraning = new javax.swing.JButton();
-        jNyskraning = new javax.swing.JButton();
-        jByrjaLeit = new javax.swing.JButton();
+        jLogIn = new javax.swing.JButton();
+        jSignInFirstTime = new javax.swing.JButton();
+        jSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
 
@@ -40,24 +56,24 @@ public class Index extends javax.swing.JFrame {
 
         jLabel1.setText("Velkomin inná forritið okkar.  Hér getur þú leita að hóteli á Íslandi :");
 
-        jInnskraning.setText("Innskráning");
-        jInnskraning.addActionListener(new java.awt.event.ActionListener() {
+        jLogIn.setText("Innskráning");
+        jLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jInnskraningActionPerformed(evt);
+                jLogInActionPerformed(evt);
             }
         });
 
-        jNyskraning.setText("Nýskráning");
-        jNyskraning.addActionListener(new java.awt.event.ActionListener() {
+        jSignInFirstTime.setText("Nýskráning");
+        jSignInFirstTime.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jNyskraningActionPerformed(evt);
+                jSignInFirstTimeActionPerformed(evt);
             }
         });
 
-        jByrjaLeit.setText("Byrja leit");
-        jByrjaLeit.addActionListener(new java.awt.event.ActionListener() {
+        jSearch.setText("Byrja leit");
+        jSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jByrjaLeitActionPerformed(evt);
+                jSearchActionPerformed(evt);
             }
         });
 
@@ -77,9 +93,9 @@ public class Index extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jInnskraning)
-                        .addGap(1, 1, 1)
-                        .addComponent(jNyskraning))
+                        .addComponent(jLogIn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jSignInFirstTime))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addContainerGap())))
@@ -89,7 +105,7 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(129, 129, 129)
-                .addComponent(jByrjaLeit)
+                .addComponent(jSearch)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,12 +113,12 @@ public class Index extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jInnskraning)
-                    .addComponent(jNyskraning))
+                    .addComponent(jLogIn)
+                    .addComponent(jSignInFirstTime))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addComponent(jByrjaLeit)
+                .addComponent(jSearch)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(21, Short.MAX_VALUE))
@@ -111,33 +127,31 @@ public class Index extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jByrjaLeitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jByrjaLeitActionPerformed
-        Search leita = null;
+    private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
+        Search search = new Search(this, true);
         
-        leita = new Search(this, true);
-        
-        leita.setVisible(true);
+        search.setVisible(true);
         
         // útvega svo eins og í AdalDagra.java í Dagska verkefninu.
         // Ef isVista() == true þá birtum við lista af hótelum fyrir neðan
         
-    }//GEN-LAST:event_jByrjaLeitActionPerformed
+    }//GEN-LAST:event_jSearchActionPerformed
 
-    private void jInnskraningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jInnskraningActionPerformed
-        LogIn innskraning = null;
-        
-        innskraning = new LogIn(this, true);
-        
-        innskraning.setVisible(true);
-    }//GEN-LAST:event_jInnskraningActionPerformed
+    private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
+        logIn = new LogIn(this, true);  
+        logIn.setVisible(true);
+        if (logIn.getUserName() != null) {
+            initializeAfterLogIn();
+        }
+    }//GEN-LAST:event_jLogInActionPerformed
 
-    private void jNyskraningActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jNyskraningActionPerformed
+    private void jSignInFirstTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSignInFirstTimeActionPerformed
         Register nyskraning = null;
         
         nyskraning = new Register(this, true);
         
         nyskraning.setVisible(true);
-    }//GEN-LAST:event_jNyskraningActionPerformed
+    }//GEN-LAST:event_jSignInFirstTimeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -175,11 +189,11 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jByrjaLeit;
-    private javax.swing.JButton jInnskraning;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JList<String> jList1;
-    private javax.swing.JButton jNyskraning;
+    private javax.swing.JButton jLogIn;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton jSearch;
+    private javax.swing.JButton jSignInFirstTime;
     // End of variables declaration//GEN-END:variables
 }

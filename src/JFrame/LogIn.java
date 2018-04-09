@@ -10,6 +10,8 @@ package JFrame;
  * @author marinmcginley
  */
 public class LogIn extends javax.swing.JDialog {
+    private String userName;
+    private String password;
 
     /**
      * Creates new form LogIn
@@ -19,6 +21,14 @@ public class LogIn extends javax.swing.JDialog {
         initComponents();
     }
 
+    public boolean verifyUser() {
+        // kíkja á gagnagrunn?????
+        return true;
+    }
+    
+    public String getUserName() {
+        return userName;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -30,9 +40,11 @@ public class LogIn extends javax.swing.JDialog {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Notendanafn = new javax.swing.JTextField();
-        Lykilorð = new javax.swing.JTextField();
+        jUserName = new javax.swing.JTextField();
+        jPassword = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        jLogIn = new javax.swing.JButton();
+        jWarning = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -41,6 +53,13 @@ public class LogIn extends javax.swing.JDialog {
         jLabel2.setText("Lykilorð:");
 
         jLabel3.setText("Gaman að sjá þig");
+
+        jLogIn.setText("Skrá inn ");
+        jLogIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLogInActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -54,13 +73,19 @@ public class LogIn extends javax.swing.JDialog {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Notendanafn, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Lykilorð, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                            .addComponent(jPassword)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3)))
-                .addContainerGap(125, Short.MAX_VALUE))
+                        .addComponent(jLabel3))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(148, 148, 148)
+                        .addComponent(jLogIn))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(156, 156, 156)
+                        .addComponent(jWarning)))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -70,16 +95,34 @@ public class LogIn extends javax.swing.JDialog {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(Notendanafn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(Lykilorð, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                    .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jLogIn)
+                .addGap(35, 35, 35)
+                .addComponent(jWarning)
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
+        userName = jUserName.getText();
+        password = jPassword.getText();
+        
+        // ef notendanafn og lykilorð stemma er farið aftur í index
+        if (verifyUser()) {
+            dispose();
+        } else {
+            jUserName.setText("");
+            jPassword.setText("");
+            jWarning.setText("Notendanafn eða lykilorð er vitlaust");
+        }
+    }//GEN-LAST:event_jLogInActionPerformed
 
     /**
      * @param args the command line arguments
@@ -124,10 +167,12 @@ public class LogIn extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField Lykilorð;
-    private javax.swing.JTextField Notendanafn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JButton jLogIn;
+    private javax.swing.JTextField jPassword;
+    private javax.swing.JTextField jUserName;
+    private javax.swing.JLabel jWarning;
     // End of variables declaration//GEN-END:variables
 }
