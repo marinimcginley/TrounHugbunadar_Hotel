@@ -24,6 +24,7 @@ public class Index extends javax.swing.JFrame {
     }
 
     public void initializeAfterLogIn() {
+        // finna út úr staðsetningum
         jLogIn.removeAll();
         jSignInFirstTime.removeAll();
         jLogOut.setAlignmentX(TOP_ALIGNMENT);

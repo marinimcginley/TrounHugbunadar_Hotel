@@ -10,6 +10,8 @@ package JFrame;
  * @author marinmcginley
  */
 public class Register extends javax.swing.JDialog {
+    private String userName;
+    private String password;
 
     /**
      * Creates new form Register
@@ -17,6 +19,12 @@ public class Register extends javax.swing.JDialog {
     public Register(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+    }
+    
+    // Tékkar hvort username er þegar í notkun
+    public boolean authenticate() {
+        // EKKI BÚIN
+        return true;
     }
 
     /**
@@ -29,14 +37,15 @@ public class Register extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        skraNetfang = new javax.swing.JTextField();
+        jUserName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        buaTilLykilord = new javax.swing.JTextField();
+        jPassword = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         skraInnFacebook = new javax.swing.JButton();
         skraInnGoogle = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        jRegister = new javax.swing.JButton();
+        jWarning = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -57,7 +66,12 @@ public class Register extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText(" Búa til aðgang! ");
+        jRegister.setText(" Búa til aðgang! ");
+        jRegister.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRegisterActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,8 +92,8 @@ public class Register extends javax.swing.JDialog {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(114, 114, 114)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(buaTilLykilord, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(skraNetfang, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jUserName, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel1)
                                         .addGap(43, 43, 43))))
@@ -95,8 +109,12 @@ public class Register extends javax.swing.JDialog {
                         .addComponent(jLabel2)
                         .addGap(139, 139, 139))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(jRegister)
                         .addGap(113, 113, 113))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jWarning)
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -106,14 +124,16 @@ public class Register extends javax.swing.JDialog {
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(skraNetfang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buaTilLykilord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addComponent(jRegister)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
+                .addComponent(jWarning)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -126,8 +146,17 @@ public class Register extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void skraInnGoogleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skraInnGoogleActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_skraInnGoogleActionPerformed
+
+    private void jRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterActionPerformed
+        if (authenticate()) {
+            userName = jUserName.getText();
+            password = jPassword.getText();
+        } else {
+            jWarning.setText("Þetta notendanafn er þegar í notkun, vinsamlegast veldu annað");
+        }
+    }//GEN-LAST:event_jRegisterActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,14 +201,15 @@ public class Register extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField buaTilLykilord;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JTextField jPassword;
+    private javax.swing.JButton jRegister;
+    private javax.swing.JTextField jUserName;
+    private javax.swing.JLabel jWarning;
     private javax.swing.JButton skraInnFacebook;
     private javax.swing.JButton skraInnGoogle;
-    private javax.swing.JTextField skraNetfang;
     // End of variables declaration//GEN-END:variables
 }

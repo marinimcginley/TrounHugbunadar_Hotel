@@ -12,9 +12,9 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author marinmcginley
  */
-public class VerdModel extends DefaultComboBoxModel {
+public class PriceModel extends DefaultComboBoxModel {
     
-    public VerdModel(ArrayList<Integer> verd) {
+    public PriceModel(ArrayList<Integer> verd) {
          addElement(" ");
          for (int i = 0; i < verd.size(); i++){
             if(i < 9)

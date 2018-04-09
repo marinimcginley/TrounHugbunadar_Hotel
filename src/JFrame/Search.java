@@ -7,7 +7,7 @@ package JFrame;
 
 import gogn.DagarModel;
 import gogn.ManudirModel;
-import gogn.VerdModel;
+import gogn.PriceModel;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
 
@@ -20,8 +20,8 @@ public class Search extends javax.swing.JDialog {
     private DagarModel dag;
     private ManudirModel manFra;
     private ManudirModel manTil;
-    private VerdModel verdFra;
-    private VerdModel verdTil;
+    private PriceModel verdFra;
+    private PriceModel verdTil;
     
     
     /**
@@ -55,8 +55,8 @@ public class Search extends javax.swing.JDialog {
     private void frumstillaVerdCombo() {
         int[] verd = {0, 1000, 5000, 10000, 15000, 20000, 30000, 50000};
         
-        verdFra = new VerdModel(verd);
-        verdTil = new VerdModel(verd);
+        verdFra = new PriceModel(verd);
+        verdTil = new PriceModel(verd);
         jVerdFra.setModel(verdFra);
         jVerdTil.setModel(verdTil);
         
