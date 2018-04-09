@@ -20,7 +20,7 @@ public class ManudirModel extends DefaultComboBoxModel  {
     Tekur inn fylki með mánuðum og uppfærir ComboBoxið með þeim
     */
     public ManudirModel(int[] man){
-        manudir = man;
+        this.manudir = man;
         addElement(" ");
         for(int a=0; a<manudir.length; a++){
             if(a<9)
