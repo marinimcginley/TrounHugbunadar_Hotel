@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package vinnsla;
 
 /**
  *
@@ -24,15 +20,27 @@ public class Hotel {
         public boolean swimmingPool;
         public boolean gym;
 
-	public Hotel(String nameOfHotel, String locationOfHotel, boolean aviableForHandic, boolean wifi, boolean swimmingPool, boolean gym, boolean pickUp, boolean breakfastIncluded) {
-		this.nameOfHotel = nameOfHotel;
-		this.locationOfHotel = locationOfHotel;
-		this.aviableForHandic = aviableForHandic;
-                this.gym = gym;
-                this.swimmingPool = swimmingPool;
-                this.wifi = wifi;
-                this.pickUp = pickUp;
-                this.breakfastIncluded = breakfastIncluded;
+    /**
+     *
+     * @param nameOfHotel
+     * @param locationOfHotel
+     * @param aviableForHandic
+     * @param wifi
+     * @param swimmingPool
+     * @param gym
+     * @param pickUp
+     * @param breakfastIncluded
+     */
+    public Hotel(String nameOfHotel, String locationOfHotel, boolean aviableForHandic, boolean wifi, boolean swimmingPool, boolean gym, boolean pickUp, boolean breakfastIncluded) {
+            System.out.println("Komin í Hotel");
+            this.nameOfHotel = nameOfHotel;
+            this.locationOfHotel = locationOfHotel;
+            this.aviableForHandic = aviableForHandic;
+            this.gym = gym;
+            this.swimmingPool = swimmingPool;
+            this.wifi = wifi;
+            this.pickUp = pickUp;
+            this.breakfastIncluded = breakfastIncluded;
 	}
 
 	public String getNameOfHotel() {
@@ -68,9 +76,9 @@ public class Hotel {
         }
 
 	// Býr til herbergi fyrir þetta hótel
-	public void addRoom(int priceForNight, int numberOfAdults, int numberOfChildren, LocalDate[] isBooked) {
+    public void addRoom(int priceForNight, int numberOfAdults, int numberOfChildren, ArrayList<LocalDate> isBooked) {
 		Room newRoom = new Room(priceForNight, numberOfAdults, numberOfChildren, isBooked);
-		rooms.add(newRoom);
+                rooms.add(newRoom);
 	}
 
 	// skilar herbergjum fyrir þetta hotel

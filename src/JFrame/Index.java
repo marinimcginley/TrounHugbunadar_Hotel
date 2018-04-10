@@ -5,7 +5,12 @@
  */
 package JFrame;
 
+import java.awt.List;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.xml.datatype.DatatypeConfigurationException;
+import vinnsla.Hotel;
+
 
 /**
  *
@@ -15,12 +20,27 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton jLogOut;
     private javax.swing.JLabel jUser;
     private LogIn logIn;
+    
+    //public Hotel testHotel;
 
     /**
      * Creates new form Index
      */
     public Index() {
         initComponents();
+        
+        buaTilTestHotel();
+    }
+    
+    private void buaTilTestHotel() {
+        /*Hotel test1 = new Hotel("Test", "Test", true, true, true, true, true, true);
+        System.out.println("Búin að búa til Hotel");
+        ArrayList<LocalDate> isBooked;
+        isBooked = new ArrayList<>();
+        LocalDate a = LocalDate.of(2018, 4, 13);
+        isBooked.add(a);
+        test1.addRoom(15000, 2, 1, isBooked);
+        //System.out.println(testHotel.getNameOfHotel());*/
     }
 
     public void initializeAfterLogIn() {
@@ -46,12 +66,15 @@ public class Index extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jTextField1 = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLogIn = new javax.swing.JButton();
         jSignInFirstTime = new javax.swing.JButton();
         jSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
+
+        jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -196,5 +219,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jSearch;
     private javax.swing.JButton jSignInFirstTime;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
