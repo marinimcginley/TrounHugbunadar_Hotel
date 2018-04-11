@@ -21,7 +21,6 @@ public class Hotel {
         public boolean gym;
 
     public Hotel(String nameOfHotel, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded) {
-            System.out.println("Komin í Hotel");
             this.nameOfHotel = nameOfHotel;
             this.locationOfHotel = locationOfHotel;
             this.aviableForHandic = aviableForHandic;

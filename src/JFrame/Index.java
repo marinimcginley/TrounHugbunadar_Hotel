@@ -31,7 +31,7 @@ public class Index extends javax.swing.JFrame {
     public Index() {
         initComponents();
         
-        buaTilTestHotel();
+        //buaTilTestHotel();
         aviableHotelList = new ArrayList<Hotel>();
     }
     
@@ -195,8 +195,8 @@ public class Index extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        DatabaseConnection connection = new DatabaseConnection();
-        connection.connect();
+        /*DatabaseConnection connection = new DatabaseConnection();
+        connection.connect();*/
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
