@@ -41,10 +41,10 @@ public class LogIn extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jUserName = new javax.swing.JTextField();
-        jPassword = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLogIn = new javax.swing.JButton();
         jWarning = new javax.swing.JLabel();
+        jPassword = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -112,7 +112,7 @@ public class LogIn extends javax.swing.JDialog {
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
         userName = jUserName.getText();
-        password = jPassword.getText();
+        password = jPassword.getSelectedText();
         
         // ef notendanafn og lykilorð stemma er farið aftur í index
         if (verifyUser()) {
@@ -171,7 +171,7 @@ public class LogIn extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jLogIn;
-    private javax.swing.JTextField jPassword;
+    private javax.swing.JPasswordField jPassword;
     private javax.swing.JTextField jUserName;
     private javax.swing.JLabel jWarning;
     // End of variables declaration//GEN-END:variables
