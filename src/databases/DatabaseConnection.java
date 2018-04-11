@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * @author marinmcginley
  */
 public class DatabaseConnection {
-    private final String url = "jdbc:postgresql://localhost/users";
+    private final String url = "jdbc:postgresql://localhost/TrounHugbunadar";
     private final String user = "postgres";
     private final String password = "1234";
     
@@ -28,7 +28,5 @@ public class DatabaseConnection {
             System.out.println(e.getMessage());
         }
         return conn;
-    }
-
-    
+    }   
 }
