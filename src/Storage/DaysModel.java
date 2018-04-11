@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gogn;
+package Storage;
 
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -12,14 +12,14 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author Bob
  */
-public class DagarModel extends DefaultComboBoxModel { 
+public class DaysModel extends DefaultComboBoxModel { 
      
      /*
         Smiður
         Tekur inn ArrayList sem er listi með dögum og uppfærir ComboBox með þessum
         lista
      */
-     public DagarModel(ArrayList<Integer> man){
+     public DaysModel(ArrayList<Integer> man){
          addElement(" ");
          for(int a=0; a<man.size(); a++){
             if(a<9)

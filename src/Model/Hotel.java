@@ -1,4 +1,4 @@
-package vinnsla;
+package Model;
 
 /**
  *
@@ -12,13 +12,25 @@ public class Hotel {
 	
 	public String nameOfHotel;
 	public String locationOfHotel;
-	public ArrayList<Room> rooms;
+	public ArrayList<Room> rooms = new ArrayList<Room>();
 	public boolean aviableForHandic;
 	public boolean pickUp;
 	public boolean breakfastIncluded;
         public boolean wifi;
         public boolean swimmingPool;
         public boolean gym;
+
+    public Hotel(String nameOfHotel, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded) {
+            System.out.println("Komin í Hotel");
+            this.nameOfHotel = nameOfHotel;
+            this.locationOfHotel = locationOfHotel;
+            this.aviableForHandic = aviableForHandic;
+            this.gym = gym;
+            this.swimmingPool = swimmingPool;
+            this.wifi = wifi;
+            this.pickUp = pickUp;
+            this.breakfastIncluded = breakfastIncluded;
+    }
 
     /**
      *
@@ -30,18 +42,7 @@ public class Hotel {
      * @param gym
      * @param pickUp
      * @param breakfastIncluded
-     */
-    public Hotel(String nameOfHotel, String locationOfHotel, boolean aviableForHandic, boolean wifi, boolean swimmingPool, boolean gym, boolean pickUp, boolean breakfastIncluded) {
-            System.out.println("Komin í Hotel");
-            this.nameOfHotel = nameOfHotel;
-            this.locationOfHotel = locationOfHotel;
-            this.aviableForHandic = aviableForHandic;
-            this.gym = gym;
-            this.swimmingPool = swimmingPool;
-            this.wifi = wifi;
-            this.pickUp = pickUp;
-            this.breakfastIncluded = breakfastIncluded;
-	}
+     * */
 
 	public String getNameOfHotel() {
 		return nameOfHotel;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gogn;
+package Storage;
 
 import javax.swing.DefaultComboBoxModel;
 
@@ -11,7 +11,7 @@ import javax.swing.DefaultComboBoxModel;
  *
  * @author Bob
  */
-public class ManudirModel extends DefaultComboBoxModel  {
+public class MonthsModel extends DefaultComboBoxModel  {
     
     private int[] manudir;
     
@@ -19,7 +19,7 @@ public class ManudirModel extends DefaultComboBoxModel  {
     Smiður
     Tekur inn fylki með mánuðum og uppfærir ComboBoxið með þeim
     */
-    public ManudirModel(int[] man){
+    public MonthsModel(int[] man){
         this.manudir = man;
         addElement(" ");
         for(int a=0; a<manudir.length; a++) {

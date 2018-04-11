@@ -6,11 +6,12 @@
 package JFrame;
 
 import databases.DatabaseConnection;
+import Storage.HotelListModel;
 import java.awt.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.xml.datatype.DatatypeConfigurationException;
-import vinnsla.Hotel;
+import Model.Hotel;
 
 
 /**
@@ -22,8 +23,8 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel jUser;
     private LogIn logIn;
     
-    //public Hotel testHotel;
-
+    public Hotel test1;
+    private ArrayList<Hotel> aviableHotelList;
     /**
      * Creates new form Index
      */
@@ -31,17 +32,25 @@ public class Index extends javax.swing.JFrame {
         initComponents();
         
         buaTilTestHotel();
+        aviableHotelList = new ArrayList<Hotel>();
     }
     
     private void buaTilTestHotel() {
-        /*Hotel test1 = new Hotel("Test", "Test", true, true, true, true, true, true);
-        System.out.println("Búin að búa til Hotel");
+        test1 = new Hotel("Hotel Jökull", "Reykjavik", false, false, false, true, false, false);
+        System.out.println(test1.getNameOfHotel());
         ArrayList<LocalDate> isBooked;
         isBooked = new ArrayList<>();
         LocalDate a = LocalDate.of(2018, 4, 13);
         isBooked.add(a);
         test1.addRoom(15000, 2, 1, isBooked);
-        //System.out.println(testHotel.getNameOfHotel());*/
+    }
+    
+        /*
+    Fallið birtir lista af hótelum sem eru laus  
+    */
+    private void setModel(ArrayList<Hotel> hotelList){
+        HotelListModel d = new HotelListModel(hotelList);
+        jHotelList.setModel(d);
     }
 
     public void initializeAfterLogIn() {
@@ -73,7 +82,7 @@ public class Index extends javax.swing.JFrame {
         jSignInFirstTime = new javax.swing.JButton();
         jSearch = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        jHotelList = new javax.swing.JList<>();
 
         jTextField1.setText("jTextField1");
 
@@ -102,12 +111,12 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jHotelList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jHotelList);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -160,6 +169,10 @@ public class Index extends javax.swing.JFrame {
         // útvega svo eins og í AdalDagra.java í Dagska verkefninu.
         // Ef isVista() == true þá birtum við lista af hótelum fyrir neðan
         
+        if(search.isVista() == true) {
+            aviableHotelList.add(test1);
+        }
+        setModel(aviableHotelList);
     }//GEN-LAST:event_jSearchActionPerformed
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
@@ -194,8 +207,8 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> jHotelList;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JButton jLogIn;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jSearch;
