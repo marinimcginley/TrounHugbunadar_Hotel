@@ -16,6 +16,7 @@ import static databases.MD5.computeMD5;
 public class LogIn extends javax.swing.JDialog {
     private String userName;
     private char[] password;
+    private String sPassword;
 
     /**
      * Creates new form LogIn
@@ -28,7 +29,7 @@ public class LogIn extends javax.swing.JDialog {
     // Skilar true ef notendanafn er gilt annars false
     public boolean verifyUser() {
         // Skilar true ef notendanafn er til í töflu
-        if (DatabaseConnection.checkIfUsernameExistsInTable(userName)) {
+        if (DatabaseConnection.logIn(userName, MD5.toHexString(computeMD5(sPassword.getBytes())))) {
             return false;
         }
         else return true;
@@ -122,20 +123,13 @@ public class LogIn extends javax.swing.JDialog {
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
         userName = jUserName.getText();
         password = jPassword.getPassword();
-        String spassword = new String(password);
+        String sPassword = new String(password);
         
         
         // ef notendanafn og lykilorð stemma er farið aftur í index
         if (verifyUser()) {
-            DatabaseConnection.insertUserIntoUsers(userName, MD5.toHexString(computeMD5(spassword.getBytes())));
-            // kannski fyrst láta vita að allt hafi gengið upp
-            // einn taki sem á stendur loka
-            // bjóða notanda að skrá sig inn á aðalglugga
-            jText.setText("Nýr aðgangur hefur verið búinn til,\n lokaðu glugganum og skráðu þig inn");
-            jLogIn.setEnabled(false);
-            jUserName.setEnabled(false);
-            jPassword.setEnabled(false);
-            //dispose();
+            // láta vita? og láta loka?
+            dispose();
         } else {
             jUserName.setText("");
             jPassword.setText("");

@@ -160,12 +160,12 @@ public class Register extends javax.swing.JDialog {
     private void jRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterActionPerformed
         userName = jUserName.getText();
         password = jPassword.getPassword();
-        String spassword = new String(password);
+        String sPassword = new String(password);
         
         
         // ef notendanafn og lykilorð stemma er farið aftur í index
         if (verifyUser()) {
-            DatabaseConnection.insertUserIntoUsers(userName, MD5.toHexString(computeMD5(spassword.getBytes())));
+            DatabaseConnection.insertUserIntoUsers(userName, MD5.toHexString(computeMD5(sPassword.getBytes())));
             // kannski fyrst láta vita að allt hafi gengið upp
             // einn taki sem á stendur loka
             // bjóða notanda að skrá sig inn á aðalglugga
