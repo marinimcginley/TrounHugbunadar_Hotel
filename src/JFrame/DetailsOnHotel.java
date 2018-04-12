@@ -14,8 +14,13 @@ public class DetailsOnHotel extends javax.swing.JDialog {
     /**
      * Creates new form DetailsOnHotel
      */
+    private Index adalIndex;
+    
+    
+    
     public DetailsOnHotel(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        adalIndex = (Index)parent;
         initComponents();
     }
 

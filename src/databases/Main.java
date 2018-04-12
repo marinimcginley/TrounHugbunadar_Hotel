@@ -15,7 +15,7 @@ import Model.Hotel;
 public class Main {
 
     private static void setUpDatabase() {
-        DatabaseConnection.insertIntoHotel("Hotel Bifrost","Sudurland", true, true, true, true, true, true);
+        DatabaseConnection.insertIntoHotel("Hotel TestFraBirtu","Sudurland", true, true, true, true, true, true);
     }
     
     public static void main(String args[]) {

@@ -104,7 +104,7 @@ public class LogIn extends javax.swing.JDialog {
                 .addComponent(jLogIn)
                 .addGap(35, 35, 35)
                 .addComponent(jWarning)
-                .addContainerGap(112, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
