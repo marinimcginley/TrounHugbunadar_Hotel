@@ -60,6 +60,55 @@ public class DatabaseConnection {
         System.out.println("Table created successfully");
     } */
     
+    // Skilar true ef notendanafn er þegar í töflunni, annars false
+    public static boolean checkIfUsernameExistsInTable(String username) {
+        Connection c = null;
+        try {
+            c = getConnection();
+            c.setAutoCommit(false);
+            PreparedStatement pstmt = c.prepareStatement("SELECT * FROM Users WHERE username = ?");
+            if (pstmt == null) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("INSERT ERROR: " + e.getMessage());
+           
+        }
+        return false;
+    }
+    
+    public static void insertUserIntoUsers(String username, String passwordHash) {
+        Connection c = null;
+        try {
+            // TÉKKA HVORT USERNAME SÉ ÞEGAR TIL?? ANNAÐ STATIC FALL?
+            c = getConnection();
+            c.setAutoCommit(false);
+            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Users VALUES(?, ?");
+            pstmt.setString(1, username);
+            pstmt.setString(2, passwordHash);
+            System.out.println("Innsetning á nýju notendanafni: " + username + ", og lykilorði tókst");
+        } catch (Exception e) {
+            System.out.println("INSERT ERROR: " + e.getMessage());
+            return;
+        }
+    }
+    
+    public static boolean logIn(String username, String passwordHash) {
+        Connection c = null;
+        try {
+            c = getConnection();
+            c.setAutoCommit(false);
+            PreparedStatement pstmt = c.prepareStatement("SELECT * FROM Users WHERE username = ? AND passwordHash = ?");
+            // má gera svona??
+            if (pstmt != null) {
+                return true;
+            }
+        } catch (Exception e) {
+            System.out.println("INSERT ERROR: " + e.getMessage());
+        }
+        return false;
+    }
+    
     public static void insertIntoHotel(String hotelName, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded) {
         Connection c = null;
         try {
