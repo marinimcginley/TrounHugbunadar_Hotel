@@ -148,6 +148,29 @@ public class DatabaseConnection {
         System.out.println("Tókst að bæta við hótel með hotelName: " + hotelName);
     }
     
+    public static void insertIntoRoom(String hotelName, int adult, int child, int price, int id) {
+        Connection c = null;
+        try {
+            c = getConnection();
+            c.setAutoCommit(false);
+            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Room VALUES(?,?,?,?,?)");
+            pstmt.setInt(1, id);
+            pstmt.setString(2, hotelName);
+            pstmt.setInt(3, adult);
+            pstmt.setInt(4, child);
+            pstmt.setInt(5, price);
+            
+
+            pstmt.executeUpdate();
+            c.commit();
+            c.close();
+        } catch (Exception e) {
+            System.out.println("INSERT ERROR: " + e.getMessage());
+            return;
+        }
+        System.out.println("Tókst að bæta við herbergi fyrir hotelName: " + hotelName);
+    }
+    
     
     public static Hotel getHotelForName(String hotelNameIdentifier) {
         Hotel hotel = null;

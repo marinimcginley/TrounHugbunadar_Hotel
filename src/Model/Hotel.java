@@ -9,16 +9,16 @@ import java.lang.Object;
 import java.time.LocalDate;
 
 public class Hotel {
-	
+    
+	public ArrayList<Room> rooms = new ArrayList<Room>();
 	public String nameOfHotel;
 	public String locationOfHotel;
-	public ArrayList<Room> rooms = new ArrayList<Room>();
 	public boolean aviableForHandic;
+        public boolean gym;
+        public boolean swimmingPool;
+        public boolean wifi;
 	public boolean pickUp;
 	public boolean breakfastIncluded;
-        public boolean wifi;
-        public boolean swimmingPool;
-        public boolean gym;
 
     public Hotel(String nameOfHotel, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded) {
             this.nameOfHotel = nameOfHotel;
