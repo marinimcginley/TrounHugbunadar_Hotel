@@ -16,6 +16,7 @@ import static databases.MD5.computeMD5;
 public class Register extends javax.swing.JDialog {
     private String userName;
     private char[] password;
+    private String sPassword;
 
     /**
      * Creates new form Register
@@ -26,7 +27,7 @@ public class Register extends javax.swing.JDialog {
     }
     
     // Skilar true ef notendanafn er gilt annars false
-    public boolean verifyUser() {
+    public boolean verifyDoubleUserName() {
         // Skilar true ef notendanafn er til í töflu
         if (DatabaseConnection.checkIfUsernameExistsInTable(userName)) {
             return false;
@@ -37,7 +38,15 @@ public class Register extends javax.swing.JDialog {
     public String getUserName() {
         return userName;
     }
-
+    
+    public boolean verifyPasswordLength() {
+        System.out.println("username: " + userName + ", length: " + userName.length());
+        if (sPassword.length() > 8 && sPassword.length() < 24) {
+            
+            return true;
+        } else return false;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -160,20 +169,27 @@ public class Register extends javax.swing.JDialog {
     private void jRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterActionPerformed
         userName = jUserName.getText();
         password = jPassword.getPassword();
-        String sPassword = new String(password);
-        
-        
+        sPassword = new String(password);
+         
         // ef notendanafn og lykilorð stemma er farið aftur í index
-        if (verifyUser()) {
-            DatabaseConnection.insertUserIntoUsers(userName, MD5.toHexString(computeMD5(sPassword.getBytes())));
-            // kannski fyrst láta vita að allt hafi gengið upp
-            // einn taki sem á stendur loka
-            // bjóða notanda að skrá sig inn á aðalglugga
-            jText.setText("Nýr aðgangur hefur verið búinn til,\n lokaðu glugganum og skráðu þig inn");
-            jRegister.setEnabled(false);
-            jUserName.setEnabled(false);
-            jPassword.setEnabled(false);
-            //dispose();
+        if (verifyDoubleUserName()) {
+            if (verifyPasswordLength()) {
+                DatabaseConnection.insertUserIntoUsers(userName, MD5.toHexString(computeMD5(sPassword.getBytes())));
+                // kannski fyrst láta vita að allt hafi gengið upp
+                // einn taki sem á stendur loka
+                // bjóða notanda að skrá sig inn á aðalglugga
+                jText.setText("Nýr aðgangur hefur verið búinn til,\n lokaðu glugganum og skráðu þig inn");
+                jRegister.setEnabled(false);
+                jUserName.setEnabled(false);
+                jPassword.setEnabled(false);
+                //dispose();
+            } else {
+                jUserName.setText("");
+                jPassword.setText("");
+                jWarning.setText("Lengd notendanafns þarf að vera a.m.k. 8 stafir og í mesta lagi 25");
+            }
+            
+
         } else {
             jUserName.setText("");
             jPassword.setText("");

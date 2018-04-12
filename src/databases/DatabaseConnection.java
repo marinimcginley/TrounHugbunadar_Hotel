@@ -63,21 +63,28 @@ public class DatabaseConnection {
     // Skilar true ef notendanafn er þegar í töflunni, annars false
     public static boolean checkIfUsernameExistsInTable(String username) {
         Connection c = null;
+        Statement stmt = null;
         try {
             c = getConnection();
             c.setAutoCommit(false);
-            PreparedStatement pstmt = c.prepareStatement("SELECT userName FROM Users WHERE userName = ?");
-            pstmt.setString(1, username);
-            ResultSet r = pstmt.executeQuery();
-            String un = r.getString(1);
+            //Statement pstmt = c.prepareStatement("SELECT userName FROM Users WHERE userName = ?");
+            //pstmt.setString(1, username);
+            //ResultSet r = pstmt.executeQuery();
+            String query = String.format("SELECT userName FROM %s WHERE userName = '%s';",
+            "Users",
+            username);
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+            String un = rs.getString(1);
             c.commit();
-            pstmt.close();
+            //pstmt.close();
+            //r.close();
             c.close();
             if (un.isEmpty()) {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("INSERT ERROR: " + e.getMessage());
+            System.out.println("INSERT ERROR (í check): " + e.getMessage());
            
         }
         return false;
@@ -89,12 +96,12 @@ public class DatabaseConnection {
             // TÉKKA HVORT USERNAME SÉ ÞEGAR TIL?? ANNAÐ STATIC FALL?
             c = getConnection();
             c.setAutoCommit(false);
-            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Users VALUES(?, ?");
+            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Users (userName, password) VALUES(?,?)");
             pstmt.setString(1, username);
             pstmt.setString(2, passwordHash);
             pstmt.executeUpdate();
             c.commit();
-            pstmt.close();
+            //pstmt.close();
             c.close();
             System.out.println("Innsetning á nýju notendanafni: " + username + ", og lykilorði tókst");
         } catch (Exception e) {
@@ -114,7 +121,7 @@ public class DatabaseConnection {
             ResultSet r = pstmt.executeQuery();
             String un = r.getString(1);
             c.commit();
-            pstmt.close();
+            //pstmt.close();
             c.close();
             // má gera svona??
             if (un.isEmpty()) {
