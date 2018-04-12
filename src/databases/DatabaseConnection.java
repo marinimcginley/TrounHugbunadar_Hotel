@@ -123,20 +123,21 @@ public class DatabaseConnection {
         return false;
     }
     
-    public static void insertIntoHotel(String hotelName, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded) {
+    public static void insertIntoHotel(int id, String hotelName, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded) {
         Connection c = null;
         try {
             c = getConnection();
             c.setAutoCommit(false);
-            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Hotel VALUES(?,?,?,?,?,?,?,?)");
-            pstmt.setString(1, hotelName);
-            pstmt.setString(2, locationOfHotel);
-            pstmt.setBoolean(3, aviableForHandic);
-            pstmt.setBoolean(4, gym);
-            pstmt.setBoolean(5, swimmingPool);
-            pstmt.setBoolean(6, wifi);
-            pstmt.setBoolean(7, pickUp);
-            pstmt.setBoolean(8, breakfastIncluded);
+            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Hotel VALUES(?,?,?,?,?,?,?,?,?)");
+            pstmt.setInt(1, id);
+            pstmt.setString(2, hotelName);
+            pstmt.setString(3, locationOfHotel);
+            pstmt.setBoolean(4, aviableForHandic);
+            pstmt.setBoolean(5, gym);
+            pstmt.setBoolean(6, swimmingPool);
+            pstmt.setBoolean(7, wifi);
+            pstmt.setBoolean(8, pickUp);
+            pstmt.setBoolean(9, breakfastIncluded);
 
             pstmt.executeUpdate();
             c.commit();
