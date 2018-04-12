@@ -126,7 +126,7 @@ public class DatabaseConnection {
         return false;
     }
     
-    public static void insertIntoHotel(int id, String hotelName, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded, int grade, int numberOfGrade) {
+    /*public static void insertIntoHotel(int id, String hotelName, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded, int grade, int numberOfGrade) {
         Connection c = null;
         try {
             c = getConnection();
@@ -177,7 +177,7 @@ public class DatabaseConnection {
             return;
         }
         System.out.println("Tókst að bæta við herbergi fyrir hotelName: " + hotelName);
-    }
+    }*/
     
     
     public static Hotel getHotelForName(String hotelNameIdentifier) {

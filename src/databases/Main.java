@@ -14,7 +14,7 @@ import Model.Hotel;
  */
 public class Main {
 
-    private static void setUpDatabase() {
+    /*private static void setUpDatabase() {
         DatabaseConnection.insertIntoHotel(1,"Hotel Jökull","Höfn", false, true, true, true, false, true,0 ,0);
         DatabaseConnection.insertIntoRoom("Hotel Jökull", 2, 0, 12879,1);
         DatabaseConnection.insertIntoRoom("Hotel Jökull", 2, 2, 18579,2);
@@ -61,10 +61,10 @@ public class Main {
         DatabaseConnection.insertIntoRoom("Borealis Hotel", 2, 1, 17824,29);
         DatabaseConnection.insertIntoHotel(16,"Hotel húsafell","Húsafell", true, true, true, true, false, true,0 ,0);
         DatabaseConnection.insertIntoRoom("Hotel húsafell", 2, 0, 14752,30);
-    }
+    }*/
     
     public static void main(String args[]) {
-        Main.setUpDatabase();
+        //Main.setUpDatabase();
         
         Index frame = new Index();
         frame.setVisible(true);
