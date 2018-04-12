@@ -71,6 +71,7 @@ public class DatabaseConnection {
             ResultSet r = pstmt.executeQuery();
             String un = r.getString(1);
             c.commit();
+            pstmt.close();
             c.close();
             if (un.isEmpty()) {
                 return true;
@@ -93,6 +94,7 @@ public class DatabaseConnection {
             pstmt.setString(2, passwordHash);
             pstmt.executeUpdate();
             c.commit();
+            pstmt.close();
             c.close();
             System.out.println("Innsetning á nýju notendanafni: " + username + ", og lykilorði tókst");
         } catch (Exception e) {
@@ -112,6 +114,7 @@ public class DatabaseConnection {
             ResultSet r = pstmt.executeQuery();
             String un = r.getString(1);
             c.commit();
+            pstmt.close();
             c.close();
             // má gera svona??
             if (un.isEmpty()) {
@@ -123,12 +126,12 @@ public class DatabaseConnection {
         return false;
     }
     
-    public static void insertIntoHotel(int id, String hotelName, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded) {
+    public static void insertIntoHotel(int id, String hotelName, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded, int grade, int numberOfGrade) {
         Connection c = null;
         try {
             c = getConnection();
             c.setAutoCommit(false);
-            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Hotel VALUES(?,?,?,?,?,?,?,?,?)");
+            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Hotel VALUES(?,?,?,?,?,?,?,?,?,?,?)");
             pstmt.setInt(1, id);
             pstmt.setString(2, hotelName);
             pstmt.setString(3, locationOfHotel);
@@ -138,9 +141,12 @@ public class DatabaseConnection {
             pstmt.setBoolean(7, wifi);
             pstmt.setBoolean(8, pickUp);
             pstmt.setBoolean(9, breakfastIncluded);
+            pstmt.setInt(10, grade);
+            pstmt.setInt(11, numberOfGrade);
 
             pstmt.executeUpdate();
             c.commit();
+            pstmt.close();
             c.close();
         } catch (Exception e) {
             System.out.println("INSERT ERROR: " + e.getMessage());
@@ -164,6 +170,7 @@ public class DatabaseConnection {
 
             pstmt.executeUpdate();
             c.commit();
+            pstmt.close();
             c.close();
         } catch (Exception e) {
             System.out.println("INSERT ERROR: " + e.getMessage());
