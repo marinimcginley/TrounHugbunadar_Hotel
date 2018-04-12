@@ -66,8 +66,13 @@ public class DatabaseConnection {
         try {
             c = getConnection();
             c.setAutoCommit(false);
-            PreparedStatement pstmt = c.prepareStatement("SELECT * FROM Users WHERE username = ?");
-            if (pstmt == null) {
+            PreparedStatement pstmt = c.prepareStatement("SELECT userName FROM Users WHERE userName = ?");
+            pstmt.setString(1, username);
+            ResultSet r = pstmt.executeQuery();
+            String un = r.getString(1);
+            c.commit();
+            c.close();
+            if (un.isEmpty()) {
                 return true;
             }
         } catch (Exception e) {
@@ -86,6 +91,9 @@ public class DatabaseConnection {
             PreparedStatement pstmt = c.prepareStatement("INSERT INTO Users VALUES(?, ?");
             pstmt.setString(1, username);
             pstmt.setString(2, passwordHash);
+            pstmt.executeUpdate();
+            c.commit();
+            c.close();
             System.out.println("Innsetning á nýju notendanafni: " + username + ", og lykilorði tókst");
         } catch (Exception e) {
             System.out.println("INSERT ERROR: " + e.getMessage());
@@ -98,9 +106,15 @@ public class DatabaseConnection {
         try {
             c = getConnection();
             c.setAutoCommit(false);
-            PreparedStatement pstmt = c.prepareStatement("SELECT * FROM Users WHERE username = ? AND passwordHash = ?");
+            PreparedStatement pstmt = c.prepareStatement("SELECT userName FROM Users WHERE userName = ? AND password = ?");
+            pstmt.setString(1, username);
+            pstmt.setString(2, passwordHash);
+            ResultSet r = pstmt.executeQuery();
+            String un = r.getString(1);
+            c.commit();
+            c.close();
             // má gera svona??
-            if (pstmt != null) {
+            if (un.isEmpty()) {
                 return true;
             }
         } catch (Exception e) {

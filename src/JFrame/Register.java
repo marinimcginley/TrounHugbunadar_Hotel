@@ -5,13 +5,17 @@
  */
 package JFrame;
 
+import databases.DatabaseConnection;
+import databases.MD5;
+import static databases.MD5.computeMD5;
+
 /**
  *
  * @author marinmcginley
  */
 public class Register extends javax.swing.JDialog {
     private String userName;
-    private String password;
+    private char[] password;
 
     /**
      * Creates new form Register
@@ -21,10 +25,17 @@ public class Register extends javax.swing.JDialog {
         initComponents();
     }
     
-    // Tékkar hvort username er þegar í notkun
-    public boolean authenticate() {
-        // EKKI BÚIN
-        return true;
+    // Skilar true ef notendanafn er gilt annars false
+    public boolean verifyUser() {
+        // Skilar true ef notendanafn er til í töflu
+        if (DatabaseConnection.checkIfUsernameExistsInTable(userName)) {
+            return false;
+        }
+        else return true;
+    }
+    
+    public String getUserName() {
+        return userName;
     }
 
     /**
@@ -39,7 +50,7 @@ public class Register extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jUserName = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jText = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         skraInnFacebook = new javax.swing.JButton();
         skraInnGoogle = new javax.swing.JButton();
@@ -53,7 +64,7 @@ public class Register extends javax.swing.JDialog {
 
         jLabel2.setText("Búa til lykilorð");
 
-        jLabel3.setText("Gaman að sjá þig, vertu velkomin");
+        jText.setText("Gaman að sjá þig, vertu velkomin");
 
         jLabel4.setText("eða");
 
@@ -86,7 +97,7 @@ public class Register extends javax.swing.JDialog {
                         .addComponent(skraInnGoogle, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3))
+                        .addComponent(jText))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(114, 114, 114)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,7 +125,7 @@ public class Register extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel3)
+                .addComponent(jText)
                 .addGap(38, 38, 38)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -147,11 +158,26 @@ public class Register extends javax.swing.JDialog {
     }//GEN-LAST:event_skraInnGoogleActionPerformed
 
     private void jRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterActionPerformed
-        if (authenticate()) {
-            userName = jUserName.getText();
-            password = jPassword.getSelectedText();
+        userName = jUserName.getText();
+        password = jPassword.getPassword();
+        String spassword = new String(password);
+        
+        
+        // ef notendanafn og lykilorð stemma er farið aftur í index
+        if (verifyUser()) {
+            DatabaseConnection.insertUserIntoUsers(userName, MD5.toHexString(computeMD5(spassword.getBytes())));
+            // kannski fyrst láta vita að allt hafi gengið upp
+            // einn taki sem á stendur loka
+            // bjóða notanda að skrá sig inn á aðalglugga
+            jText.setText("Nýr aðgangur hefur verið búinn til,\n lokaðu glugganum og skráðu þig inn");
+            jRegister.setEnabled(false);
+            jUserName.setEnabled(false);
+            jPassword.setEnabled(false);
+            //dispose();
         } else {
-            jWarning.setText("Þetta notendanafn er þegar í notkun, vinsamlegast veldu annað");
+            jUserName.setText("");
+            jPassword.setText("");
+            jWarning.setText("Notendanafn eða lykilorð er vitlaust");
         }
     }//GEN-LAST:event_jRegisterActionPerformed
 
@@ -200,10 +226,10 @@ public class Register extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JPasswordField jPassword;
     private javax.swing.JButton jRegister;
+    private javax.swing.JLabel jText;
     private javax.swing.JTextField jUserName;
     private javax.swing.JLabel jWarning;
     private javax.swing.JButton skraInnFacebook;

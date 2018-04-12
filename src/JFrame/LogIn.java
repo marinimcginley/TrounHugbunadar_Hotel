@@ -5,13 +5,17 @@
  */
 package JFrame;
 
+import databases.DatabaseConnection;
+import databases.MD5;
+import static databases.MD5.computeMD5;
+
 /**
  *
  * @author marinmcginley
  */
 public class LogIn extends javax.swing.JDialog {
     private String userName;
-    private String password;
+    private char[] password;
 
     /**
      * Creates new form LogIn
@@ -20,10 +24,14 @@ public class LogIn extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
     }
-
+    
+    // Skilar true ef notendanafn er gilt annars false
     public boolean verifyUser() {
-        // kíkja á gagnagrunn?????
-        return true;
+        // Skilar true ef notendanafn er til í töflu
+        if (DatabaseConnection.checkIfUsernameExistsInTable(userName)) {
+            return false;
+        }
+        else return true;
     }
     
     public String getUserName() {
@@ -41,7 +49,7 @@ public class LogIn extends javax.swing.JDialog {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jUserName = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jText = new javax.swing.JLabel();
         jLogIn = new javax.swing.JButton();
         jWarning = new javax.swing.JLabel();
         jPassword = new javax.swing.JPasswordField();
@@ -52,7 +60,7 @@ public class LogIn extends javax.swing.JDialog {
 
         jLabel2.setText("Lykilorð:");
 
-        jLabel3.setText("Gaman að sjá þig");
+        jText.setText("Gaman að sjá þig");
 
         jLogIn.setText("Skrá inn ");
         jLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -78,7 +86,7 @@ public class LogIn extends javax.swing.JDialog {
                             .addComponent(jPassword)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel3))
+                        .addComponent(jText))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(148, 148, 148)
                         .addComponent(jLogIn))
@@ -91,7 +99,7 @@ public class LogIn extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jLabel3)
+                .addComponent(jText)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -110,13 +118,24 @@ public class LogIn extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    // Fyrst þarf að skrá sig inn í kerfið, svo þarf að logga sig inn í kerfið
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
         userName = jUserName.getText();
-        password = jPassword.getSelectedText();
+        password = jPassword.getPassword();
+        String spassword = new String(password);
+        
         
         // ef notendanafn og lykilorð stemma er farið aftur í index
         if (verifyUser()) {
-            dispose();
+            DatabaseConnection.insertUserIntoUsers(userName, MD5.toHexString(computeMD5(spassword.getBytes())));
+            // kannski fyrst láta vita að allt hafi gengið upp
+            // einn taki sem á stendur loka
+            // bjóða notanda að skrá sig inn á aðalglugga
+            jText.setText("Nýr aðgangur hefur verið búinn til,\n lokaðu glugganum og skráðu þig inn");
+            jLogIn.setEnabled(false);
+            jUserName.setEnabled(false);
+            jPassword.setEnabled(false);
+            //dispose();
         } else {
             jUserName.setText("");
             jPassword.setText("");
@@ -169,9 +188,9 @@ public class LogIn extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JButton jLogIn;
     private javax.swing.JPasswordField jPassword;
+    private javax.swing.JLabel jText;
     private javax.swing.JTextField jUserName;
     private javax.swing.JLabel jWarning;
     // End of variables declaration//GEN-END:variables
