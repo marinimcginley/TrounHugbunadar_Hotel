@@ -67,19 +67,11 @@ public class DatabaseConnection {
         Statement stmt = null;
         try {
             c = getConnection();
-            c.setAutoCommit(false);
-            //Statement pstmt = c.prepareStatement("SELECT userName FROM Users WHERE userName = ?");
-            //pstmt.setString(1, username);
-            //ResultSet r = pstmt.executeQuery();
-            String query = String.format("SELECT userName FROM %s WHERE userName = '%s';",
-            "Users",
-            username);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
-            String un = rs.getString(1);
-            c.commit();
-            //pstmt.close();
-            //r.close();
+            String query = "SELECT userName FROM Users WHERE userName IS " + username;
+            PreparedStatement p = c.prepareStatement(query);
+            ResultSet r = p.executeQuery();
+            String un = r.getString(1);
+            r.close();
             c.close();
             if (un.isEmpty()) {
                 return true;
@@ -94,15 +86,10 @@ public class DatabaseConnection {
     public static void insertUserIntoUsers(String username, String passwordHash) {
         Connection c = null;
         try {
-            // TÉKKA HVORT USERNAME SÉ ÞEGAR TIL?? ANNAÐ STATIC FALL?
             c = getConnection();
-            c.setAutoCommit(false);
-            PreparedStatement pstmt = c.prepareStatement("INSERT INTO Users (userName, password) VALUES(?,?)");
-            pstmt.setString(1, username);
-            pstmt.setString(2, passwordHash);
-            pstmt.executeUpdate();
-            c.commit();
-            //pstmt.close();
+            String stmt = "INSERT INTO Users (userName, password) VALUES(" + username + "," + passwordHash + ")";
+            PreparedStatement q = c.prepareStatement(stmt);
+            q.executeUpdate();
             c.close();
             System.out.println("Innsetning á nýju notendanafni: " + username + ", og lykilorði tókst");
         } catch (Exception e) {
@@ -115,17 +102,12 @@ public class DatabaseConnection {
         Connection c = null;
         try {
             c = getConnection();
-            c.setAutoCommit(false);
-            PreparedStatement pstmt = c.prepareStatement("SELECT userName FROM Users WHERE userName = ? AND password = ?");
-            pstmt.setString(1, username);
-            pstmt.setString(2, passwordHash);
-            ResultSet r = pstmt.executeQuery();
+            String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
+            PreparedStatement p = c.prepareStatement(stmt);
+            ResultSet r = p.executeQuery();
             String un = r.getString(1);
-            c.commit();
-            //pstmt.close();
-            c.close();
-            // má gera svona??
             if (un.isEmpty()) {
+                System.out.println("Innskráning í DatabaseConnection hófst");
                 return true;
             }
         } catch (Exception e) {

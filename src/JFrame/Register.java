@@ -32,7 +32,10 @@ public class Register extends javax.swing.JDialog {
         if (DatabaseConnection.checkIfUsernameExistsInTable(userName)) {
             return false;
         }
-        else return true;
+        else {
+            System.out.println("Nafn er ekki til í gagnagrunni, í lagi");
+            return true;
+        }
     }
     
     public String getUserName() {

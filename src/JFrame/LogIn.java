@@ -28,8 +28,11 @@ public class LogIn extends javax.swing.JDialog {
     
     // Skilar true ef notendanafn er gilt annars false
     public boolean verifyUser() {
-        // Skilar true ef notendanafn er til í töflu
-        if (DatabaseConnection.logIn(userName, MD5.toHexString(computeMD5(sPassword.getBytes())))) {
+        // Skilar true ef notendanafn er til í töflu og lykilorð passar við notendanafnið
+        //  MD5.toHexString(computeMD5(sPassword.getBytes()))
+        String p = MD5.toHexString(computeMD5(sPassword.getBytes()));
+        System.out.println(p);
+        if (DatabaseConnection.logIn(userName, p)) {
             return false;
         }
         else return true;
@@ -123,7 +126,7 @@ public class LogIn extends javax.swing.JDialog {
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
         userName = jUserName.getText();
         password = jPassword.getPassword();
-        String sPassword = new String(password);
+        sPassword = new String(password);
         
         
         // ef notendanafn og lykilorð stemma er farið aftur í index
