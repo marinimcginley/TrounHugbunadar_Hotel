@@ -13,6 +13,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -226,6 +227,47 @@ public class DatabaseConnection {
         System.out.println("Tókst að framkvæma SELECT");
         
         return hotel;
+    }
+    
+    public static ArrayList<Hotel> getAllHotel() {
+        ArrayList<Hotel> hotelList = new ArrayList<>();
+        Connection c = null;
+
+        Statement stmt = null;
+        try {
+            c = getConnection();
+            c.setAutoCommit(false);
+            System.out.println("getHotelForName: Tókst að opna gagnagrunn");
+
+            stmt = c.createStatement();
+            String query = String.format("SELECT * FROM Hotel;");
+            ResultSet rs = stmt.executeQuery(query);
+            while ( rs.next() ) {
+                //int id = rs.getInt("id");
+                String hotelName = rs.getString("nameOfHotel");
+                System.out.println(hotelName + " hotelname inní rs.next");
+                String location = rs.getString("location");
+                boolean aviableForHandic = rs.getBoolean("aviableForHandic");
+                boolean gym = rs.getBoolean("gym");
+                boolean swimmingPool = rs.getBoolean("swimmingPool");
+                boolean wifi = rs.getBoolean("wifi");
+                boolean pickUp = rs.getBoolean("pickUp");
+                boolean breakfastIncluded = rs.getBoolean("breakfastIncluded");
+                
+                Hotel hotel = null;
+                hotel = new Hotel(hotelName, location, aviableForHandic,gym, swimmingPool, wifi, pickUp, breakfastIncluded);
+                hotelList.add(hotel);
+            }
+            rs.close();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println("SELECT ERROR:" + e.getClass().getName() + ": " + e.getMessage() );
+            return null;
+        }
+        System.out.println("Tókst að framkvæma SELECT");
+        
+        return hotelList;
     }
     
 }
