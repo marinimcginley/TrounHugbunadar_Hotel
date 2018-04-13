@@ -191,8 +191,14 @@ public class Index extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
-        Search search = new Search(this, true);
+        Search search = null;
         
+        if (logIn == null) {
+            search = new Search(this, true, "");
+        } else {
+            search = new Search(this, true, logIn.getUserName());
+        }
+
         search.setVisible(true);
         
         // útvega svo eins og í AdalDagra.java í Dagska verkefninu.
