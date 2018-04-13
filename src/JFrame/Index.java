@@ -36,6 +36,10 @@ public class Index extends javax.swing.JFrame {
         aviableHotelList = new ArrayList<Hotel>();
         jTable.getTableHeader().setPreferredSize(new Dimension(10,35)); // stilli breidd og hæð á column head
     }
+    
+    public void putListInTable() {
+        
+    }
 
     /*
     Fallið birtir lista af hótelum sem eru laus  
