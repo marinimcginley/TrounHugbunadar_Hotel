@@ -98,6 +98,7 @@ public class DatabaseConnection {
         }
     }
     
+    // skilar true ef notendanafn passar við lykilorð í gagnagrunni, annars false
     public static boolean logIn(String username, String passwordHash) {
         Connection c = null;
         try {
@@ -107,13 +108,12 @@ public class DatabaseConnection {
             ResultSet r = p.executeQuery();
             String un = r.getString(1);
             if (un.isEmpty()) {
-                System.out.println("Innskráning í DatabaseConnection hófst");
-                return true;
+                return false;
             }
         } catch (Exception e) {
             System.out.println("INSERT ERROR: " + e.getMessage());
         }
-        return false;
+        return true;
     }
     
     /*public static void insertIntoHotel(int id, String hotelName, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded, int grade, int numberOfGrade) {

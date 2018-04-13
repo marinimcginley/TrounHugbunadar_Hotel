@@ -34,10 +34,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <EmptySpace min="0" pref="885" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Component id="jLogIn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jSignInFirstTime" min="-2" max="-2" attributes="0"/>
+                      <Component id="jRegister" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
                       <Component id="jScrollPane2" max="32767" attributes="0"/>
@@ -46,9 +46,12 @@
               </Group>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="355" max="-2" attributes="0"/>
+              <EmptySpace pref="382" max="32767" attributes="0"/>
+              <Component id="jText" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="150" max="-2" attributes="0"/>
+              <Component id="jUserName" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
+              <Component id="jLogOut" min="-2" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="496" max="-2" attributes="0"/>
@@ -63,21 +66,27 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLogIn" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="jSignInFirstTime" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jRegister" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
-              <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="jText" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLogOut" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jUserName" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jSearch" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="255" max="-2" attributes="0"/>
-              <EmptySpace pref="42" max="32767" attributes="0"/>
+              <EmptySpace pref="36" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JLabel" name="jLabel1">
+    <Component class="javax.swing.JLabel" name="jText">
       <Properties>
         <Property name="text" type="java.lang.String" value="Velkomin inn&#xe1; forriti&#xf0; okkar.  H&#xe9;r getur &#xfe;&#xfa; leita a&#xf0; h&#xf3;teli &#xe1; &#xcd;slandi :"/>
       </Properties>
@@ -90,12 +99,12 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLogInActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jSignInFirstTime">
+    <Component class="javax.swing.JButton" name="jRegister">
       <Properties>
         <Property name="text" type="java.lang.String" value="N&#xfd;skr&#xe1;ning"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSignInFirstTimeActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jRegisterActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JButton" name="jSearch">
@@ -204,5 +213,15 @@
         </Component>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JButton" name="jLogOut">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="&#xda;tskr&#xe1;ning"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jLogOutActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jUserName">
+    </Component>
   </SubComponents>
 </Form>

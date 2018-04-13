@@ -15,6 +15,8 @@ import java.util.ArrayList;
 import javax.xml.datatype.DatatypeConfigurationException;
 import Model.Hotel;
 import java.awt.Dimension;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 
 /**
@@ -22,8 +24,8 @@ import java.awt.Dimension;
  * @author marinmcginley
  */
 public class Index extends javax.swing.JFrame {
-    private javax.swing.JButton jLogOut;
-    private javax.swing.JLabel jUser;
+
+
     private LogIn logIn;
     
     private ArrayList<Hotel> aviableHotelList;
@@ -35,6 +37,9 @@ public class Index extends javax.swing.JFrame {
         
         aviableHotelList = new ArrayList<Hotel>();
         jTable.getTableHeader().setPreferredSize(new Dimension(10,35)); // stilli breidd og hæð á column head
+        
+        // Gera hnapp ósýnilega
+        jLogOut.setVisible(false);
     }
     
     public void putListInTable() {
@@ -50,17 +55,14 @@ public class Index extends javax.swing.JFrame {
     }
 
     public void initializeAfterLogIn() {
-        // finna út úr staðsetningum
-        jLogIn.removeAll();
-        jSignInFirstTime.removeAll();
-        jLogOut.setAlignmentX(TOP_ALIGNMENT);
-        jLogOut.setAlignmentY(TOP_ALIGNMENT);
-        jLogOut.setLocation(WIDTH, WIDTH);
-        jLogOut.setText("Útskráning");
-        jUser.setAlignmentX(TOP_ALIGNMENT);
-        jUser.setAlignmentY(TOP_ALIGNMENT);
-        jUser.setLocation(WIDTH, WIDTH);
-        jUser.setText(logIn.getUserName());
+
+        jLogIn.setVisible(false);
+        jRegister.setVisible(false);
+        
+        jLogOut.setVisible(true);
+        jUserName.setText(logIn.getUserName());
+        
+
     }
     
     /**
@@ -73,18 +75,20 @@ public class Index extends javax.swing.JFrame {
     private void initComponents() {
 
         jTextField1 = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
+        jText = new javax.swing.JLabel();
         jLogIn = new javax.swing.JButton();
-        jSignInFirstTime = new javax.swing.JButton();
+        jRegister = new javax.swing.JButton();
         jSearch = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
+        jLogOut = new javax.swing.JButton();
+        jUserName = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Velkomin inná forritið okkar.  Hér getur þú leita að hóteli á Íslandi :");
+        jText.setText("Velkomin inná forritið okkar.  Hér getur þú leita að hóteli á Íslandi :");
 
         jLogIn.setText("Innskráning");
         jLogIn.addActionListener(new java.awt.event.ActionListener() {
@@ -93,10 +97,10 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        jSignInFirstTime.setText("Nýskráning");
-        jSignInFirstTime.addActionListener(new java.awt.event.ActionListener() {
+        jRegister.setText("Nýskráning");
+        jRegister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jSignInFirstTimeActionPerformed(evt);
+                jRegisterActionPerformed(evt);
             }
         });
 
@@ -129,6 +133,13 @@ public class Index extends javax.swing.JFrame {
         jScrollPane2.setViewportView(jTable);
         jTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
+        jLogOut.setText("Útskráning");
+        jLogOut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jLogOutActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -137,17 +148,20 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 885, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jLogIn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jSignInFirstTime))
+                        .addComponent(jRegister))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(355, 355, 355))
+                .addContainerGap(382, Short.MAX_VALUE)
+                .addComponent(jText)
+                .addGap(150, 150, 150)
+                .addComponent(jUserName)
+                .addGap(63, 63, 63)
+                .addComponent(jLogOut))
             .addGroup(layout.createSequentialGroup()
                 .addGap(496, 496, 496)
                 .addComponent(jSearch)
@@ -159,14 +173,18 @@ public class Index extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLogIn)
-                    .addComponent(jSignInFirstTime))
-                .addGap(13, 13, 13)
-                .addComponent(jLabel1)
+                    .addComponent(jRegister))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jText)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLogOut)
+                        .addComponent(jUserName)))
                 .addGap(18, 18, 18)
                 .addComponent(jSearch)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(42, Short.MAX_VALUE))
+                .addContainerGap(36, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,13 +214,22 @@ public class Index extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jLogInActionPerformed
 
-    private void jSignInFirstTimeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSignInFirstTimeActionPerformed
+    private void jRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterActionPerformed
         Register nyskraning = null;
         
         nyskraning = new Register(this, true);
         
         nyskraning.setVisible(true);
-    }//GEN-LAST:event_jSignInFirstTimeActionPerformed
+    }//GEN-LAST:event_jRegisterActionPerformed
+
+    private void jLogOutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogOutActionPerformed
+        logIn = null;
+        jLogOut.setVisible(false);
+        jUserName.setText(null);
+        
+        jLogIn.setVisible(true);
+        jRegister.setVisible(true);
+    }//GEN-LAST:event_jLogOutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -220,12 +247,14 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jLogIn;
+    private javax.swing.JButton jLogOut;
+    private javax.swing.JButton jRegister;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jSearch;
-    private javax.swing.JButton jSignInFirstTime;
     private javax.swing.JTable jTable;
+    private javax.swing.JLabel jText;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel jUserName;
     // End of variables declaration//GEN-END:variables
 }

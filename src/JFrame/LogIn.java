@@ -28,14 +28,14 @@ public class LogIn extends javax.swing.JDialog {
     
     // Skilar true ef notendanafn er gilt annars false
     public boolean verifyUser() {
-        // Skilar true ef notendanafn er til í töflu og lykilorð passar við notendanafnið
-        //  MD5.toHexString(computeMD5(sPassword.getBytes()))
+        
         String p = MD5.toHexString(computeMD5(sPassword.getBytes()));
         System.out.println(p);
+        // Skilar true ef notendanafn er til í töflu og lykilorð passar við notendanafnið
         if (DatabaseConnection.logIn(userName, p)) {
-            return false;
+            return true;
         }
-        else return true;
+        else return false;
     }
     
     public String getUserName() {
