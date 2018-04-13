@@ -110,6 +110,8 @@ public class DatabaseConnection {
             if (un.isEmpty()) {
                 return false;
             }
+            r.close();
+            c.close();
         } catch (Exception e) {
             System.out.println("INSERT ERROR: " + e.getMessage());
         }

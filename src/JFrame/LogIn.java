@@ -24,13 +24,29 @@ public class LogIn extends javax.swing.JDialog {
     public LogIn(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
+        // virkar ekki að fela töflu
+        jTable.setVisible(false);
+        jBackToIndex.setVisible(false);
+    }
+    
+    public void displayBookings() {
+        jUser.setText(userName);
+        jTable.setVisible(true);
+        
+        jLabelForUserName.setVisible(false);
+        jLabelForPassword.setVisible(false);
+        jUserName.setVisible(false);
+        jPassword.setVisible(false);
+        jLogIn.setVisible(false);
+        jBackToIndex.setVisible(true);
+        
     }
     
     // Skilar true ef notendanafn er gilt annars false
     public boolean verifyUser() {
         
         String p = MD5.toHexString(computeMD5(sPassword.getBytes()));
-        System.out.println(p);
         // Skilar true ef notendanafn er til í töflu og lykilorð passar við notendanafnið
         if (DatabaseConnection.logIn(userName, p)) {
             return true;
@@ -50,19 +66,23 @@ public class LogIn extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelForUserName = new javax.swing.JLabel();
+        jLabelForPassword = new javax.swing.JLabel();
         jUserName = new javax.swing.JTextField();
         jText = new javax.swing.JLabel();
         jLogIn = new javax.swing.JButton();
         jWarning = new javax.swing.JLabel();
         jPassword = new javax.swing.JPasswordField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
+        jBackToIndex = new javax.swing.JButton();
+        jUser = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Notendanafn:");
+        jLabelForUserName.setText("Notendanafn:");
 
-        jLabel2.setText("Lykilorð:");
+        jLabelForPassword.setText("Lykilorð:");
 
         jText.setText("Gaman að sjá þig");
 
@@ -70,6 +90,26 @@ public class LogIn extends javax.swing.JDialog {
         jLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLogInActionPerformed(evt);
+            }
+        });
+
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "Hotel", "Staðsetning", "Verð", "Einkunn", "Fjöldi fullorðna", "Fjöldi barna", "Aðgengi fyrir hreyfihamlaða", "Rækt", "WIFI", "Akstursþjónusta", "Morgunmatur innifalinn"
+            }
+        ));
+        jScrollPane1.setViewportView(jTable);
+
+        jBackToIndex.setText("Til baka");
+        jBackToIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBackToIndexActionPerformed(evt);
             }
         });
 
@@ -82,41 +122,57 @@ public class LogIn extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(83, 83, 83)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2))
+                            .addComponent(jLabelForUserName)
+                            .addComponent(jLabelForPassword))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                             .addComponent(jPassword)))
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jText))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(148, 148, 148)
-                        .addComponent(jLogIn))
+                        .addComponent(jLogIn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jBackToIndex))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(156, 156, 156)
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jWarning)))
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(148, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jUser)
+                .addGap(180, 180, 180))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(jText)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jText)
+                    .addComponent(jUser))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
+                    .addComponent(jLabelForUserName)
                     .addComponent(jUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
+                    .addComponent(jLabelForPassword)
                     .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jLogIn)
-                .addGap(35, 35, 35)
-                .addComponent(jWarning)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLogIn)
+                    .addComponent(jBackToIndex))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(35, 35, 35)
+                        .addComponent(jWarning))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(230, Short.MAX_VALUE))
         );
 
         pack();
@@ -131,14 +187,17 @@ public class LogIn extends javax.swing.JDialog {
         
         // ef notendanafn og lykilorð stemma er farið aftur í index
         if (verifyUser()) {
-            // láta vita? og láta loka?
-            dispose();
+            displayBookings();
         } else {
             jUserName.setText("");
             jPassword.setText("");
             jWarning.setText("Notendanafn eða lykilorð er vitlaust");
         }
     }//GEN-LAST:event_jLogInActionPerformed
+
+    private void jBackToIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackToIndexActionPerformed
+        dispose();
+    }//GEN-LAST:event_jBackToIndexActionPerformed
 
     /**
      * @param args the command line arguments
@@ -183,11 +242,15 @@ public class LogIn extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton jBackToIndex;
+    private javax.swing.JLabel jLabelForPassword;
+    private javax.swing.JLabel jLabelForUserName;
     private javax.swing.JButton jLogIn;
     private javax.swing.JPasswordField jPassword;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTable;
     private javax.swing.JLabel jText;
+    private javax.swing.JLabel jUser;
     private javax.swing.JTextField jUserName;
     private javax.swing.JLabel jWarning;
     // End of variables declaration//GEN-END:variables
