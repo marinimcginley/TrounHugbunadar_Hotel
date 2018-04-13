@@ -14,9 +14,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.xml.datatype.DatatypeConfigurationException;
 import Model.Hotel;
+import Model.Room;
 import java.awt.Dimension;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.table.DefaultTableModel;
 
 
 /**
@@ -29,6 +31,7 @@ public class Index extends javax.swing.JFrame {
     private LogIn logIn;
     
     private ArrayList<Hotel> aviableHotelList;
+    DefaultTableModel model;
     /**
      * Creates new form Index
      */
@@ -37,22 +40,35 @@ public class Index extends javax.swing.JFrame {
         
         aviableHotelList = new ArrayList<Hotel>();
         jTable.getTableHeader().setPreferredSize(new Dimension(10,35)); // stilli breidd og hæð á column head
+        model = (DefaultTableModel) jTable.getModel();
         
         // Gera hnapp ósýnilega
         jLogOut.setVisible(false);
     }
     
-    public void putListInTable() {
+    public void putListInTable(ArrayList<Hotel> hotelList) {
+        //Object[] row = new Object[11];
         
+        for(int i=0; i<hotelList.size(); i++) {
+            ArrayList<Room> hotelsRooms = hotelList.get(i).viewRooms();
+            for(int j=0; j<hotelsRooms.size(); j++) {
+                String hotelName = hotelList.get(i).getNameOfHotel();
+                String location = hotelList.get(i).getLocationOfHotel();
+                int price = hotelsRooms.get(j).getPriceForNight();
+                int grade = 0;
+                int NumberOfGrownup = hotelsRooms.get(j).getNumberOfAdults();
+                int numberOfChildren = hotelsRooms.get(j).getNumberOfChildren();
+                boolean handic = hotelList.get(i).getAviableForHandic();
+                boolean gym = hotelList.get(i).getGym();
+                boolean swimmingpool = hotelList.get(i).getSwimmingPool();
+                boolean wifi = hotelList.get(i).getWifi();
+                boolean pickup = hotelList.get(i).getPickUp();
+                boolean breakfast = hotelList.get(i).getBreakfastIncluded();
+                model.addRow(new Object[]{hotelName,location,price,grade,NumberOfGrownup,numberOfChildren,handic,gym,swimmingpool,wifi,pickup,breakfast});
+            }
+        }
     }
 
-    /*
-    Fallið birtir lista af hótelum sem eru laus  
-    */
-    private void setModel(ArrayList<Hotel> hotelList){
-        HotelListModel d = new HotelListModel(hotelList);
-        //jHotelList.setModel(d);
-    }
 
     public void initializeAfterLogIn() {
 
@@ -128,7 +144,10 @@ public class Index extends javax.swing.JFrame {
             }
         });
         jTable.setColumnSelectionAllowed(true);
+        jTable.setGridColor(new java.awt.Color(255, 255, 255));
         jTable.setRowHeight(20);
+        jTable.setSelectionBackground(new java.awt.Color(102, 102, 102));
+        jTable.setSelectionForeground(new java.awt.Color(255, 51, 204));
         jTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(jTable);
         jTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
@@ -206,8 +225,9 @@ public class Index extends javax.swing.JFrame {
         
         if(search.isVista() == true) {
             SearchList s = new SearchList();
-            ArrayList<Hotel> hotelList = s.getHotelList();
-            putListInTable();
+            String nafnHotel = search.searchGetHotelName();
+            ArrayList<Hotel> hotelList = s.getHotel("SELECT * FROM Hotel WHERE nameOfHotel LIKE '%" + nafnHotel + "%';");
+            putListInTable(hotelList);
         }
         //setModel(aviableHotelList);
     }//GEN-LAST:event_jSearchActionPerformed

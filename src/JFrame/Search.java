@@ -69,10 +69,15 @@ public class Search extends javax.swing.JDialog {
     public Boolean isVista(){
         return save;
     }
+    public String searchGetHotelName(){
+        if(jNameOfHotel.getText().toLowerCase() != " "){
+            return jNameOfHotel.getText().toLowerCase();
+        }
+        return "";
+    }
     
     public void getSerchQuery(){
         // sækjum það sem notandi fyllti út í leitinni
-        String nafnAHotel = jNameOfHotel.getText().toLowerCase();
         String stadsetning = jLocation.getText().toLowerCase();
         
         int manFra = Integer.valueOf(String.valueOf(jMonthFrom.getSelectedItem()));
@@ -377,7 +382,7 @@ public class Search extends javax.swing.JDialog {
         
         
         if(monthTo < monthFrom) {
-            showValidationMessage("Ekki er hægt að skrá sig út áður en það er innritað innritar sig.");
+            showValidationMessage("Ekki er hægt að skrá sig út áður en það er innritað.");
         } else if(monthTo == monthFrom & dayTo <= dayFrom) {
             showValidationMessage("Ekki er hægt að skrá sig út áður en það er innritað");
         } else if(priceTo < priceFrom) {
