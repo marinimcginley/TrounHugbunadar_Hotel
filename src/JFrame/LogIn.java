@@ -26,13 +26,13 @@ public class LogIn extends javax.swing.JDialog {
         initComponents();
         
         // virkar ekki að fela töflu
-        jTable.setVisible(false);
+        jPanelForTable.setVisible(false);
         jBackToIndex.setVisible(false);
     }
     
     public void displayBookings() {
         jUser.setText(userName);
-        jTable.setVisible(true);
+        jPanelForTable.setVisible(true);
         
         jLabelForUserName.setVisible(false);
         jLabelForPassword.setVisible(false);
@@ -73,12 +73,14 @@ public class LogIn extends javax.swing.JDialog {
         jLogIn = new javax.swing.JButton();
         jWarning = new javax.swing.JLabel();
         jPassword = new javax.swing.JPasswordField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTable = new javax.swing.JTable();
         jBackToIndex = new javax.swing.JButton();
         jUser = new javax.swing.JLabel();
+        jPanelForTable = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(695, 653));
 
         jLabelForUserName.setText("Notendanafn:");
 
@@ -90,6 +92,13 @@ public class LogIn extends javax.swing.JDialog {
         jLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLogInActionPerformed(evt);
+            }
+        });
+
+        jBackToIndex.setText("Til baka");
+        jBackToIndex.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBackToIndexActionPerformed(evt);
             }
         });
 
@@ -106,17 +115,32 @@ public class LogIn extends javax.swing.JDialog {
         ));
         jScrollPane1.setViewportView(jTable);
 
-        jBackToIndex.setText("Til baka");
-        jBackToIndex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBackToIndexActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanelForTableLayout = new javax.swing.GroupLayout(jPanelForTable);
+        jPanelForTable.setLayout(jPanelForTableLayout);
+        jPanelForTableLayout.setHorizontalGroup(
+            jPanelForTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanelForTableLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanelForTableLayout.setVerticalGroup(
+            jPanelForTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanelForTableLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 77, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jText)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jUser)
+                .addGap(180, 180, 180))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -134,17 +158,12 @@ public class LogIn extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jBackToIndex))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(688, 688, 688)
+                        .addComponent(jWarning))
+                    .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jWarning)))
-                .addContainerGap(148, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jText)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jUser)
-                .addGap(180, 180, 180))
+                        .addComponent(jPanelForTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(701, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,14 +184,11 @@ public class LogIn extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLogIn)
                     .addComponent(jBackToIndex))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(35, 35, 35)
-                        .addComponent(jWarning))
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(230, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(jWarning)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanelForTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(186, Short.MAX_VALUE))
         );
 
         pack();
@@ -246,6 +262,7 @@ public class LogIn extends javax.swing.JDialog {
     private javax.swing.JLabel jLabelForPassword;
     private javax.swing.JLabel jLabelForUserName;
     private javax.swing.JButton jLogIn;
+    private javax.swing.JPanel jPanelForTable;
     private javax.swing.JPasswordField jPassword;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable;
