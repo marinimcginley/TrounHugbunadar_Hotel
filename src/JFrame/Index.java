@@ -7,11 +7,14 @@ package JFrame;
 
 import databases.DatabaseConnection;
 import Storage.HotelListModel;
+import Model.SearchList;
+import JFrame.Search;
 import java.awt.List;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.xml.datatype.DatatypeConfigurationException;
 import Model.Hotel;
+import java.awt.Dimension;
 
 
 /**
@@ -23,7 +26,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel jUser;
     private LogIn logIn;
     
-    public Hotel test1;
     private ArrayList<Hotel> aviableHotelList;
     /**
      * Creates new form Index
@@ -31,26 +33,16 @@ public class Index extends javax.swing.JFrame {
     public Index() {
         initComponents();
         
-        //buaTilTestHotel();
         aviableHotelList = new ArrayList<Hotel>();
+        jTable.getTableHeader().setPreferredSize(new Dimension(10,35)); // stilli breidd og hæð á column head
     }
-    
-    private void buaTilTestHotel() {
-        test1 = new Hotel("Hotel Jökull", "Reykjavik", false, false, false, true, false, false);
-        System.out.println(test1.getNameOfHotel());
-        ArrayList<LocalDate> isBooked;
-        isBooked = new ArrayList<>();
-        LocalDate a = LocalDate.of(2018, 4, 13);
-        isBooked.add(a);
-        test1.addRoom(15000, 2, 1, isBooked);
-    }
-    
-        /*
+
+    /*
     Fallið birtir lista af hótelum sem eru laus  
     */
     private void setModel(ArrayList<Hotel> hotelList){
         HotelListModel d = new HotelListModel(hotelList);
-        jHotelList.setModel(d);
+        //jHotelList.setModel(d);
     }
 
     public void initializeAfterLogIn() {
@@ -81,8 +73,8 @@ public class Index extends javax.swing.JFrame {
         jLogIn = new javax.swing.JButton();
         jSignInFirstTime = new javax.swing.JButton();
         jSearch = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jHotelList = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable = new javax.swing.JTable();
 
         jTextField1.setText("jTextField1");
 
@@ -111,34 +103,49 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
-        jHotelList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
+        jTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Hotel", "Staðsetning", "Verð", "Einkunn", "<html>Fjöldi<br>fullorðna</html>", "Fjöldi barna", "<html>Aðfengi fyrir<br> hreyfihamlaða</html>", "Ræktin", "Sundlaug", "WIFI", "<html>Aksturs-<br>þjónusta</btml>", "<html> Morgunmatur<br> innifalinn</html>"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
         });
-        jScrollPane1.setViewportView(jHotelList);
+        jTable.setColumnSelectionAllowed(true);
+        jTable.setRowHeight(20);
+        jTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(jTable);
+        jTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 885, Short.MAX_VALUE)
                         .addComponent(jLogIn)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSignInFirstTime))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
                         .addContainerGap())))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addContainerGap())
+                .addGap(355, 355, 355))
             .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
+                .addGap(496, 496, 496)
                 .addComponent(jSearch)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -149,13 +156,13 @@ public class Index extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLogIn)
                     .addComponent(jSignInFirstTime))
-                .addGap(18, 18, 18)
+                .addGap(13, 13, 13)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jSearch)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,9 +177,11 @@ public class Index extends javax.swing.JFrame {
         // Ef isVista() == true þá birtum við lista af hótelum fyrir neðan
         
         if(search.isVista() == true) {
-            aviableHotelList.add(test1);
+            SearchList s = new SearchList();
+            ArrayList<Hotel> hotelList = s.getHotelList();
+            putListInTable();
         }
-        setModel(aviableHotelList);
+        //setModel(aviableHotelList);
     }//GEN-LAST:event_jSearchActionPerformed
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
@@ -207,12 +216,12 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> jHotelList;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton jLogIn;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton jSearch;
     private javax.swing.JButton jSignInFirstTime;
+    private javax.swing.JTable jTable;
     private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
