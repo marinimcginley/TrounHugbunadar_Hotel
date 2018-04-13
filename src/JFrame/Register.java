@@ -39,6 +39,7 @@ public class Register extends javax.swing.JDialog {
         return userName;
     }
     
+    // checkar ef lykilorð er af hæfilegri lengd
     public boolean verifyPasswordLength() {
         System.out.println("username: " + userName + ", length: " + userName.length());
         if (sPassword.length() > 8 && sPassword.length() < 24) {
