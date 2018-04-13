@@ -63,6 +63,8 @@ public class DatabaseConnection {
         System.out.println("Table created successfully");
     } */
     
+  
+    
     // Skilar true ef notendanafn er þegar í töflunni, annars false
     public static boolean checkIfUsernameExistsInTable(String username) {
         Connection c = null;
