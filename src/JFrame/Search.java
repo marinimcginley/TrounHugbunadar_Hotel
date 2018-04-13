@@ -76,9 +76,76 @@ public class Search extends javax.swing.JDialog {
         return "";
     }
     
+    public String searchGetLocation(){
+        if(jLocation.getText().toLowerCase() != " ") {
+            return jLocation.getText().toLowerCase();
+        }
+        return "";
+    }
+    public int searchGetPriceFrom(){
+        if(String.valueOf(jPriceFrom.getSelectedItem()) != " ") {
+            return Integer.valueOf(String.valueOf(jPriceFrom.getSelectedItem()));
+        }
+        return -1;
+    }
+    public int searchGetPriceTo(){
+        if(String.valueOf(jPriceTo.getSelectedItem()) != " ") {
+            return Integer.valueOf(String.valueOf(jPriceTo.getSelectedItem()));
+        }
+        return -1;
+    }
+    public int searchGetGradeFrom(){
+        if(String.valueOf(jGradeFrom.getSelectedItem()) != " "){
+            return Integer.valueOf(String.valueOf(jGradeFrom.getSelectedItem()));
+        }
+        return -1;
+    }
+    public int searchGetGradeTo(){
+        if(String.valueOf(jGradeTo.getSelectedItem()) != " "){
+            return Integer.valueOf(String.valueOf(jGradeTo.getSelectedItem()));
+        }
+        return -1;
+    }
+    public String searchGetWifi(){
+        if(jWifi.isSelected()){
+            return "1";
+        }
+        return "";
+    }
+    public String searchGetHandic(){
+        if(jAviableForHandic.isSelected()){
+            return "1";
+        }
+        return "";
+    }
+    public String searchGetPickup(){
+        if(jPickUp.isSelected()){
+            return "1";
+        }
+        return "";
+    }
+    public String searchGetBreakfast(){
+        if(jBreakfastIncluded.isSelected()){
+            return "1";
+        }
+        return "";
+    }
+    public String searchGetSwimmingpool(){
+        if(jPool.isSelected()){
+            return "1";
+        }
+        return "";
+    }
+    public String searchGetGym(){
+        if(jGym.isSelected()){
+            return "1";
+        }
+        return "";
+    }
+    
+    
     public void getSerchQuery(){
         // sækjum það sem notandi fyllti út í leitinni
-        String stadsetning = jLocation.getText().toLowerCase();
         
         int manFra = Integer.valueOf(String.valueOf(jMonthFrom.getSelectedItem()));
         int dagFra = Integer.valueOf(String.valueOf(jDayFrom.getSelectedItem()));
@@ -86,18 +153,6 @@ public class Search extends javax.swing.JDialog {
         int manTil = Integer.valueOf(String.valueOf(jMonthTo.getSelectedItem()));
         int dagTil = Integer.valueOf(String.valueOf(jDayTo.getSelectedItem()));
         
-        int verdFra = Integer.valueOf(String.valueOf(jPriceFrom.getSelectedItem()));
-        int verdTil = Integer.valueOf(String.valueOf(jPriceTo.getSelectedItem()));
-        
-        int medmaeliFra = Integer.valueOf(String.valueOf(jGradeFrom.getSelectedItem()));
-        int medmaeliTil = Integer.valueOf(String.valueOf(jGradeTo.getSelectedItem()));
-        
-        boolean selectedWifi = jWifi.isSelected();
-        boolean selectedAviableHandic = jAviableForHandic.isSelected();
-        boolean selectedPickUp = jPickUp.isSelected();
-        boolean selectedBreakfast = jBreakfastIncluded.isSelected();
-        boolean selectedPool = jPool.isSelected();
-        boolean selectedGym = jGym.isSelected();
         
         
         // Spurning hvernig við viljum skila hér. Ætlum að búa til Query streng hér eða senda
@@ -374,11 +429,23 @@ public class Search extends javax.swing.JDialog {
         int monthFrom = Integer.parseInt(jMonthFrom.getSelectedItem().toString());
         int monthTo = Integer.parseInt(jMonthTo.getSelectedItem().toString());
         
-        int priceFrom = Integer.parseInt(jPriceFrom.getSelectedItem().toString());
-        int priceTo = Integer.parseInt(jPriceTo.getSelectedItem().toString());
+        int priceFrom = 0;
+        if(jPriceFrom.getSelectedItem().toString().isEmpty()){
+            priceFrom = Integer.parseInt(jMonthFrom.getSelectedItem().toString());
+        }
+        int priceTo = 100000; // frumstilli það sem eitthvað mjög hátt
+        if(jPriceTo.getSelectedItem().toString().isEmpty()){
+            priceTo = Integer.parseInt(jPriceTo.getSelectedItem().toString());
+        }
         
-        int gradeFrom = Integer.parseInt(jGradeFrom.getSelectedItem().toString());
-        int gradeTo = Integer.parseInt(jGradeTo.getSelectedItem().toString());
+        int gradeFrom = 0;
+        if(jGradeFrom.getSelectedItem().toString().isEmpty()){
+            gradeFrom = Integer.parseInt(jGradeFrom.getSelectedItem().toString());
+        }
+        int gradeTo = 10; // frumstilli sem hæsta
+        if(jGradeTo.getSelectedItem().toString().isEmpty()){
+            gradeTo = Integer.parseInt(jGradeTo.getSelectedItem().toString());
+        }
         
         
         if(monthTo < monthFrom) {

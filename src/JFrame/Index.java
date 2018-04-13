@@ -226,7 +226,31 @@ public class Index extends javax.swing.JFrame {
         if(search.isVista() == true) {
             SearchList s = new SearchList();
             String nafnHotel = search.searchGetHotelName();
-            ArrayList<Hotel> hotelList = s.getHotel("SELECT * FROM Hotel WHERE nameOfHotel LIKE '%" + nafnHotel + "%';");
+            String location = search.searchGetLocation();
+            int gradeFrom = search.searchGetGradeFrom();
+            int gradeTo = search.searchGetGradeTo();
+            int priceFrom = search.searchGetPriceFrom();
+            int priceTo = search.searchGetPriceTo();
+            if(gradeTo == -1) {
+                gradeTo = 1000000; // stilli sem eitthvað mjög stórt;
+            }
+            String wifi = search.searchGetWifi();
+            String handic = search.searchGetHandic();
+            String pickUp = search.searchGetPickup();
+            String breakfast =search.searchGetBreakfast();
+            String swimming = search.searchGetSwimmingpool();
+            String gym = search.searchGetGym();
+
+            ArrayList<Hotel> hotelList = s.getHotel("SELECT * FROM Hotel WHERE nameOfHotel LIKE '%" + nafnHotel + "%'"
+                    + " AND location LIKE '%" + location +"%'"
+                    + " AND aviableForHandic LIKE '%" + handic + "%'"
+                    + " AND gym LIKE '%" + gym + "%'"    
+                    + " AND swimmingPool LIKE '%" + swimming + "%'"
+                    + " AND wifi LIKE '%" + wifi + "%'"
+                    + " AND pickUp LIKE '%" + pickUp + "%'"
+                    + " AND breakfastIncluded LIKE '%" + breakfast + "%'"        
+                    + " AND grade > " + gradeFrom + " AND grade < " + gradeTo);
+            System.out.println("size og hotelList : " + hotelList.size());
             putListInTable(hotelList);
         }
         //setModel(aviableHotelList);
