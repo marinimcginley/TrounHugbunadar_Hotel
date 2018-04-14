@@ -20,7 +20,7 @@ public class DaysModel extends DefaultComboBoxModel {
         lista
      */
      public DaysModel(ArrayList<Integer> man){
-         addElement(" ");
+         addElement("");
          for(int a=0; a<man.size(); a++){
             if(a<9)
                 addElement("0"+man.get(a));

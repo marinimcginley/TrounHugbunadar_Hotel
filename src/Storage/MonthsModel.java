@@ -21,7 +21,7 @@ public class MonthsModel extends DefaultComboBoxModel  {
     */
     public MonthsModel(int[] man){
         this.manudir = man;
-        addElement(" ");
+        addElement("");
         for(int a=0; a<manudir.length; a++) {
             if(a<9)
                 addElement("0"+manudir[a]);

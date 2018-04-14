@@ -7,10 +7,8 @@ package JFrame;
 
 import Storage.DaysModel;
 import Storage.MonthsModel;
-import java.awt.CheckboxGroup;
 import java.util.ArrayList;
 import javax.swing.JComboBox;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -82,18 +80,6 @@ public class Search extends javax.swing.JDialog {
         }
         return "";
     }
-    public int searchGetPriceFrom(){
-        if(String.valueOf(jPriceFrom.getSelectedItem()) != " ") {
-            return Integer.valueOf(String.valueOf(jPriceFrom.getSelectedItem()));
-        }
-        return -1;
-    }
-    public int searchGetPriceTo(){
-        if(String.valueOf(jPriceTo.getSelectedItem()) != " ") {
-            return Integer.valueOf(String.valueOf(jPriceTo.getSelectedItem()));
-        }
-        return -1;
-    }
     public int searchGetGradeFrom(){
         if(String.valueOf(jGradeFrom.getSelectedItem()) != " "){
             return Integer.valueOf(String.valueOf(jGradeFrom.getSelectedItem()));
@@ -142,22 +128,60 @@ public class Search extends javax.swing.JDialog {
         }
         return "";
     }
-    
-    
-    public void getSerchQuery(){
-        // sækjum það sem notandi fyllti út í leitinni
+    public String searchGetDateFrom() {
+        int dayFrom = 0;
+        if(jDayFrom.getSelectedItem() != null){
+            dayFrom = Integer.parseInt(jDayFrom.getSelectedItem().toString());
+        }
+        int monthFrom = 0;
+        if(jMonthFrom.getSelectedItem().toString() != ""){
+            monthFrom = Integer.parseInt(jMonthFrom.getSelectedItem().toString());
+        }
+        if(monthFrom != 0 && dayFrom != 0){
+            return "2018-"+monthFrom+"-"+dayFrom;
+        }
         
-        int manFra = Integer.valueOf(String.valueOf(jMonthFrom.getSelectedItem()));
-        int dagFra = Integer.valueOf(String.valueOf(jDayFrom.getSelectedItem()));
-        
-        int manTil = Integer.valueOf(String.valueOf(jMonthTo.getSelectedItem()));
-        int dagTil = Integer.valueOf(String.valueOf(jDayTo.getSelectedItem()));
-        
-        
-        
-        // Spurning hvernig við viljum skila hér. Ætlum að búa til Query streng hér eða senda
-        // til baka það sem leitað var eftir og annað klasi ser um að búa til QueryStreng.
+        return "";
     }
+    public String searchGetDateTo(){
+        int dayTo = 0;
+        if(jDayTo.getSelectedItem() != null){
+            dayTo = Integer.parseInt(jDayTo.getSelectedItem().toString());
+        }
+        int monthTo = 0;
+        if(jMonthTo.getSelectedItem().toString() != ""){
+            monthTo = Integer.parseInt(jMonthTo.getSelectedItem().toString());
+        }
+        if(monthTo != 0 && dayTo != 0){
+            return "2018-"+monthTo+"-"+dayTo;
+        }
+        
+        return "";
+    }
+    public String searchGetPriceFrom(){
+        if(String.valueOf(jPriceFrom.getSelectedItem()) != " ") {
+            return jPriceFrom.getSelectedItem().toString();
+        }
+        return "0";
+    }
+    public String searchGetPriceTo(){
+        if(String.valueOf(jPriceTo.getSelectedItem()) != " ") {
+            return jPriceTo.getSelectedItem().toString();
+        }
+        return "300000";
+    }
+    public String searchGetGrownUp(){
+        return jGrownUp.getSelectedItem().toString();
+    }
+    public String searchGetChildren(){
+        if(jChildren.getSelectedItem().toString() != " "){
+            return jChildren.getSelectedItem().toString();
+        }
+        return "";
+    }
+    
+    
+    
     
     private void showValidationMessage(String errorInformation) {
         String[] options = {"Ok", "Hætta við"};
@@ -216,6 +240,15 @@ public class Search extends javax.swing.JDialog {
         jPickUp = new javax.swing.JCheckBox();
         jBreakfastIncluded = new javax.swing.JCheckBox();
         jUserName = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jGrownUp = new javax.swing.JComboBox<>();
+        jLabel19 = new javax.swing.JLabel();
+        jChildren = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -238,23 +271,17 @@ public class Search extends javax.swing.JDialog {
             }
         });
 
-        jMonthFrom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jMonthFrom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMonthFromActionPerformed(evt);
             }
         });
 
-        jDayFrom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        jMonthTo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         jMonthTo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMonthToActionPerformed(evt);
             }
         });
-
-        jDayTo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jPriceFrom.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " ", "0", "5000", "10000", "15000", "20000", "25000", "30000" }));
 
@@ -288,6 +315,24 @@ public class Search extends javax.swing.JDialog {
 
         jBreakfastIncluded.setText("Morgunmatur innifalinn");
 
+        jLabel13.setText("Engilega fylltu út eftir hvaða upplýsingum þú vilt leita að hóteli");
+
+        jLabel14.setText("mán.");
+
+        jLabel15.setText("dag.");
+
+        jLabel16.setText("mán.");
+
+        jLabel17.setText("dag.");
+
+        jLabel18.setText("Fjöldi fullorðna : ");
+
+        jGrownUp.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4" }));
+
+        jLabel19.setText("Fjöldi barna : ");
+
+        jChildren.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "1", "2", "3", "4" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -296,126 +341,170 @@ public class Search extends javax.swing.JDialog {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPickUp)
-                        .addGap(18, 18, 18)
-                        .addComponent(jBreakfastIncluded)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jSearch)
-                        .addGap(28, 28, 28))
-                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jNameOfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jUserName))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addComponent(jLabel3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jMonthFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel14))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel15)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jDayFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(jLabel10)
+                                                    .addGap(116, 116, 116)
+                                                    .addComponent(jLabel4)))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jMonthTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addComponent(jLabel16))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(jLabel17)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addComponent(jDayTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                    .addComponent(jLabel11))))
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGap(43, 43, 43)
+                                            .addComponent(jWifi)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jGym)
+                                            .addGap(62, 62, 62)
+                                            .addComponent(jPool)
+                                            .addGap(34, 34, 34)))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jMonthFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jDayFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel10)
-                                        .addGap(31, 31, 31)
-                                        .addComponent(jLabel4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jMonthTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jDayTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel11))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLocation, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel6)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jGradeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jGradeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPriceFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jPriceTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jLabel9))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jWifi)
+                                        .addGap(154, 154, 154)
+                                        .addComponent(jPickUp)
                                         .addGap(18, 18, 18)
-                                        .addComponent(jPool)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jGym)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jAviableForHandic))
-                                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jBreakfastIncluded)))
                                 .addGap(0, 0, Short.MAX_VALUE)))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLocation, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                                    .addComponent(jNameOfHotel)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jPriceFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jPriceTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel9))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jGradeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jGradeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jSearch)
+                            .addComponent(jAviableForHandic))
+                        .addGap(58, 58, 58))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jGrownUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel19)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jChildren, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(131, 131, 131)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel13)
+                    .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 141, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jUserName)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jNameOfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jUserName))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jNameOfHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(jLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
+                    .addComponent(jLabel16)
+                    .addComponent(jLabel17)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addGap(4, 4, 4)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jMonthFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jDayFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jMonthTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jDayTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel11)
                     .addComponent(jLabel10)
-                    .addComponent(jLabel11))
-                .addGap(18, 18, 18)
+                    .addComponent(jDayFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jMonthFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(25, 25, 25)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(jGrownUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel19)
+                    .addComponent(jChildren, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 25, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jPriceFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jPriceTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9))
-                .addGap(14, 14, 14)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(jGradeFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8)
                     .addComponent(jGradeTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(25, 25, 25)
                 .addComponent(jLabel12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(5, 5, 5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jWifi)
-                    .addComponent(jPool)
                     .addComponent(jGym)
+                    .addComponent(jPool)
                     .addComponent(jAviableForHandic))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
-                        .addComponent(jSearch)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jPickUp)
-                            .addComponent(jBreakfastIncluded))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jPickUp)
+                    .addComponent(jBreakfastIncluded))
+                .addGap(15, 15, 15)
+                .addComponent(jSearch)
+                .addContainerGap())
         );
 
         pack();
@@ -424,33 +513,45 @@ public class Search extends javax.swing.JDialog {
     private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
         // hér fer fram validation ! 
         
-        int dayFrom = Integer.parseInt(jDayFrom.getSelectedItem().toString());
-        int dayTo = Integer.parseInt(jDayTo.getSelectedItem().toString());
-        int monthFrom = Integer.parseInt(jMonthFrom.getSelectedItem().toString());
-        int monthTo = Integer.parseInt(jMonthTo.getSelectedItem().toString());
+        int dayFrom = 0;
+        if(jDayFrom.getSelectedItem() != null){
+            dayFrom = Integer.parseInt(jDayFrom.getSelectedItem().toString());
+        }
+        int dayTo = 0;
+        if(jDayTo.getSelectedItem() != null){
+            dayTo = Integer.parseInt(jDayTo.getSelectedItem().toString());
+        }
+        int monthFrom = 0;
+        if(jMonthFrom.getSelectedItem().toString() != ""){
+            monthFrom = Integer.parseInt(jMonthFrom.getSelectedItem().toString());
+        }
+        int monthTo = 0;
+        if(jMonthTo.getSelectedItem().toString() != ""){
+            monthTo = Integer.parseInt(jMonthTo.getSelectedItem().toString());
+        }
         
         int priceFrom = 0;
-        if(jPriceFrom.getSelectedItem().toString().isEmpty()){
-            priceFrom = Integer.parseInt(jMonthFrom.getSelectedItem().toString());
+        if(jPriceFrom.getSelectedItem().toString() != " "){
+            priceFrom = Integer.parseInt(jPriceFrom.getSelectedItem().toString());
         }
         int priceTo = 100000; // frumstilli það sem eitthvað mjög hátt
-        if(jPriceTo.getSelectedItem().toString().isEmpty()){
+        if(jPriceTo.getSelectedItem().toString() != " "){
             priceTo = Integer.parseInt(jPriceTo.getSelectedItem().toString());
         }
         
         int gradeFrom = 0;
-        if(jGradeFrom.getSelectedItem().toString().isEmpty()){
+        if(jGradeFrom.getSelectedItem().toString() != " "){
             gradeFrom = Integer.parseInt(jGradeFrom.getSelectedItem().toString());
         }
         int gradeTo = 10; // frumstilli sem hæsta
-        if(jGradeTo.getSelectedItem().toString().isEmpty()){
+        if(jGradeTo.getSelectedItem().toString() != " "){
             gradeTo = Integer.parseInt(jGradeTo.getSelectedItem().toString());
         }
         
         
-        if(monthTo < monthFrom) {
+        if((monthTo < monthFrom) && monthTo != 0 && monthFrom != 0) {
             showValidationMessage("Ekki er hægt að skrá sig út áður en það er innritað.");
-        } else if(monthTo == monthFrom & dayTo <= dayFrom) {
+        } else if(monthTo == monthFrom & dayTo <= dayFrom && monthTo != 0 && monthFrom != 0) {
             showValidationMessage("Ekki er hægt að skrá sig út áður en það er innritað");
         } else if(priceTo < priceFrom) {
             showValidationMessage("Verðbil er ekki rétt valið");
@@ -576,15 +677,24 @@ public class Search extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox jAviableForHandic;
     private javax.swing.JCheckBox jBreakfastIncluded;
+    private javax.swing.JComboBox<String> jChildren;
     private javax.swing.JComboBox<String> jDayFrom;
     private javax.swing.JComboBox<String> jDayTo;
     private javax.swing.JComboBox<String> jGradeFrom;
     private javax.swing.JComboBox<String> jGradeTo;
+    private javax.swing.JComboBox<String> jGrownUp;
     private javax.swing.JCheckBox jGym;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

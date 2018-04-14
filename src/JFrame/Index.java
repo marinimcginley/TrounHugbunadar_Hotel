@@ -5,19 +5,11 @@
  */
 package JFrame;
 
-import databases.DatabaseConnection;
-import Storage.HotelListModel;
 import Model.SearchList;
-import JFrame.Search;
-import java.awt.List;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import javax.xml.datatype.DatatypeConfigurationException;
 import Model.Hotel;
 import Model.Room;
 import java.awt.Dimension;
-import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -29,21 +21,35 @@ public class Index extends javax.swing.JFrame {
 
 
     private LogIn logIn;
-    
-    private ArrayList<Hotel> aviableHotelList;
     DefaultTableModel model;
+    
+    public String listHotelName;
+    public String lsitLocation;
+    public String listPrice;
+    public String listGrownUp;
+    public String listChildren;
+    
+    
     /**
      * Creates new form Index
      */
     public Index() {
         initComponents();
         
-        aviableHotelList = new ArrayList<Hotel>();
         jTable.getTableHeader().setPreferredSize(new Dimension(10,35)); // stilli breidd og hæð á column head
         model = (DefaultTableModel) jTable.getModel();
         
         // Gera hnapp ósýnilega
         jLogOut.setVisible(false);
+        initializeTableInStart();
+        
+        
+    }
+    
+    private void initializeTableInStart(){
+        SearchList s = new SearchList();
+        ArrayList<Hotel> allHotel = s.getAllHotel();
+        putListInTable(allHotel);
     }
     
     public void putListInTable(ArrayList<Hotel> hotelList) {
@@ -99,11 +105,13 @@ public class Index extends javax.swing.JFrame {
         jTable = new javax.swing.JTable();
         jLogOut = new javax.swing.JButton();
         jUserName = new javax.swing.JLabel();
+        jBook = new javax.swing.JButton();
 
         jTextField1.setText("jTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jText.setFont(new java.awt.Font("Consolas", 0, 14)); // NOI18N
         jText.setText("Velkomin inná forritið okkar.  Hér getur þú leita að hóteli á Íslandi :");
 
         jLogIn.setText("Innskráning");
@@ -120,6 +128,7 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        jSearch.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jSearch.setText("Byrja leit");
         jSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,6 +136,8 @@ public class Index extends javax.swing.JFrame {
             }
         });
 
+        jTable.setBorder(new javax.swing.border.MatteBorder(null));
+        jTable.setFont(new java.awt.Font("Consolas", 0, 11)); // NOI18N
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -143,12 +154,16 @@ public class Index extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable.setColumnSelectionAllowed(true);
         jTable.setGridColor(new java.awt.Color(255, 255, 255));
         jTable.setRowHeight(20);
-        jTable.setSelectionBackground(new java.awt.Color(102, 102, 102));
-        jTable.setSelectionForeground(new java.awt.Color(255, 51, 204));
+        jTable.setSelectionBackground(new java.awt.Color(204, 204, 204));
+        jTable.setSelectionForeground(new java.awt.Color(0, 51, 255));
         jTable.getTableHeader().setReorderingAllowed(false);
+        jTable.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(jTable);
         jTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
@@ -156,6 +171,13 @@ public class Index extends javax.swing.JFrame {
         jLogOut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLogOutActionPerformed(evt);
+            }
+        });
+
+        jBook.setText("Bóka");
+        jBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBookActionPerformed(evt);
             }
         });
 
@@ -174,17 +196,22 @@ public class Index extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2)
                         .addContainerGap())))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(382, Short.MAX_VALUE)
-                .addComponent(jText)
-                .addGap(150, 150, 150)
-                .addComponent(jUserName)
-                .addGap(63, 63, 63)
-                .addComponent(jLogOut))
             .addGroup(layout.createSequentialGroup()
-                .addGap(496, 496, 496)
+                .addGap(410, 410, 410)
                 .addComponent(jSearch)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(176, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jText)
+                        .addGap(104, 104, 104)
+                        .addComponent(jUserName)
+                        .addGap(63, 63, 63)
+                        .addComponent(jLogOut))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jBook, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(105, 105, 105))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,22 +221,24 @@ public class Index extends javax.swing.JFrame {
                     .addComponent(jLogIn)
                     .addComponent(jRegister))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jText)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLogOut)
-                        .addComponent(jUserName)))
-                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLogOut)
+                    .addComponent(jUserName)
+                    .addComponent(jText))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSearch)
-                .addGap(18, 18, 18)
+                .addGap(25, 25, 25)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jBook, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
+        model.setRowCount(0); // hreinsum töfluna
         Search search = null;
         
         if (logIn == null) {
@@ -220,17 +249,13 @@ public class Index extends javax.swing.JFrame {
 
         search.setVisible(true);
         
-        // útvega svo eins og í AdalDagra.java í Dagska verkefninu.
-        // Ef isVista() == true þá birtum við lista af hótelum fyrir neðan
-        
         if(search.isVista() == true) {
             SearchList s = new SearchList();
+            
             String nafnHotel = search.searchGetHotelName();
             String location = search.searchGetLocation();
             int gradeFrom = search.searchGetGradeFrom();
             int gradeTo = search.searchGetGradeTo();
-            int priceFrom = search.searchGetPriceFrom();
-            int priceTo = search.searchGetPriceTo();
             if(gradeTo == -1) {
                 gradeTo = 1000000; // stilli sem eitthvað mjög stórt;
             }
@@ -240,6 +265,15 @@ public class Index extends javax.swing.JFrame {
             String breakfast =search.searchGetBreakfast();
             String swimming = search.searchGetSwimmingpool();
             String gym = search.searchGetGym();
+            
+            
+            String dateFrom = search.searchGetDateFrom();
+            String dateTo = search.searchGetDateTo();
+            String priceFrom = search.searchGetPriceFrom();
+            String priceTo = search.searchGetPriceTo();
+            String grownUp = search.searchGetGrownUp();
+            String children = search.searchGetChildren();
+            
 
             ArrayList<Hotel> hotelList = s.getHotel("SELECT * FROM Hotel WHERE nameOfHotel LIKE '%" + nafnHotel + "%'"
                     + " AND location LIKE '%" + location +"%'"
@@ -249,11 +283,11 @@ public class Index extends javax.swing.JFrame {
                     + " AND wifi LIKE '%" + wifi + "%'"
                     + " AND pickUp LIKE '%" + pickUp + "%'"
                     + " AND breakfastIncluded LIKE '%" + breakfast + "%'"        
-                    + " AND grade > " + gradeFrom + " AND grade < " + gradeTo);
-            System.out.println("size og hotelList : " + hotelList.size());
+                    + " AND grade > " + gradeFrom + " AND grade < " + gradeTo,
+                    dateFrom, dateTo, priceFrom, priceTo, grownUp, children);
+            
             putListInTable(hotelList);
         }
-        //setModel(aviableHotelList);
     }//GEN-LAST:event_jSearchActionPerformed
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
@@ -281,6 +315,24 @@ public class Index extends javax.swing.JFrame {
         jRegister.setVisible(true);
     }//GEN-LAST:event_jLogOutActionPerformed
 
+    private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
+        
+        int row = jTable.getSelectedRow();
+        
+        listHotelName = model.getValueAt(row,0).toString();
+        System.out.println(listHotelName);
+        lsitLocation = model.getValueAt(row,1).toString();
+        listPrice = model.getValueAt(row,2).toString();
+        listGrownUp = model.getValueAt(row,4).toString();
+        listChildren = model.getValueAt(row,5).toString();
+        
+    }//GEN-LAST:event_jTableMouseClicked
+
+    private void jBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBookActionPerformed
+        Booking newBooking = new Booking(this, true, this);
+        newBooking.setVisible(true);
+    }//GEN-LAST:event_jBookActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -297,6 +349,7 @@ public class Index extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBook;
     private javax.swing.JButton jLogIn;
     private javax.swing.JButton jLogOut;
     private javax.swing.JButton jRegister;

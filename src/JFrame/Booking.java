@@ -5,18 +5,38 @@
  */
 package JFrame;
 
+import javax.swing.JFrame;
+
 /**
  *
  * @author marinmcginley
  */
 public class Booking extends javax.swing.JDialog {
 
+    private Index getFromTable;
     /**
      * Creates new form Booking
      */
-    public Booking(java.awt.Frame parent, boolean modal) {
+    public Booking(java.awt.Frame parent, boolean modal, Index adal) {
         super(parent, modal);
         initComponents();
+        
+        getFromTable = adal;
+        
+        setInfo();
+    }
+
+    private Booking(JFrame jFrame, boolean b) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    private void setInfo() {
+        //Index getFromTable = new Index();
+        jHotel.setText(getFromTable.listHotelName);
+        jLocation.setText(getFromTable.lsitLocation);
+        jPrice.setText(getFromTable.listPrice);
+        jGrownUp.setText(getFromTable.listGrownUp);
+        jChildren.setText(getFromTable.listChildren);
     }
 
     /**
@@ -28,17 +48,89 @@ public class Booking extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jHotel = new javax.swing.JTextField();
+        jLocation = new javax.swing.JTextField();
+        jPrice = new javax.swing.JTextField();
+        jGrownUp = new javax.swing.JTextField();
+        jChildren = new javax.swing.JTextField();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        jLabel1.setText("Hotel :");
+
+        jLabel2.setText("Staðsetning : ");
+
+        jLabel3.setText("Verð :");
+
+        jLabel4.setText("Fjöldi fullorðna :");
+
+        jLabel5.setText("Fjöldi barna : ");
+
+        jHotel.setEditable(false);
+        jHotel.setText("jTextField1");
+
+        jLocation.setEditable(false);
+        jLocation.setText("jTextField2");
+
+        jPrice.setEditable(false);
+        jPrice.setText("jTextField3");
+
+        jGrownUp.setEditable(false);
+        jGrownUp.setText("jTextField4");
+
+        jChildren.setEditable(false);
+        jChildren.setText("jTextField5");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jHotel, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                    .addComponent(jLocation)
+                    .addComponent(jPrice)
+                    .addComponent(jGrownUp)
+                    .addComponent(jChildren))
+                .addContainerGap(131, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jLocation, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(jGrownUp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5)
+                    .addComponent(jChildren, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(134, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,5 +179,15 @@ public class Booking extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField jChildren;
+    private javax.swing.JTextField jGrownUp;
+    private javax.swing.JTextField jHotel;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JTextField jLocation;
+    private javax.swing.JTextField jPrice;
     // End of variables declaration//GEN-END:variables
 }
