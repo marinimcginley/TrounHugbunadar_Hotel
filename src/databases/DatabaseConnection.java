@@ -71,7 +71,7 @@ public class DatabaseConnection {
         Statement stmt = null;
         try {
             c = getConnection();
-            String query = "SELECT userName FROM Users WHERE userName IS " + username;
+            String query = "SELECT userName FROM Users WHERE userName IS '" + username + "'";
             PreparedStatement p = c.prepareStatement(query);
             ResultSet r = p.executeQuery();
             String un = r.getString(1);
@@ -81,7 +81,7 @@ public class DatabaseConnection {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("INSERT ERROR (í check): " + e.getMessage());
+            System.out.println(e.getMessage());
            
         }
         return false;
@@ -98,28 +98,38 @@ public class DatabaseConnection {
             System.out.println("Innsetning á nýju notendanafni: " + username + ", og lykilorði tókst");
         } catch (Exception e) {
             System.out.println("INSERT ERROR: " + e.getMessage());
-            return;
         }
+        return;
     }
     
     // skilar true ef notendanafn passar við lykilorð í gagnagrunni, annars false
     public static boolean logIn(String username, String passwordHash) {
         Connection c = null;
         try {
+            
             c = getConnection();
-            String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
+            
+            System.out.println("passwordHash: " + passwordHash);
+            String stmt = "SELECT userName FROM Users WHERE userName = '" + username + "' AND password = '" + passwordHash + "'";
             PreparedStatement p = c.prepareStatement(stmt);
             ResultSet r = p.executeQuery();
             String un = r.getString(1);
-            if (un.isEmpty()) {
-                return false;
-            }
+            System.out.println(un);
             r.close();
             c.close();
+            if (un.isEmpty()) {
+                System.out.println("false í login");
+                return false;
+            } else {
+                System.out.println("true í login");
+                return true;
+            }
+            
         } catch (Exception e) {
-            System.out.println("INSERT ERROR: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
-        return true;
+        return false;
+        
     }
     
 }

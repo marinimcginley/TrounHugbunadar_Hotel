@@ -45,7 +45,7 @@ public class Register extends javax.swing.JDialog {
     // checkar ef lykilorð er af hæfilegri lengd
     public boolean verifyPasswordLength() {
         System.out.println("username: " + userName + ", length: " + userName.length());
-        if (sPassword.length() > 8 && sPassword.length() < 24) {
+        if (sPassword.length() > 7 && sPassword.length() < 24) {
             
             return true;
         } else return false;
@@ -70,7 +70,7 @@ public class Register extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Skrá netfang");
+        jLabel1.setText("Skrá notendanafn");
 
         jLabel2.setText("Búa til lykilorð");
 
@@ -101,17 +101,13 @@ public class Register extends javax.swing.JDialog {
                         .addGap(114, 114, 114)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))))
+                            .addComponent(jLabel2)
+                            .addComponent(jRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(83, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jWarning)
-                        .addGap(168, 168, 168))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(125, 125, 125))))
+                .addComponent(jWarning)
+                .addGap(168, 168, 168))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,9 +122,9 @@ public class Register extends javax.swing.JDialog {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jRegister)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addComponent(jRegister, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jWarning)
                 .addGap(225, 225, 225))
         );
@@ -156,14 +152,14 @@ public class Register extends javax.swing.JDialog {
             } else {
                 jUserName.setText("");
                 jPassword.setText("");
-                jWarning.setText("Lengd notendanafns þarf að vera a.m.k. 8 stafir og í mesta lagi 25");
+                jWarning.setText("Lengd lykilorðs þarf að vera a.m.k. 8 stafir og í mesta lagi 25");
             }
             
 
         } else {
             jUserName.setText("");
             jPassword.setText("");
-            jWarning.setText("Notendanafn eða lykilorð er vitlaust");
+            jWarning.setText("Notendanafn er þegar til,  veldu annað");
         }
     }//GEN-LAST:event_jRegisterActionPerformed
 
