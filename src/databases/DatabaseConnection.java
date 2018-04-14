@@ -6,6 +6,7 @@
  */
 package databases;
 
+import JFrame.Booking;
 import Model.Hotel;
 import Model.Room;
 import java.sql.Connection;
@@ -64,6 +65,28 @@ public class DatabaseConnection {
     } */
     
   
+    
+    public static ArrayList<Booking> getBookings(String username) {
+        Connection c = null;
+        Statement stmt = null;
+        try {
+            c = getConnection();
+            String query = "SELECT nameOfHotel.Hotel, location.Hotel, price.Room, BookedFrom.BookedDates, BookedTo.BookedDates From Hotel, Room, BookedDates\n" +
+                "FROM Hotel, Room, BookedDates " +
+                "WHERE hotelName.Hotel = HotelName.Room And " +
+                "id.Room = id.BookedDates AND " +
+                "userName.BookedDates = '" + username + "'";
+            PreparedStatement p = c.prepareStatement(query);
+            ResultSet r = p.executeQuery();
+            
+            int i = 1;
+            int j = 1;
+            while (r.last() != r.getRow())
+        } catch (Exception e) {
+            System.out.println(e.getMessage()); 
+        }
+        return null;
+    }
     
     // Skilar true ef notendanafn er þegar í töflunni, annars false
     public static boolean checkIfUsernameExistsInTable(String username) {

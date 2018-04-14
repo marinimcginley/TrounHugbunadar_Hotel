@@ -8,6 +8,9 @@ package JFrame;
 import databases.DatabaseConnection;
 import databases.MD5;
 import static databases.MD5.computeMD5;
+import java.awt.Dimension;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -17,6 +20,8 @@ public class LogIn extends javax.swing.JDialog {
     private String userName;
     private char[] password;
     private String sPassword;
+    private ArrayList<Booking> bookings;
+    DefaultTableModel model;
 
     /**
      * Creates new form LogIn
@@ -25,9 +30,23 @@ public class LogIn extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         
+        jTable.getTableHeader().setPreferredSize(new Dimension(10,35)); // stilli breidd og hæð á column head
+        model = (DefaultTableModel) jTable.getModel();
+        
         // virkar ekki að fela töflu
         jPanelForTable.setVisible(false);
         jBackToIndex.setVisible(false);
+    }
+    
+    public void getBookings() {
+        //bookings = ??
+    }
+    
+    public void putListInTable() {
+        for (int i = 0; i < bookings.size(); i++) {
+            //model.addRow(new Object[]{bookings.get(i).getNameOfHotel(), bookings.get(i).getLocation(),
+                //bookings.get(i).getPrice(), bookings.get(i).getFirstDate(), bookings.get(i).getLastDate()});  
+        }
     }
     
     public void displayBookings() {
@@ -104,13 +123,13 @@ public class LogIn extends javax.swing.JDialog {
 
         jTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Hotel", "Staðsetning", "Verð", "Einkunn", "Fjöldi fullorðna", "Fjöldi barna", "Aðgengi fyrir hreyfihamlaða", "Rækt", "WIFI", "Akstursþjónusta", "Morgunmatur innifalinn"
+                "Hotel", "Staðsetning", "Verð", "Frá", "Til"
             }
         ));
         jScrollPane1.setViewportView(jTable);
