@@ -205,6 +205,8 @@ public class LogIn extends javax.swing.JDialog {
         if (verifyUser()) {
             displayBookings();
         } else {
+            userName = null;
+            password = null;
             jUserName.setText("");
             jPassword.setText("");
             jWarning.setText("Notendanafn eða lykilorð er vitlaust");
