@@ -5,6 +5,7 @@
  */
 package JFrame;
 
+import Model.Booking;
 import databases.DatabaseConnection;
 import databases.MD5;
 import static databases.MD5.computeMD5;
@@ -35,7 +36,7 @@ public class LogIn extends javax.swing.JDialog {
         
         // virkar ekki að fela töflu
         jPanelForTable.setVisible(false);
-        jBackToIndex.setVisible(false);
+        
     }
     
     public void getBookings() {
@@ -43,9 +44,10 @@ public class LogIn extends javax.swing.JDialog {
     }
     
     public void putListInTable() {
+        bookings = DatabaseConnection.getBookings(userName);
         for (int i = 0; i < bookings.size(); i++) {
-            //model.addRow(new Object[]{bookings.get(i).getNameOfHotel(), bookings.get(i).getLocation(),
-                //bookings.get(i).getPrice(), bookings.get(i).getFirstDate(), bookings.get(i).getLastDate()});  
+            model.addRow(new Object[]{bookings.get(i).getNameOfHotel(), bookings.get(i).getLocationOfHotel(),
+                bookings.get(i).getPrice(), bookings.get(i).getFirstDate(), bookings.get(i).getLastDate()});  
         }
     }
     
@@ -58,9 +60,9 @@ public class LogIn extends javax.swing.JDialog {
         jUserName.setVisible(false);
         jPassword.setVisible(false);
         jLogIn.setVisible(false);
-        jBackToIndex.setVisible(true);
         
     }
+
     
     // Skilar true ef notendanafn er gilt annars false
     public boolean verifyUser() {
@@ -92,11 +94,11 @@ public class LogIn extends javax.swing.JDialog {
         jLogIn = new javax.swing.JButton();
         jWarning = new javax.swing.JLabel();
         jPassword = new javax.swing.JPasswordField();
-        jBackToIndex = new javax.swing.JButton();
         jUser = new javax.swing.JLabel();
         jPanelForTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
+        jClose = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(695, 653));
@@ -111,13 +113,6 @@ public class LogIn extends javax.swing.JDialog {
         jLogIn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jLogInActionPerformed(evt);
-            }
-        });
-
-        jBackToIndex.setText("Til baka");
-        jBackToIndex.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBackToIndexActionPerformed(evt);
             }
         });
 
@@ -150,6 +145,13 @@ public class LogIn extends javax.swing.JDialog {
                 .addGap(0, 77, Short.MAX_VALUE))
         );
 
+        jClose.setText("Loka");
+        jClose.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jCloseActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,51 +165,55 @@ public class LogIn extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(83, 83, 83)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabelForUserName)
-                            .addComponent(jLabelForPassword))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
-                            .addComponent(jPassword)))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(148, 148, 148)
-                        .addComponent(jLogIn)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jBackToIndex))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(688, 688, 688)
-                        .addComponent(jWarning))
+                        .addComponent(jLogIn))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanelForTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jPanelForTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(83, 83, 83)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabelForUserName)
+                                .addComponent(jLabelForPassword))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jUserName, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                .addComponent(jPassword))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jClose))
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addGap(688, 688, 688)
+                            .addComponent(jWarning))))
                 .addContainerGap(701, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jText)
-                    .addComponent(jUser))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabelForUserName)
-                    .addComponent(jUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jText)
+                            .addComponent(jUser))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelForUserName)
+                            .addComponent(jUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jClose)))
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabelForPassword)
                     .addComponent(jPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLogIn)
-                    .addComponent(jBackToIndex))
+                .addComponent(jLogIn)
                 .addGap(35, 35, 35)
                 .addComponent(jWarning)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanelForTable, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(186, Short.MAX_VALUE))
+                .addContainerGap(200, Short.MAX_VALUE))
         );
 
         pack();
@@ -232,9 +238,9 @@ public class LogIn extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jLogInActionPerformed
 
-    private void jBackToIndexActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBackToIndexActionPerformed
+    private void jCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCloseActionPerformed
         dispose();
-    }//GEN-LAST:event_jBackToIndexActionPerformed
+    }//GEN-LAST:event_jCloseActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,7 +285,7 @@ public class LogIn extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jBackToIndex;
+    private javax.swing.JButton jClose;
     private javax.swing.JLabel jLabelForPassword;
     private javax.swing.JLabel jLabelForUserName;
     private javax.swing.JButton jLogIn;

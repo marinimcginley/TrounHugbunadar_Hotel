@@ -14,7 +14,6 @@ import java.util.ArrayList;
  */
 public class Booking {
     
-    public ArrayList<Booking> bookings = new ArrayList<Booking>();
     private String nameOfHotel;
     private String locationOfHotel;
     private int price;
@@ -26,33 +25,24 @@ public class Booking {
     private boolean wifi;
     private boolean pickUp;
     private boolean breakfastIncluded;
-    private LocalDate firstDate;
-    private LocalDate lastDate;
+    private String firstDate;
+    private String lastDate;
     
     public Booking(String nameOfHotel, String locationOfHotel, int price,
-            int numberOfAdults, int numberOfChildren, boolean availableForHandic,
-            boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp,
-            boolean breakfastIncluded, LocalDate firstDate, LocalDate lastDate) {
+             String firstDate, String lastDate) {
+        
         this.nameOfHotel = nameOfHotel;
         this.locationOfHotel = locationOfHotel;
         this.price = price;
-        this.numberOfAdults = numberOfAdults;
-        this.numberOfChildren = numberOfChildren;
-        this.availableForHandic = availableForHandic;
-        this.gym = gym;
-        this.swimmingPool = swimmingPool;
-        this.wifi = wifi;
-        this.pickUp = pickUp;
-        this.breakfastIncluded = breakfastIncluded;
         this.firstDate = firstDate;
         this.lastDate = lastDate;
     }
     
-    public LocalDate getFirstDate() {
+    public String getFirstDate() {
         return firstDate;
     }
     
-    public LocalDate getLastDate() {
+    public String getLastDate() {
         return lastDate;
     }
     
@@ -98,14 +88,6 @@ public class Booking {
     
     public boolean getBreakfast() {
         return breakfastIncluded;
-    }
-    
-    public void addBooking(Booking booking) {
-        bookings.add(booking);
-    }
-    
-    public ArrayList<Booking> viewBookings() {
-	return bookings;
     }
     
 }

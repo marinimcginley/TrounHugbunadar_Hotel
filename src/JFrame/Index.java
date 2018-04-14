@@ -329,7 +329,7 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBookActionPerformed
-        Booking newBooking = new Booking(this, true, this);
+        BookingFrame newBooking = new BookingFrame(this, true, this);
         newBooking.setVisible(true);
     }//GEN-LAST:event_jBookActionPerformed
 

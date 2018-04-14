@@ -6,7 +6,8 @@
  */
 package databases;
 
-import JFrame.Booking;
+import JFrame.BookingFrame;
+import Model.Booking;
 import Model.Hotel;
 import Model.Room;
 import java.sql.Connection;
@@ -69,23 +70,27 @@ public class DatabaseConnection {
     public static ArrayList<Booking> getBookings(String username) {
         Connection c = null;
         Statement stmt = null;
+        ArrayList<Booking> bookings = new ArrayList<Booking>();
         try {
             c = getConnection();
-            String query = "SELECT nameOfHotel.Hotel, location.Hotel, price.Room, BookedFrom.BookedDates, BookedTo.BookedDates From Hotel, Room, BookedDates\n" +
-                "FROM Hotel, Room, BookedDates " +
-                "WHERE hotelName.Hotel = HotelName.Room And " +
-                "id.Room = id.BookedDates AND " +
-                "userName.BookedDates = '" + username + "'";
+            String query = "SELECT nameOfHotel.Hotel, location.Hotel, price.Room, BookedFrom.BookedDates, BookedTo.BookedDates " +
+                    "From Hotel, Room, BookedDates " +
+                    "FROM Hotel, Room, BookedDates " +
+                    "WHERE hotelName.Hotel = HotelName.Room And " +
+                    "id.Room = id.BookedDates AND " +
+                    "userName.BookedDates = '" + username + "'";
             PreparedStatement p = c.prepareStatement(query);
             ResultSet r = p.executeQuery();
             
-            int i = 1;
-            int j = 1;
-            while (r.last() != r.getRow())
+
+            while (r.next()) {
+                bookings.add(new Booking(r.getString("nameOfHotel"), r.getString("location"), r.getInt("price"),
+                        r.getString("BookedFrom"), r.getString("BookedTo")));
+            }
         } catch (Exception e) {
             System.out.println(e.getMessage()); 
         }
-        return null;
+        return bookings;
     }
     
     // Skilar true ef notendanafn er þegar í töflunni, annars false
@@ -114,7 +119,7 @@ public class DatabaseConnection {
         Connection c = null;
         try {
             c = getConnection();
-            String stmt = "INSERT INTO Users (userName, password) VALUES(" + username + "," + passwordHash + ")";
+            String stmt = "INSERT INTO Users (userName, password) VALUES('" + username + "','" + passwordHash + "')";
             PreparedStatement q = c.prepareStatement(stmt);
             q.executeUpdate();
             c.close();
