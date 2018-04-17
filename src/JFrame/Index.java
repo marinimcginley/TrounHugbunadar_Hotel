@@ -58,14 +58,25 @@ public class Index extends javax.swing.JFrame {
         
         
         
+        
+        
     }
     
     /*private void initializeTableInStart(){
         SearchList s = new SearchList();
-        jBook.setVisible(true);
-        jScrollPanel2.setVisible(true);
-        ArrayList<Hotel> allHotel = s.getAllHotel();
-        putListInTable(allHotel, "", "");
+        ArrayList<Hotel> getHotelss = s.getHotels();
+        for(int i = 0; i<getHotelss.size(); i++){
+            System.out.println(" Nafnið á hoteli : " + getHotelss.get(i).getNameOfHotel());
+            System.out.println(" RoomId á hoteli : " + getHotelss.get(i).getRoomId());
+            System.out.println(" AdultPrice á hoteli : " + getHotelss.get(i).getAdultPrice());
+            System.out.println(" ChildPrive á hoteli : " + getHotelss.get(i).getChildPrice());
+            System.out.println(" Location á hoteli : " + getHotelss.get(i).getLocationOfHotel());
+            System.out.println(" Grade á hoteli : " + getHotelss.get(i).getGrade());
+        }
+        //jBook.setVisible(true);
+        //jScrollPanel2.setVisible(true);
+        //ArrayList<Hotel> allHotel = s.getAllHotel();
+        //putListInTable(allHotel, "", "");
     }*/
     
     public void putListInTable(ArrayList<Hotel> hotelList, String dateFrom, String dateTo) {

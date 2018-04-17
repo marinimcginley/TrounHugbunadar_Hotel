@@ -18,7 +18,27 @@ public class Hotel {
         public boolean wifi;
 	public boolean pickUp;
 	public boolean breakfastIncluded;
+        public int adultPrice;// Fall til að framkvæma föll fyrir T hóp
+        public int childPrice;// Fall til að framkvæma föll fyrir T hóp
+        int roomID;// Fall til að framkvæma föll fyrir T hóp
+        double grade;
 
+        // Fall til að framkvæma föll fyrir T hóp
+    public Hotel(String nameOfHotel, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded, int adultPrice, int childPrice, int roomID, double grade) {
+            this.nameOfHotel = nameOfHotel;
+            this.locationOfHotel = locationOfHotel;
+            this.aviableForHandic = aviableForHandic;
+            this.gym = gym;
+            this.swimmingPool = swimmingPool;
+            this.wifi = wifi;
+            this.pickUp = pickUp;
+            this.breakfastIncluded = breakfastIncluded;
+            this.adultPrice = adultPrice;
+            this.childPrice = childPrice;
+            this.roomID = roomID;
+            this.grade = grade;
+    }
+    
     public Hotel(String nameOfHotel, String locationOfHotel, boolean aviableForHandic, boolean gym, boolean swimmingPool, boolean wifi, boolean pickUp, boolean breakfastIncluded) {
             this.nameOfHotel = nameOfHotel;
             this.locationOfHotel = locationOfHotel;
@@ -72,6 +92,22 @@ public class Hotel {
         
         public boolean getGym() {
             return gym;
+        }
+        // Fall til að framkvæma föll fyrir T hóp
+        public int getAdultPrice(){
+            return adultPrice;
+        }
+        // Fall til að framkvæma föll fyrir T hóp
+        public int getChildPrice(){
+            return childPrice;
+        }
+        // Fall til að framkvæma föll fyrir T hóp
+        public int getRoomId(){
+            return roomID;
+        }
+        // Fall til að framkvæma föll fyrir T hóp
+        public double getGrade(){
+            return grade;
         }
 
 	// Býr til herbergi fyrir þetta hótel

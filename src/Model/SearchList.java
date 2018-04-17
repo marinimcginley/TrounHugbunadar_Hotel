@@ -68,6 +68,90 @@ public class SearchList {
         return hotelList;
     }
     
+    // Fall til að framkvæma föll fyrir T hóp
+    public static ArrayList<Hotel> getHotels(/*String location, int audltPrice, int childPrice, double rating, String name, int roomnr*/) {
+        ArrayList<Hotel> hotelList = new ArrayList<>();
+        Connection c = null;
+        try {
+            c = getConnection();
+            PreparedStatement p = c.prepareStatement("SELECT * FROM Hotel;");
+            ResultSet rs = p.executeQuery();
+            while ( rs.next() ) {
+                int id = rs.getInt("id");
+                String hotelName = rs.getString("nameOfHotel");
+                String location = rs.getString("location");
+                boolean aviableForHandic = rs.getBoolean("aviableForHandic");
+                boolean gym = rs.getBoolean("gym");
+                boolean swimmingPool = rs.getBoolean("swimmingPool");
+                boolean wifi = rs.getBoolean("wifi");
+                boolean pickUp = rs.getBoolean("pickUp");
+                boolean breakfastIncluded = rs.getBoolean("breakfastIncluded");
+                double grade = rs.getDouble("grade");
+                //int adultPrice = rs.getInt("adultPrice");
+                //int childPrice = rs.getInt("childPrice");
+                
+                int getRoomId = getRoomID(hotelName);
+                int getAdultPrice = getPrice(hotelName);
+                int getChildPrice = (int) Math.round(getAdultPrice*0.5);
+                //System.out.println("RoomId : " + getRoomId);
+                Hotel hotel = null;
+                hotel = new Hotel(hotelName, location, aviableForHandic,gym, swimmingPool, wifi, pickUp, breakfastIncluded, getAdultPrice, getChildPrice, getRoomId, grade);
+                //setRooms(hotelName, hotel, dateFrom, dateTo, priceFrom, priceTo, grownUp, children);
+                hotelList.add(hotel);
+                
+            } 
+        } catch (Exception e) {
+            System.out.println("SELECT ERROR(getHotel): " + e.getMessage());
+        }
+        
+        return hotelList;
+    }
+    // Fall til að framkvæma föll fyrir T hóp
+    public static int getRoomID(String hotelname){
+        //ArrayList<Room> rooms = new ArrayList<>();
+        int roomId = 0;
+        Connection c = null;
+        try {
+            c = getConnection();
+            //String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
+            PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelname + "';");
+            //PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelName + "';");
+            ResultSet rs = p.executeQuery();
+            System.out.println(rs.getInt("id"));
+            roomId = rs.getInt("id");
+            
+            rs.close();
+            c.close();
+        } catch (Exception e) {
+            System.out.println("SELECT ERROR(setRooms): " + e.getMessage());
+        }
+        return roomId;
+    }
+    
+    // Fall til að framkvæma föll fyrir T hóp
+    public static int getPrice(String hotelname){
+        int price = 0;
+        int counter = 0;
+        Connection c = null;
+        try {
+            c = getConnection();
+            //String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
+            PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelname + "';");
+            //PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelName + "';");
+            ResultSet rs = p.executeQuery();
+            System.out.println(rs.getInt("id"));
+            while ( rs.next() ) {
+                price =+ rs.getInt("Price");
+                counter =+ 1;
+            }
+            rs.close();
+            c.close();
+        } catch (Exception e) {
+            System.out.println("SELECT ERROR(setRooms): " + e.getMessage());
+        }
+        return (price/counter);
+    }
+    
     
     public static ArrayList<Hotel> getHotel(String query, String dateFrom, String dateTo, String priceFrom, String priceTo, String grownUp, String children) {
         ArrayList<Hotel> hotelList = new ArrayList<>();
