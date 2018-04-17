@@ -73,12 +73,11 @@ public class DatabaseConnection {
         ArrayList<Booking> bookings = new ArrayList<Booking>();
         try {
             c = getConnection();
-            String query = "SELECT nameOfHotel.Hotel, location.Hotel, price.Room, BookedFrom.BookedDates, BookedTo.BookedDates " +
-                    "From Hotel, Room, BookedDates " +
+            String query = "SELECT Hotel.nameOfHotel, Hotel.location, Room.price, BookedDates.BookedFrom, BookedDates.BookedTo " +
                     "FROM Hotel, Room, BookedDates " +
-                    "WHERE hotelName.Hotel = HotelName.Room And " +
-                    "id.Room = roomID.BookedDates AND " +
-                    "userName.BookedDates = '" + username + "'";
+                    "WHERE Hotel.nameOfHotel = Room.HotelName And " +
+                    "Room.id = BookedDates.roomID AND " +
+                    "BookedDates.userName = '" + username + "'";
             PreparedStatement p = c.prepareStatement(query);
             ResultSet r = p.executeQuery();
             

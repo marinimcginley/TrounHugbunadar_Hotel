@@ -7,6 +7,7 @@ package JFrame;
 
 import databases.DatabaseConnection;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,16 +20,18 @@ public class BookingFrame extends javax.swing.JDialog {
     private Index getFromTable;
     private String dateFrom;
     private String dateTo;
+    private int roomID;
     /**
      * Creates new form Booking
      */
-    public BookingFrame(java.awt.Frame parent, boolean modal, Index adal, String userName, String dateFrom, String dateTo) {
+    public BookingFrame(java.awt.Frame parent, boolean modal, Index adal, String userName, String dateFrom, String dateTo, int roomID) {
         super(parent, modal);
         initComponents();
         
         this.userName = userName;
         this.dateFrom = dateFrom;
         this.dateTo = dateTo;
+        this.roomID = roomID;
         
         getFromTable = adal;
         
@@ -221,10 +224,9 @@ public class BookingFrame extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBookActionPerformed
-        // VERÐ AÐ FINNA roomID!!!
-        
-        int roomID = 1;
+
         DatabaseConnection.createBooking(roomID, dateFrom, dateTo, userName);
+        JOptionPane.showMessageDialog(null, "Bókun hófst!");
         
     }//GEN-LAST:event_jBookActionPerformed
 

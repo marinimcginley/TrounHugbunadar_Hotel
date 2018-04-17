@@ -37,6 +37,8 @@ public class LogIn extends javax.swing.JDialog {
         // virkar ekki að fela töflu
         jPanelForTable.setVisible(false);
         
+        putListInTable();
+        
     }
     
     public void setUsername(String userName) {
@@ -50,6 +52,7 @@ public class LogIn extends javax.swing.JDialog {
     public void putListInTable() {
         bookings = DatabaseConnection.getBookings(userName);
         for (int i = 0; i < bookings.size(); i++) {
+            System.out.println(bookings.get(i).getNameOfHotel());
             model.addRow(new Object[]{bookings.get(i).getNameOfHotel(), bookings.get(i).getLocationOfHotel(),
                 bookings.get(i).getPrice(), bookings.get(i).getFirstDate(), bookings.get(i).getLastDate()});  
         }

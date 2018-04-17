@@ -388,7 +388,7 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBookActionPerformed
-        BookingFrame newBooking = new BookingFrame(this, true, this, logIn.getUserName(), search.searchGetDateFrom(), search.searchGetDateTo());
+        BookingFrame newBooking = new BookingFrame(this, true, this, logIn.getUserName(), search.searchGetDateFrom(), search.searchGetDateTo(), selectedRoomId);
         newBooking.setVisible(true);
     }//GEN-LAST:event_jBookActionPerformed
 
