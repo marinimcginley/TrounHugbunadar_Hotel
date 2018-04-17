@@ -39,6 +39,10 @@ public class LogIn extends javax.swing.JDialog {
         
     }
     
+    public void setUsername(String userName) {
+        this.userName = userName;
+    }
+    
     public void getBookings() {
         //bookings = ??
     }

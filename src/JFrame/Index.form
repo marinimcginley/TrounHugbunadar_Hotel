@@ -40,7 +40,7 @@
                       <Component id="jRegister" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="jScrollPane2" max="32767" attributes="0"/>
+                      <Component id="jScrollPanel2" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -85,7 +85,7 @@
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jSearch" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
-              <Component id="jScrollPane2" min="-2" pref="255" max="-2" attributes="0"/>
+              <Component id="jScrollPanel2" min="-2" pref="255" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Component id="jBook" min="-2" pref="30" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
@@ -129,7 +129,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jSearchActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane2">
+    <Container class="javax.swing.JScrollPane" name="jScrollPanel2">
       <AuxValues>
         <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
       </AuxValues>

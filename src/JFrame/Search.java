@@ -554,6 +554,8 @@ public class Search extends javax.swing.JDialog {
             showValidationMessage("Verðbil er ekki rétt valið");
         } else if(gradeTo < gradeFrom) {
             showValidationMessage("Einkunnar-bil er ekki rétt valið");
+        } else if (dayFrom == 0 || dayTo == 0 || monthFrom == 0 || monthTo == 0) {
+            showValidationMessage("Vinsamlegast fylltu út dagsetningu frá og til");
         } else {
             save = true;
             setVisible(false);

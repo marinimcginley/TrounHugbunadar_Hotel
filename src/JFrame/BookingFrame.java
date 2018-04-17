@@ -5,6 +5,7 @@
  */
 package JFrame;
 
+import databases.DatabaseConnection;
 import javax.swing.JFrame;
 
 /**
@@ -12,18 +13,32 @@ import javax.swing.JFrame;
  * @author marinmcginley
  */
 public class BookingFrame extends javax.swing.JDialog {
+    
+    private String userName;
 
     private Index getFromTable;
+    private String dateFrom;
+    private String dateTo;
     /**
      * Creates new form Booking
      */
-    public BookingFrame(java.awt.Frame parent, boolean modal, Index adal) {
+    public BookingFrame(java.awt.Frame parent, boolean modal, Index adal, String userName, String dateFrom, String dateTo) {
         super(parent, modal);
         initComponents();
+        
+        this.userName = userName;
+        this.dateFrom = dateFrom;
+        this.dateTo = dateTo;
         
         getFromTable = adal;
         
         setInfo();
+        
+        if (userName == "") {
+            jBook.setVisible(false);
+            jWarning.setText("Vinsamlegast farðu til baka og skráðu þig inn til að bóka");
+        }
+
     }
 
     private BookingFrame(JFrame jFrame, boolean b) {
@@ -37,6 +52,9 @@ public class BookingFrame extends javax.swing.JDialog {
         jPrice.setText(getFromTable.listPrice);
         jGrownUp.setText(getFromTable.listGrownUp);
         jChildren.setText(getFromTable.listChildren);
+        jUsername.setText(userName);
+        jFrom.setText(dateFrom);
+        jTo.setText(dateTo);
     }
 
     /**
@@ -58,6 +76,15 @@ public class BookingFrame extends javax.swing.JDialog {
         jPrice = new javax.swing.JTextField();
         jGrownUp = new javax.swing.JTextField();
         jChildren = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jFrom = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        jTo = new javax.swing.JTextField();
+        jBook = new javax.swing.JButton();
+        jGoBack = new javax.swing.JButton();
+        jUsername = new javax.swing.JLabel();
+        jWarning = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,19 +99,38 @@ public class BookingFrame extends javax.swing.JDialog {
         jLabel5.setText("Fjöldi barna : ");
 
         jHotel.setEditable(false);
-        jHotel.setText("jTextField1");
 
         jLocation.setEditable(false);
-        jLocation.setText("jTextField2");
 
         jPrice.setEditable(false);
-        jPrice.setText("jTextField3");
 
         jGrownUp.setEditable(false);
-        jGrownUp.setText("jTextField4");
 
         jChildren.setEditable(false);
-        jChildren.setText("jTextField5");
+
+        jLabel6.setText("Dagsetning:");
+
+        jLabel7.setText("Frá:");
+
+        jFrom.setEditable(false);
+
+        jLabel8.setText("Til: ");
+
+        jTo.setEditable(false);
+
+        jBook.setText("Bóka");
+        jBook.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBookActionPerformed(evt);
+            }
+        });
+
+        jGoBack.setText("Til baka");
+        jGoBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jGoBackActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -92,25 +138,50 @@ public class BookingFrame extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel5)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jHotel, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                    .addComponent(jLocation)
-                    .addComponent(jPrice)
-                    .addComponent(jGrownUp)
-                    .addComponent(jChildren))
-                .addContainerGap(131, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel6)
+                                .addComponent(jLabel5)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jHotel, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                                .addComponent(jLocation)
+                                .addComponent(jPrice)
+                                .addComponent(jGrownUp)
+                                .addComponent(jChildren))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel7)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel8)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTo, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jWarning)
+                            .addComponent(jBook))
+                        .addGap(18, 18, 18)
+                        .addComponent(jGoBack)))
+                .addContainerGap(83, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jUsername)
+                .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
+                .addGap(8, 8, 8)
+                .addComponent(jUsername)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jHotel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -130,11 +201,36 @@ public class BookingFrame extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(jChildren, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(134, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(jLabel7)
+                    .addComponent(jFrom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel8)
+                    .addComponent(jTo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jWarning)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBook)
+                    .addComponent(jGoBack))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBookActionPerformed
+        // VERÐ AÐ FINNA roomID!!!
+        
+        int roomID = 1;
+        DatabaseConnection.createBooking(roomID, dateFrom, dateTo, userName);
+        
+    }//GEN-LAST:event_jBookActionPerformed
+
+    private void jGoBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jGoBackActionPerformed
+        dispose();
+    }//GEN-LAST:event_jGoBackActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,7 +276,10 @@ public class BookingFrame extends javax.swing.JDialog {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBook;
     private javax.swing.JTextField jChildren;
+    private javax.swing.JTextField jFrom;
+    private javax.swing.JButton jGoBack;
     private javax.swing.JTextField jGrownUp;
     private javax.swing.JTextField jHotel;
     private javax.swing.JLabel jLabel1;
@@ -188,7 +287,13 @@ public class BookingFrame extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JTextField jLocation;
     private javax.swing.JTextField jPrice;
+    private javax.swing.JTextField jTo;
+    private javax.swing.JLabel jUsername;
+    private javax.swing.JLabel jWarning;
     // End of variables declaration//GEN-END:variables
 }

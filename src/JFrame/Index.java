@@ -26,6 +26,8 @@ public class Index extends javax.swing.JFrame {
     private LogIn logIn;
     DefaultTableModel model;
     
+    private Search search;
+    
     public String listHotelName;
     public String lsitLocation;
     public String listPrice;
@@ -39,6 +41,8 @@ public class Index extends javax.swing.JFrame {
     public Index() {
         initComponents();
         
+
+        
         jTable.getTableHeader().setPreferredSize(new Dimension(10,35)); // stilli breidd og hæð á column head
         model = (DefaultTableModel) jTable.getModel();
         
@@ -46,11 +50,17 @@ public class Index extends javax.swing.JFrame {
         jLogOut.setVisible(false);
         initializeTableInStart();
         
+        jBook.setVisible(false);
+        jScrollPanel2.setVisible(false);
+        
+        
         
     }
     
     private void initializeTableInStart(){
         SearchList s = new SearchList();
+        jBook.setVisible(true);
+        jScrollPanel2.setVisible(true);
         ArrayList<Hotel> allHotel = s.getAllHotel();
         putListInTable(allHotel, "", "");
     }
@@ -131,7 +141,7 @@ public class Index extends javax.swing.JFrame {
         jLogIn = new javax.swing.JButton();
         jRegister = new javax.swing.JButton();
         jSearch = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        jScrollPanel2 = new javax.swing.JScrollPane();
         jTable = new javax.swing.JTable();
         jLogOut = new javax.swing.JButton();
         jUserName = new javax.swing.JLabel();
@@ -184,7 +194,6 @@ public class Index extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jTable.setGridColor(new java.awt.Color(255, 255, 255));
         jTable.setRowHeight(20);
         jTable.setSelectionBackground(new java.awt.Color(204, 204, 204));
         jTable.setSelectionForeground(new java.awt.Color(0, 51, 255));
@@ -194,7 +203,7 @@ public class Index extends javax.swing.JFrame {
                 jTableMouseClicked(evt);
             }
         });
-        jScrollPane2.setViewportView(jTable);
+        jScrollPanel2.setViewportView(jTable);
         jTable.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jLogOut.setText("Útskráning");
@@ -224,7 +233,7 @@ public class Index extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jRegister))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
+                        .addComponent(jScrollPanel2)
                         .addContainerGap())))
             .addGroup(layout.createSequentialGroup()
                 .addGap(410, 410, 410)
@@ -258,7 +267,7 @@ public class Index extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jSearch)
                 .addGap(25, 25, 25)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jBook, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -269,7 +278,8 @@ public class Index extends javax.swing.JFrame {
 
     private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
         model.setRowCount(0); // hreinsum töfluna
-        Search search = null;
+        jScrollPanel2.setVisible(true);
+        search = null;
         
         if (logIn == null) {
             search = new Search(this, true, "");
@@ -318,6 +328,7 @@ public class Index extends javax.swing.JFrame {
             
             putListInTable(hotelList, dateFrom, dateTo);
         }
+        jBook.setVisible(true);
     }//GEN-LAST:event_jSearchActionPerformed
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
@@ -326,6 +337,7 @@ public class Index extends javax.swing.JFrame {
         if (logIn.getUserName() != null) {
             initializeAfterLogIn();
         }
+        //jBook.setVisible(true);
     }//GEN-LAST:event_jLogInActionPerformed
 
     private void jRegisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRegisterActionPerformed
@@ -343,6 +355,7 @@ public class Index extends javax.swing.JFrame {
         
         jLogIn.setVisible(true);
         jRegister.setVisible(true);
+        jBook.setVisible(false);
     }//GEN-LAST:event_jLogOutActionPerformed
 
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
@@ -359,7 +372,7 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBookActionPerformed
-        BookingFrame newBooking = new BookingFrame(this, true, this);
+        BookingFrame newBooking = new BookingFrame(this, true, this, logIn.getUserName(), search.searchGetDateFrom(), search.searchGetDateTo());
         newBooking.setVisible(true);
     }//GEN-LAST:event_jBookActionPerformed
 
@@ -383,7 +396,7 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JButton jLogIn;
     private javax.swing.JButton jLogOut;
     private javax.swing.JButton jRegister;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPanel2;
     private javax.swing.JButton jSearch;
     private javax.swing.JTable jTable;
     private javax.swing.JLabel jText;

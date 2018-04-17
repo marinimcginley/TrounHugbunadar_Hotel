@@ -93,6 +93,21 @@ public class DatabaseConnection {
         return bookings;
     }
     
+    public static void createBooking(int roomID, String from, String to, String userName) {
+        Connection c = null;
+        try {
+            c = getConnection();
+            String stmt = "INSERT INTO BookedDates (roomID, userName, BookedFrom, BookedTo) VALUES('" + roomID + "', '"+ userName + "','" + from + "', '" + to + "')";
+            PreparedStatement q = c.prepareStatement(stmt);
+            q.executeUpdate();
+            c.close();
+            System.out.println("Innsetning á booking:  tókst");
+        } catch (Exception e) {
+            System.out.println("createBooking: " + e.getMessage());
+        }
+        return;
+    }
+    
     // Skilar true ef notendanafn er þegar í töflunni, annars false
     public static boolean checkIfUsernameExistsInTable(String username) {
         Connection c = null;
