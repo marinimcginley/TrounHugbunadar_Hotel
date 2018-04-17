@@ -77,7 +77,7 @@ public class DatabaseConnection {
                     "From Hotel, Room, BookedDates " +
                     "FROM Hotel, Room, BookedDates " +
                     "WHERE hotelName.Hotel = HotelName.Room And " +
-                    "id.Room = id.BookedDates AND " +
+                    "id.Room = roomID.BookedDates AND " +
                     "userName.BookedDates = '" + username + "'";
             PreparedStatement p = c.prepareStatement(query);
             ResultSet r = p.executeQuery();
