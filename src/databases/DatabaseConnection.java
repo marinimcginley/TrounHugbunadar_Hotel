@@ -88,7 +88,7 @@ public class DatabaseConnection {
                         r.getString("BookedFrom"), r.getString("BookedTo")));
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage()); 
+            System.out.println("getBookings: " + e.getMessage()); 
         }
         return bookings;
     }
@@ -109,7 +109,7 @@ public class DatabaseConnection {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("checkIfUsername...: " + e.getMessage());
            
         }
         return false;
@@ -125,7 +125,7 @@ public class DatabaseConnection {
             c.close();
             System.out.println("Innsetning á nýju notendanafni: " + username + ", og lykilorði tókst");
         } catch (Exception e) {
-            System.out.println("INSERT ERROR: " + e.getMessage());
+            System.out.println("insertUserIntoUsers: " + e.getMessage());
         }
         return;
     }
@@ -154,7 +154,7 @@ public class DatabaseConnection {
             }
             
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("logIn: " + e.getMessage());
         }
         return false;
         
