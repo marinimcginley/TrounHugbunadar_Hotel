@@ -5,12 +5,11 @@ package Model;
  * @author marinmcginley
  */
 import java.util.ArrayList;
-import java.lang.Object;
-import java.time.LocalDate;
+import java.util.Date;
 
 public class Hotel {
     
-	public ArrayList<Room> rooms = new ArrayList<Room>();
+	public ArrayList<Room> rooms = new ArrayList<>();
 	public String nameOfHotel;
 	public String locationOfHotel;
 	public boolean aviableForHandic;
@@ -76,7 +75,7 @@ public class Hotel {
         }
 
 	// Býr til herbergi fyrir þetta hótel
-    public void addRoom(int priceForNight, int numberOfAdults, int numberOfChildren, ArrayList<LocalDate> isBooked) {
+    public void addRoom(int priceForNight, int numberOfAdults, int numberOfChildren, ArrayList<Date> isBooked) {
 		Room newRoom = new Room(priceForNight, numberOfAdults, numberOfChildren, isBooked);
                 rooms.add(newRoom);
 	}

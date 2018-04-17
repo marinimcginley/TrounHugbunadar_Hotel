@@ -9,17 +9,17 @@ package Model;
  *
  * @author marinmcginley
  */
-import java.lang.Object;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Room {
-    private int priceForNight;
-    private int numberOfAdults;
-    private int numberOfChildren;
-    private ArrayList<LocalDate> isBooked;
+    private final int priceForNight;
+    private final int numberOfAdults;
+    private final int numberOfChildren;
+    private final ArrayList<Date> isBooked;
     
-    public Room(int priceForNight, int numberOfAdults, int numberOfChildren, ArrayList<LocalDate> isBooked) {
+    public Room(int priceForNight, int numberOfAdults, int numberOfChildren, ArrayList<Date> isBooked) {
         this.priceForNight = priceForNight;
         this.numberOfAdults = numberOfAdults;
         this.numberOfChildren = numberOfChildren;
@@ -38,7 +38,7 @@ public class Room {
         return numberOfChildren;
     }
     
-    public ArrayList<LocalDate> getBookedDates() {
+    public ArrayList<Date> getBookedDates() {
         return isBooked;
     }
 

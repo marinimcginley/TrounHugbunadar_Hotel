@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import Model.Hotel;
 import Model.Room;
 import java.awt.Dimension;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -49,30 +52,57 @@ public class Index extends javax.swing.JFrame {
     private void initializeTableInStart(){
         SearchList s = new SearchList();
         ArrayList<Hotel> allHotel = s.getAllHotel();
-        putListInTable(allHotel);
+        putListInTable(allHotel, "", "");
     }
     
-    public void putListInTable(ArrayList<Hotel> hotelList) {
+    public void putListInTable(ArrayList<Hotel> hotelList, String dateFrom, String dateTo) {
         //Object[] row = new Object[11];
         
         for(int i=0; i<hotelList.size(); i++) {
             ArrayList<Room> hotelsRooms = hotelList.get(i).viewRooms();
             for(int j=0; j<hotelsRooms.size(); j++) {
-                String hotelName = hotelList.get(i).getNameOfHotel();
-                String location = hotelList.get(i).getLocationOfHotel();
-                int price = hotelsRooms.get(j).getPriceForNight();
-                int grade = 0;
-                int NumberOfGrownup = hotelsRooms.get(j).getNumberOfAdults();
-                int numberOfChildren = hotelsRooms.get(j).getNumberOfChildren();
-                boolean handic = hotelList.get(i).getAviableForHandic();
-                boolean gym = hotelList.get(i).getGym();
-                boolean swimmingpool = hotelList.get(i).getSwimmingPool();
-                boolean wifi = hotelList.get(i).getWifi();
-                boolean pickup = hotelList.get(i).getPickUp();
-                boolean breakfast = hotelList.get(i).getBreakfastIncluded();
-                model.addRow(new Object[]{hotelName,location,price,grade,NumberOfGrownup,numberOfChildren,handic,gym,swimmingpool,wifi,pickup,breakfast});
+                    String hotelName = hotelList.get(i).getNameOfHotel();
+                    String location = hotelList.get(i).getLocationOfHotel();
+                    int price = hotelsRooms.get(j).getPriceForNight();
+                    int grade = 0;
+                    int NumberOfGrownup = hotelsRooms.get(j).getNumberOfAdults();
+                    int numberOfChildren = hotelsRooms.get(j).getNumberOfChildren();
+                    boolean handic = hotelList.get(i).getAviableForHandic();
+                    boolean gym = hotelList.get(i).getGym();
+                    boolean swimmingpool = hotelList.get(i).getSwimmingPool();
+                    boolean wifi = hotelList.get(i).getWifi();
+                    boolean pickup = hotelList.get(i).getPickUp();
+                    boolean breakfast = hotelList.get(i).getBreakfastIncluded();
+                if(dateFrom.isEmpty() || dateTo.isEmpty()) {
+                    model.addRow(new Object[]{hotelName,location,price,grade,NumberOfGrownup,numberOfChildren,handic,gym,swimmingpool,wifi,pickup,breakfast});
+                } else {
+                    boolean isBooked = checkIfBooked(hotelsRooms.get(j), dateFrom, dateTo);
+                    if(!isBooked){
+                        model.addRow(new Object[]{hotelName,location,price,grade,NumberOfGrownup,numberOfChildren,handic,gym,swimmingpool,wifi,pickup,breakfast});
+                    }
+                }
             }
         }
+    }
+    
+    // Skilar true ef það herbergi er bókað á þessu tímabili. annars false
+    private Boolean checkIfBooked(Room room, String dateFrom, String dateTo) {
+        ArrayList<Date> bookedDates = room.getBookedDates();
+        Date date1 = null;
+        Date date2 = null;
+        try { 
+            date1 = new SimpleDateFormat("dd/MM/yyyy").parse(dateFrom);
+            date2 = new SimpleDateFormat("dd/MM/yyyy").parse(dateTo);
+        } catch (ParseException e) {
+            System.out.println("ERROR: " + e.getMessage());
+        }
+         for(int k = 0; k<bookedDates.size(); k++) {
+            //System.out.println(bookedDates.get(k) + " skoða : " + dateFrom + "after : " + bookedDates.get(k).compareTo(date1) + " " + dateTo + " before : " + bookedDates.get(k).compareTo(date2));
+            if(bookedDates.get(k).compareTo(date1) >= 0 && bookedDates.get(k).compareTo(date2) < 0){
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -286,7 +316,7 @@ public class Index extends javax.swing.JFrame {
                     + " AND grade > " + gradeFrom + " AND grade < " + gradeTo,
                     dateFrom, dateTo, priceFrom, priceTo, grownUp, children);
             
-            putListInTable(hotelList);
+            putListInTable(hotelList, dateFrom, dateTo);
         }
     }//GEN-LAST:event_jSearchActionPerformed
 

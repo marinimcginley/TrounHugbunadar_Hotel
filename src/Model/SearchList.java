@@ -4,13 +4,13 @@ Fallið getAviableHotels() skilar síðan lista af hótelum sem eru laus m.v. le
  */
 package Model;
 
-import databases.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.time.LocalDate;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -46,7 +46,7 @@ public class SearchList {
             while ( rs.next() ) {
                 int id = rs.getInt("id");
                 String hotelName = rs.getString("nameOfHotel");
-                System.out.println("Hotel : " + hotelName);
+                //System.out.println("Hotel : " + hotelName);
                 String location = rs.getString("location");
                 boolean aviableForHandic = rs.getBoolean("aviableForHandic");
                 boolean gym = rs.getBoolean("gym");
@@ -117,7 +117,7 @@ public class SearchList {
                 int grownUps = rs.getInt("GrownUp");
                 int child = rs.getInt("Children");
                 
-                ArrayList<LocalDate> isBooked = new ArrayList<>();
+                ArrayList<Date> isBooked = getBookedDates(id);
                 hotel.addRoom(price, grownUps, child, isBooked);
             }
             rs.close();
@@ -125,6 +125,37 @@ public class SearchList {
         } catch (Exception e) {
             System.out.println("SELECT ERROR(setRooms): " + e.getMessage());
         }
+    }
+        
+    public static ArrayList<Date> getBookedDates(int RoomId){
+        //ArrayList<Room> roomList = new ArrayList<>();
+        Connection c = null;
+        ArrayList<Date> bookedDates = new ArrayList<>();
+        try {
+            c = getConnection();
+            //String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
+            //System.out.println("Room id : " + RoomId);
+            PreparedStatement p = c.prepareStatement("SELECT * FROM BookedDates WHERE RoomID = " + RoomId + ";");
+            //PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelName + "';");
+            ResultSet rs = p.executeQuery();
+            //System.out.println(String.valueOf(rs));
+            while ( rs.next() ) {
+                String bookedFrom = rs.getString("bookedfrom");
+                String bookedTo = rs.getString("bookedto");
+                Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(bookedFrom); 
+                Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(bookedTo);
+                
+                while (date2.compareTo(date1) > 0) {
+                    bookedDates.add(date1);
+                    date1 = new Date(date1.getTime()+(1000*60*60*24));
+                }
+            }
+            rs.close();
+            c.close();
+        } catch (Exception e) {
+            System.out.println("SELECT ERROR(setDateRooms): " + e.getMessage());
+        }
+        return bookedDates;
     }
     
 }

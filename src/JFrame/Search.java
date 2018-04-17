@@ -138,7 +138,7 @@ public class Search extends javax.swing.JDialog {
             monthFrom = Integer.parseInt(jMonthFrom.getSelectedItem().toString());
         }
         if(monthFrom != 0 && dayFrom != 0){
-            return "2018-"+monthFrom+"-"+dayFrom;
+            return dayFrom+ "/" + monthFrom + "/2018";
         }
         
         return "";
@@ -153,7 +153,7 @@ public class Search extends javax.swing.JDialog {
             monthTo = Integer.parseInt(jMonthTo.getSelectedItem().toString());
         }
         if(monthTo != 0 && dayTo != 0){
-            return "2018-"+monthTo+"-"+dayTo;
+            return dayTo + "/" + monthTo + "/2018";
         }
         
         return "";
