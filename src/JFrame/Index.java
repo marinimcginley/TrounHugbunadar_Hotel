@@ -33,6 +33,8 @@ public class Index extends javax.swing.JFrame {
     public String listPrice;
     public String listGrownUp;
     public String listChildren;
+    public ArrayList<Integer> roomIdTableList;
+    public int selectedRoomId;
     
     
     /**
@@ -45,10 +47,11 @@ public class Index extends javax.swing.JFrame {
         
         jTable.getTableHeader().setPreferredSize(new Dimension(10,35)); // stilli breidd og hæð á column head
         model = (DefaultTableModel) jTable.getModel();
+        roomIdTableList = new ArrayList<>();
         
         // Gera hnapp ósýnilega
         jLogOut.setVisible(false);
-        initializeTableInStart();
+        //initializeTableInStart();
         
         jBook.setVisible(false);
         jScrollPanel2.setVisible(false);
@@ -57,13 +60,13 @@ public class Index extends javax.swing.JFrame {
         
     }
     
-    private void initializeTableInStart(){
+    /*private void initializeTableInStart(){
         SearchList s = new SearchList();
         jBook.setVisible(true);
         jScrollPanel2.setVisible(true);
         ArrayList<Hotel> allHotel = s.getAllHotel();
         putListInTable(allHotel, "", "");
-    }
+    }*/
     
     public void putListInTable(ArrayList<Hotel> hotelList, String dateFrom, String dateTo) {
         //Object[] row = new Object[11];
@@ -88,6 +91,7 @@ public class Index extends javax.swing.JFrame {
                 } else {
                     boolean isBooked = checkIfBooked(hotelsRooms.get(j), dateFrom, dateTo);
                     if(!isBooked){
+                        roomIdTableList.add(hotelsRooms.get(j).getRoomId());
                         model.addRow(new Object[]{hotelName,location,price,grade,NumberOfGrownup,numberOfChildren,handic,gym,swimmingpool,wifi,pickup,breakfast});
                     }
                 }
@@ -362,8 +366,9 @@ public class Index extends javax.swing.JFrame {
         
         int row = jTable.getSelectedRow();
         
+        selectedRoomId = roomIdTableList.get(row);
+        
         listHotelName = model.getValueAt(row,0).toString();
-        System.out.println(listHotelName);
         lsitLocation = model.getValueAt(row,1).toString();
         listPrice = model.getValueAt(row,2).toString();
         listGrownUp = model.getValueAt(row,4).toString();

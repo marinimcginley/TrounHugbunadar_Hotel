@@ -118,7 +118,7 @@ public class SearchList {
                 int child = rs.getInt("Children");
                 
                 ArrayList<Date> isBooked = getBookedDates(id);
-                hotel.addRoom(price, grownUps, child, isBooked);
+                hotel.addRoom(id, price, grownUps, child, isBooked);
             }
             rs.close();
             c.close();

@@ -18,12 +18,14 @@ public class Room {
     private final int numberOfAdults;
     private final int numberOfChildren;
     private final ArrayList<Date> isBooked;
+    private final int roomId;
     
-    public Room(int priceForNight, int numberOfAdults, int numberOfChildren, ArrayList<Date> isBooked) {
+    public Room(int id, int priceForNight, int numberOfAdults, int numberOfChildren, ArrayList<Date> isBooked) {
         this.priceForNight = priceForNight;
         this.numberOfAdults = numberOfAdults;
         this.numberOfChildren = numberOfChildren;
         this.isBooked = isBooked;
+        this.roomId = id;
     }
     
     public int getPriceForNight() {
@@ -40,6 +42,9 @@ public class Room {
     
     public ArrayList<Date> getBookedDates() {
         return isBooked;
+    }
+    public int getRoomId(){
+        return roomId;
     }
 
     // Tekur inn lista af dagsetningum í samhangandi röð og tékkar hvort herbergið sé laust
