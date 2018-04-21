@@ -111,6 +111,8 @@ public class Index extends javax.swing.JFrame {
         
         jLogOut.setVisible(true);
         jUserName.setText(logIn.getUserName());
+        jBook.setVisible(true);
+        jWarning.setText("");
     }
     
     /**
@@ -132,6 +134,7 @@ public class Index extends javax.swing.JFrame {
         jLogOut = new javax.swing.JButton();
         jUserName = new javax.swing.JLabel();
         jBook = new javax.swing.JButton();
+        jWarning = new javax.swing.JLabel();
 
         jTextField1.setText("jTextField1");
 
@@ -227,16 +230,17 @@ public class Index extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(176, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jText)
-                        .addGap(104, 104, 104)
-                        .addComponent(jUserName)
-                        .addGap(63, 63, 63)
-                        .addComponent(jLogOut))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(jBook, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(105, 105, 105))))
+                .addComponent(jText)
+                .addGap(104, 104, 104)
+                .addComponent(jUserName)
+                .addGap(63, 63, 63)
+                .addComponent(jLogOut))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(260, 260, 260)
+                .addComponent(jWarning)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jBook, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(105, 105, 105))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -255,7 +259,9 @@ public class Index extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jScrollPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jBook, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jBook, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jWarning))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -267,7 +273,7 @@ public class Index extends javax.swing.JFrame {
         jScrollPanel2.setVisible(true);
         search = null;
         
-        if (logIn == null) {
+        if (logIn == null || logIn.checkUsername()) {
             search = new Search(this, true, "");
         } else {
             search = new Search(this, true, logIn.getUserName());
@@ -313,7 +319,13 @@ public class Index extends javax.swing.JFrame {
             
             putListInTable(hotelList, dateFrom, dateTo);
         }
-        jBook.setVisible(true);
+        if (logIn == null || logIn.checkUsername()) {
+            jWarning.setText("Þú verður að skrá þig inn til að geta bókað!");
+        } else {
+            jWarning.setText("");
+            jBook.setVisible(true);
+        }
+        
     }//GEN-LAST:event_jSearchActionPerformed
 
     private void jLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jLogInActionPerformed
@@ -384,5 +396,6 @@ public class Index extends javax.swing.JFrame {
     private javax.swing.JLabel jText;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel jUserName;
+    private javax.swing.JLabel jWarning;
     // End of variables declaration//GEN-END:variables
 }
