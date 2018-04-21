@@ -31,15 +31,12 @@ public class Room {
     public int getPriceForNight() {
         return priceForNight;
     }
-    
     public int getNumberOfAdults() {
         return numberOfAdults;
     }
-    
     public int getNumberOfChildren() {
         return numberOfChildren;
     }
-    
     public ArrayList<Date> getBookedDates() {
         return isBooked;
     }

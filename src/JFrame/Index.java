@@ -51,37 +51,12 @@ public class Index extends javax.swing.JFrame {
         
         // Gera hnapp ósýnilega
         jLogOut.setVisible(false);
-        //initializeTableInStart();
-        
         jBook.setVisible(false);
         jScrollPanel2.setVisible(false);
-        
-        
-        
-        
-        
+
     }
     
-    /*private void initializeTableInStart(){
-        SearchList s = new SearchList();
-        ArrayList<Hotel> getHotelss = s.getHotels();
-        for(int i = 0; i<getHotelss.size(); i++){
-            System.out.println(" Nafnið á hoteli : " + getHotelss.get(i).getNameOfHotel());
-            System.out.println(" RoomId á hoteli : " + getHotelss.get(i).getRoomId());
-            System.out.println(" AdultPrice á hoteli : " + getHotelss.get(i).getAdultPrice());
-            System.out.println(" ChildPrive á hoteli : " + getHotelss.get(i).getChildPrice());
-            System.out.println(" Location á hoteli : " + getHotelss.get(i).getLocationOfHotel());
-            System.out.println(" Grade á hoteli : " + getHotelss.get(i).getGrade());
-        }
-        //jBook.setVisible(true);
-        //jScrollPanel2.setVisible(true);
-        //ArrayList<Hotel> allHotel = s.getAllHotel();
-        //putListInTable(allHotel, "", "");
-    }*/
-    
     public void putListInTable(ArrayList<Hotel> hotelList, String dateFrom, String dateTo) {
-        //Object[] row = new Object[11];
-        
         for(int i=0; i<hotelList.size(); i++) {
             ArrayList<Room> hotelsRooms = hotelList.get(i).viewRooms();
             for(int j=0; j<hotelsRooms.size(); j++) {
@@ -122,7 +97,6 @@ public class Index extends javax.swing.JFrame {
             System.out.println("ERROR: " + e.getMessage());
         }
          for(int k = 0; k<bookedDates.size(); k++) {
-            //System.out.println(bookedDates.get(k) + " skoða : " + dateFrom + "after : " + bookedDates.get(k).compareTo(date1) + " " + dateTo + " before : " + bookedDates.get(k).compareTo(date2));
             if(bookedDates.get(k).compareTo(date1) >= 0 && bookedDates.get(k).compareTo(date2) < 0){
                 return true;
             }
@@ -132,14 +106,11 @@ public class Index extends javax.swing.JFrame {
 
 
     public void initializeAfterLogIn() {
-
         jLogIn.setVisible(false);
         jRegister.setVisible(false);
         
         jLogOut.setVisible(true);
         jUserName.setText(logIn.getUserName());
-        
-
     }
     
     /**
@@ -301,9 +272,8 @@ public class Index extends javax.swing.JFrame {
         } else {
             search = new Search(this, true, logIn.getUserName());
         }
-
         search.setVisible(true);
-        
+
         if(search.isVista() == true) {
             SearchList s = new SearchList();
             
@@ -359,7 +329,6 @@ public class Index extends javax.swing.JFrame {
         Register nyskraning = null;
         
         nyskraning = new Register(this, true);
-        
         nyskraning.setVisible(true);
     }//GEN-LAST:event_jRegisterActionPerformed
 
@@ -376,9 +345,7 @@ public class Index extends javax.swing.JFrame {
     private void jTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableMouseClicked
         
         int row = jTable.getSelectedRow();
-        
         selectedRoomId = roomIdTableList.get(row);
-        
         listHotelName = model.getValueAt(row,0).toString();
         lsitLocation = model.getValueAt(row,1).toString();
         listPrice = model.getValueAt(row,2).toString();
@@ -388,6 +355,8 @@ public class Index extends javax.swing.JFrame {
     }//GEN-LAST:event_jTableMouseClicked
 
     private void jBookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBookActionPerformed
+        System.out.println(logIn.getUserName());
+        //+ " " + search.searchGetDateFrom() + " " +  search.searchGetDateTo() + " " + selectedRoomId);
         BookingFrame newBooking = new BookingFrame(this, true, this, logIn.getUserName(), search.searchGetDateFrom(), search.searchGetDateTo(), selectedRoomId);
         newBooking.setVisible(true);
     }//GEN-LAST:event_jBookActionPerformed
@@ -396,9 +365,6 @@ public class Index extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /*DatabaseConnection connection = new DatabaseConnection();
-        connection.connect();*/
-
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

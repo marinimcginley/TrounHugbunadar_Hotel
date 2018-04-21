@@ -13,7 +13,6 @@ import javax.swing.DefaultComboBoxModel;
  * @author Bob
  */
 public class DaysModel extends DefaultComboBoxModel { 
-     
      /*
         Smiður
         Tekur inn ArrayList sem er listi með dögum og uppfærir ComboBox með þessum

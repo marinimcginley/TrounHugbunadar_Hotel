@@ -24,7 +24,6 @@ public class SearchList {
         private static Connection getConnection() {
         Connection con = null;
         try {
-            
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:hotelDatabase.db");
         } catch(Exception e) {
@@ -32,44 +31,9 @@ public class SearchList {
         }
         return con;
     }
-        
     
-    public static ArrayList<Hotel> getAllHotel(){
-        ArrayList<Hotel> hotelList = new ArrayList<>();
-        Connection c = null;
-        try {
-            c = getConnection();
-            //String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
-            PreparedStatement p = c.prepareStatement("SELECT * FROM Hotel");
-            ResultSet rs = p.executeQuery();
-            //String un = r.getString(1);
-            while ( rs.next() ) {
-                int id = rs.getInt("id");
-                String hotelName = rs.getString("nameOfHotel");
-                //System.out.println("Hotel : " + hotelName);
-                String location = rs.getString("location");
-                boolean aviableForHandic = rs.getBoolean("aviableForHandic");
-                boolean gym = rs.getBoolean("gym");
-                boolean swimmingPool = rs.getBoolean("swimmingPool");
-                boolean wifi = rs.getBoolean("wifi");
-                boolean pickUp = rs.getBoolean("pickUp");
-                boolean breakfastIncluded = rs.getBoolean("breakfastIncluded");
-                
-                Hotel hotel = null;
-                hotel = new Hotel(hotelName, location, aviableForHandic,gym, swimmingPool, wifi, pickUp, breakfastIncluded);
-                setRooms(hotelName, hotel, "", "", "0", "30000", "", "");
-                hotelList.add(hotel);
-            }
-            rs.close();
-            c.close();
-        } catch (Exception e) {
-            System.out.println("SELECT ERROR(getHotel): " + e.getMessage());
-        }
-        return hotelList;
-    }
-    
-    // Fall til að framkvæma föll fyrir T hóp
-    public static ArrayList<Hotel> getHotels(/*String location, int audltPrice, int childPrice, double rating, String name, int roomnr*/) {
+    // Fyrir T
+    public static ArrayList<Hotel> getHotels() {
         ArrayList<Hotel> hotelList = new ArrayList<>();
         Connection c = null;
         try {
@@ -87,59 +51,48 @@ public class SearchList {
                 boolean pickUp = rs.getBoolean("pickUp");
                 boolean breakfastIncluded = rs.getBoolean("breakfastIncluded");
                 double grade = rs.getDouble("grade");
-                //int adultPrice = rs.getInt("adultPrice");
-                //int childPrice = rs.getInt("childPrice");
                 
                 int getRoomId = getRoomID(hotelName);
                 int getAdultPrice = getPrice(hotelName);
                 int getChildPrice = (int) Math.round(getAdultPrice*0.5);
-                //System.out.println("RoomId : " + getRoomId);
                 Hotel hotel = null;
                 hotel = new Hotel(hotelName, location, aviableForHandic,gym, swimmingPool, wifi, pickUp, breakfastIncluded, getAdultPrice, getChildPrice, getRoomId, grade);
-                //setRooms(hotelName, hotel, dateFrom, dateTo, priceFrom, priceTo, grownUp, children);
                 hotelList.add(hotel);
-                
-            } 
+            }
+            rs.close();
+            c.close();
         } catch (Exception e) {
-            System.out.println("SELECT ERROR(getHotel): " + e.getMessage());
+            System.out.println("SELECT ERROR(getHotels): " + e.getMessage());
         }
-        
         return hotelList;
     }
-    // Fall til að framkvæma föll fyrir T hóp
+    // Fyrir T
     public static int getRoomID(String hotelname){
-        //ArrayList<Room> rooms = new ArrayList<>();
         int roomId = 0;
         Connection c = null;
         try {
             c = getConnection();
-            //String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
             PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelname + "';");
-            //PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelName + "';");
             ResultSet rs = p.executeQuery();
             System.out.println(rs.getInt("id"));
             roomId = rs.getInt("id");
-            
             rs.close();
             c.close();
         } catch (Exception e) {
-            System.out.println("SELECT ERROR(setRooms): " + e.getMessage());
+            System.out.println("SELECT ERROR(getRoomID): " + e.getMessage());
         }
         return roomId;
     }
     
-    // Fall til að framkvæma föll fyrir T hóp
+    // Fyrir T
     public static int getPrice(String hotelname){
         int price = 0;
         int counter = 0;
         Connection c = null;
         try {
             c = getConnection();
-            //String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
             PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelname + "';");
-            //PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelName + "';");
             ResultSet rs = p.executeQuery();
-            System.out.println(rs.getInt("id"));
             while ( rs.next() ) {
                 price =+ rs.getInt("Price");
                 counter =+ 1;
@@ -147,7 +100,7 @@ public class SearchList {
             rs.close();
             c.close();
         } catch (Exception e) {
-            System.out.println("SELECT ERROR(setRooms): " + e.getMessage());
+            System.out.println("SELECT ERROR(getPrice): " + e.getMessage());
         }
         return (price/counter);
     }
@@ -185,15 +138,12 @@ public class SearchList {
     }
     
         public static void setRooms(String hotelName, Hotel hotel, String dateFrom, String dateTo, String priceFrom, String priceTo, String grownUp, String children){
-        //ArrayList<Room> roomList = new ArrayList<>();
         Connection c = null;
         try {
             c = getConnection();
-            //String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
             PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelName + 
                     "' AND GrownUp LIKE '%" + grownUp + "%' AND Children LIKE '%" + children
                     + "%' AND Price BETWEEN '" + priceFrom + "' AND '" + priceTo + "';");
-            //PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelName + "';");
             ResultSet rs = p.executeQuery();
             while ( rs.next() ) {
                 int id = rs.getInt("id");
@@ -212,23 +162,17 @@ public class SearchList {
     }
         
     public static ArrayList<Date> getBookedDates(int RoomId){
-        //ArrayList<Room> roomList = new ArrayList<>();
         Connection c = null;
         ArrayList<Date> bookedDates = new ArrayList<>();
         try {
             c = getConnection();
-            //String stmt = "SELECT userName FROM Users WHERE userName = " + username + " AND password = " + passwordHash;
-            //System.out.println("Room id : " + RoomId);
             PreparedStatement p = c.prepareStatement("SELECT * FROM BookedDates WHERE RoomID = " + RoomId + ";");
-            //PreparedStatement p = c.prepareStatement("SELECT * FROM Room WHERE HotelName ='"+ hotelName + "';");
             ResultSet rs = p.executeQuery();
-            //System.out.println(String.valueOf(rs));
             while ( rs.next() ) {
                 String bookedFrom = rs.getString("bookedfrom");
                 String bookedTo = rs.getString("bookedto");
                 Date date1 = new SimpleDateFormat("dd/MM/yyyy").parse(bookedFrom); 
                 Date date2 = new SimpleDateFormat("dd/MM/yyyy").parse(bookedTo);
-                
                 while (date2.compareTo(date1) > 0) {
                     bookedDates.add(date1);
                     date1 = new Date(date1.getTime()+(1000*60*60*24));
@@ -237,9 +181,8 @@ public class SearchList {
             rs.close();
             c.close();
         } catch (Exception e) {
-            System.out.println("SELECT ERROR(setDateRooms): " + e.getMessage());
+            System.out.println("SELECT ERROR(getBookedDates): " + e.getMessage());
         }
         return bookedDates;
     }
-    
 }

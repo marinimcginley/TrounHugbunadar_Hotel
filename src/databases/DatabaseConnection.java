@@ -6,17 +6,12 @@
  */
 package databases;
 
-import JFrame.BookingFrame;
 import Model.Booking;
-import Model.Hotel;
-import Model.Room;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -30,7 +25,6 @@ public class DatabaseConnection {
     private static Connection getConnection() {
         Connection con = null;
         try {
-            
             Class.forName("org.sqlite.JDBC");
             con = DriverManager.getConnection("jdbc:sqlite:hotelDatabase.db");
         } catch(Exception e) {
@@ -38,34 +32,6 @@ public class DatabaseConnection {
         }
         return con;
     }
-    
-    
-/*    public static void createHotel() {
-        Connection c = null;
-        Statement stmt = null;
-        try {
-          c = getConnection();
-          System.out.println("createHotelRooms: Opened database successfully");
-          stmt = c.createStatement();
-          String sql = "CREATE TABLE " + DatabaseConnection.hotelRoomTableName +
-                       " (nameOfHotel TEXT PRIMARY KEY NOT NULL," +
-                       " location TEXT NOT NULL, " + 
-                       " aviableForHandic INT NOT NULL, " +
-                       " gym DATE NOT NULL, " +
-                       " swimmingPool INT NOT NULL, " + 
-                       " wifi TEXT NOT NULL, " +
-                       " pickUp TEXT NOT NULL, " +
-                       " breakfastIncluded INT NOT NULL)";
-          stmt.executeUpdate(sql);
-          stmt.close();
-          c.close();
-        } catch ( Exception e ) {
-            System.out.println("CREATE TABLE ERROR: " + e.getClass().getName() + ": " + e.getMessage() );
-        }
-        System.out.println("Table created successfully");
-    } */
-    
-  
     
     public static ArrayList<Booking> getBookings(String username) {
         Connection c = null;
@@ -87,7 +53,7 @@ public class DatabaseConnection {
                         r.getString("BookedFrom"), r.getString("BookedTo")));
             }
         } catch (Exception e) {
-            System.out.println("getBookings: " + e.getMessage()); 
+            System.out.println("SELECT ERROR (getBookings): " + e.getMessage()); 
         }
         return bookings;
     }
@@ -102,7 +68,7 @@ public class DatabaseConnection {
             c.close();
             System.out.println("Innsetning á booking:  tókst");
         } catch (Exception e) {
-            System.out.println("createBooking: " + e.getMessage());
+            System.out.println("INSERT ERROR (createBooking): " + e.getMessage());
         }
         return;
     }
@@ -123,7 +89,7 @@ public class DatabaseConnection {
                 return true;
             }
         } catch (Exception e) {
-            System.out.println("checkIfUsername...: " + e.getMessage());
+            System.out.println("SELECT ERROR (checkIfUsernameExists): " + e.getMessage());
            
         }
         return false;
@@ -139,7 +105,7 @@ public class DatabaseConnection {
             c.close();
             System.out.println("Innsetning á nýju notendanafni: " + username + ", og lykilorði tókst");
         } catch (Exception e) {
-            System.out.println("insertUserIntoUsers: " + e.getMessage());
+            System.out.println("SELECT ERROR (insertUserIntoUsers): " + e.getMessage());
         }
         return;
     }
@@ -148,10 +114,7 @@ public class DatabaseConnection {
     public static boolean logIn(String username, String passwordHash) {
         Connection c = null;
         try {
-            
             c = getConnection();
-            
-            System.out.println("passwordHash: " + passwordHash);
             String stmt = "SELECT userName FROM Users WHERE userName = '" + username + "' AND password = '" + passwordHash + "'";
             PreparedStatement p = c.prepareStatement(stmt);
             ResultSet r = p.executeQuery();
@@ -160,15 +123,13 @@ public class DatabaseConnection {
             r.close();
             c.close();
             if (un.isEmpty()) {
-                System.out.println("false í login");
                 return false;
             } else {
-                System.out.println("true í login");
                 return true;
             }
             
         } catch (Exception e) {
-            System.out.println("logIn: " + e.getMessage());
+            System.out.println("SELECT ERROR(logIn): " + e.getMessage());
         }
         return false;
         

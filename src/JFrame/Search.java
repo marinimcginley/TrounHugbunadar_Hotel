@@ -23,8 +23,6 @@ public class Search extends javax.swing.JDialog {
     private Boolean save;
     private String userName;
 
-    
-    
     /**
      * Creates new form Search
      */
@@ -36,7 +34,6 @@ public class Search extends javax.swing.JDialog {
         setUserName();
         initializeOnStart();
         save = false;
-        
     }
     
     private void setUserName() {
@@ -73,7 +70,6 @@ public class Search extends javax.swing.JDialog {
         }
         return "";
     }
-    
     public String searchGetLocation(){
         if(jLocation.getText().toLowerCase() != " ") {
             return jLocation.getText().toLowerCase();
@@ -180,25 +176,21 @@ public class Search extends javax.swing.JDialog {
         return "";
     }
     
-    
-    
-    
     private void showValidationMessage(String errorInformation) {
         String[] options = {"Ok", "Hætta við"};
         
-            int n = JOptionPane.showOptionDialog(this,
-                errorInformation,
-                "Villa við leið",
-                JOptionPane.YES_NO_CANCEL_OPTION,
-                JOptionPane.QUESTION_MESSAGE,
-                null,
-                options,
-                options[1]);
-            
-            if(n == 1) {
-                setVisible(false);
-            }
-        
+        int n = JOptionPane.showOptionDialog(this,
+            errorInformation,
+            "Villa við leið",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[1]);
+
+        if(n == 1) {
+            setVisible(false);
+        }
     }
 
     /**
@@ -509,7 +501,6 @@ public class Search extends javax.swing.JDialog {
 
     private void jSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jSearchActionPerformed
         // hér fer fram validation ! 
-        
         int dayFrom = 0;
         if(jDayFrom.getSelectedItem() != null){
             dayFrom = Integer.parseInt(jDayFrom.getSelectedItem().toString());
@@ -545,7 +536,6 @@ public class Search extends javax.swing.JDialog {
             gradeTo = Integer.parseInt(jGradeTo.getSelectedItem().toString());
         }
         
-        
         if((monthTo < monthFrom) && monthTo != 0 && monthFrom != 0) {
             showValidationMessage("Ekki er hægt að skrá sig út áður en það er innritað.");
         } else if(monthTo == monthFrom & dayTo <= dayFrom && monthTo != 0 && monthFrom != 0) {
@@ -560,10 +550,6 @@ public class Search extends javax.swing.JDialog {
             save = true;
             setVisible(false);
         }
-        
-        
-        
-        // þurfum svo að gera eitthvað með það :) 
     }//GEN-LAST:event_jSearchActionPerformed
 
     private void jMonthFromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMonthFromActionPerformed

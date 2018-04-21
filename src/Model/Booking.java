@@ -5,18 +5,15 @@
  */
 package Model;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-
 /**
  *
  * @author marinmcginley
  */
 public class Booking {
     
-    private String nameOfHotel;
-    private String locationOfHotel;
-    private int price;
+    private final String nameOfHotel;
+    private final String locationOfHotel;
+    private final int price;
     private int numberOfAdults;
     private int numberOfChildren;
     private boolean availableForHandic;
@@ -25,8 +22,8 @@ public class Booking {
     private boolean wifi;
     private boolean pickUp;
     private boolean breakfastIncluded;
-    private String firstDate;
-    private String lastDate;
+    private final String firstDate;
+    private final String lastDate;
     
     public Booking(String nameOfHotel, String locationOfHotel, int price,
              String firstDate, String lastDate) {
@@ -41,53 +38,40 @@ public class Booking {
     public String getFirstDate() {
         return firstDate;
     }
-    
     public String getLastDate() {
         return lastDate;
     }
-    
     public String getNameOfHotel() {
         return nameOfHotel;
     }
-    
     public String getLocationOfHotel() {
         return locationOfHotel;
     }
-    
     public int getPrice() {
         return price;
     }
-    
     public int getNumberOfAdults() {
         return numberOfAdults;
     }
-    
     public int getNumberOfChildren() {
         return numberOfChildren;
     }
-    
     public boolean getHandicapped() {
         return availableForHandic;
     }
-    
     public boolean getGym() {
         return gym;
     }
-    
     public boolean getSwimmingPool() {
         return swimmingPool;
     }
-    
     public boolean getWifi() {
         return wifi;
     }
-    
     public boolean getPickUp() {
         return pickUp;
     }
-    
     public boolean getBreakfast() {
         return breakfastIncluded;
     }
-    
 }

@@ -14,7 +14,6 @@ import javax.swing.DefaultComboBoxModel;
 public class MonthsModel extends DefaultComboBoxModel  {
     
     private int[] manudir;
-    
     /*
     Smiður
     Tekur inn fylki með mánuðum og uppfærir ComboBoxið með þeim

@@ -36,17 +36,11 @@ public class LogIn extends javax.swing.JDialog {
         
         // virkar ekki að fela töflu
         jPanelForTable.setVisible(false);
-        
         putListInTable();
-        
     }
     
     public void setUsername(String userName) {
         this.userName = userName;
-    }
-    
-    public void getBookings() {
-        //bookings = ??
     }
     
     public void putListInTable() {
